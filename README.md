@@ -2,7 +2,7 @@
 
 ## What's the problem?
 
-All New Yorkers can seem to talk about are delays, delays, delays! Poor subway service is affecting millions of New Yorkers, but some of us have another nightmare: making connections from the subway to the Staten Island Ferry. Nobody wants to wait 30 minutes for the next ferry all because the 1 train took its sweet time pulling into South Ferry station. Are Staten Islanders just impatient or riddled with bad luck? What makes the 1 train so special anyway?? What’s the big deal??? 
+Poor subway service is affecting millions of New Yorkers, but some of us have another nightmare: making connections from the subway to the Staten Island Ferry. Nobody wants to wait 30 minutes for the next ferry all because the 1 train took its sweet time pulling into South Ferry station. 
 
 The poor service on the 1 train has become so bad that Staten Islanders have christened it with a grammatically incorrect meme: the 1 train is named after how many minutes you’ll miss ferry. 
 
@@ -14,7 +14,7 @@ Any Staten Islander will tell you this is true and go on an angry rant about the
 
 ## Well, how bad is it?
 
-But let’s get a little serious – Staten Islanders have some of the worst commutes in the country, with an average commute of 69 minutes each way. Compare this to the average of about 40 minutes for other New Yorkers. Yet research has shown that long commutes can detract from people’s quality of life and is associated with lower life satisfaction. The public transportation issue for Staten Islanders isn’t only related to their quality of life, but their love lives as well! Surveys of single New Yorkers found that only 8 percent of Manhattan, Brooklyn, and Queens residents said they would be willing to regularly date someone who lives on the Island, with most single New Yorkers citing public transportation as the biggest issue with dating someone from Staten Island! Those of us lucky enough to date among that 8 percent never hear the end of how long it took to get the Island from our significant others!!!
+Let’s get a little serious – Staten Islanders have some of the worst commutes in the country, with an average commute of 69 minutes each way. Compare this to the average of about 40 minutes for other New Yorkers. Yet research has shown that long commutes can detract from people’s quality of life and is associated with lower life satisfaction. The public transportation issue for Staten Islanders isn’t only related to their quality of life, but their love lives as well! Surveys of single New Yorkers found that only 8 percent of Manhattan, Brooklyn, and Queens residents said they would be willing to regularly date someone who lives on the Island, with most single New Yorkers citing public transportation as the biggest issue with dating someone from Staten Island! Those of us lucky enough to date among that 8 percent never hear the end of how long it took to get the Island from our significant others.
 
 ## What can we do?
 
@@ -28,9 +28,13 @@ Answering these questions is tricky. How do we quantify "lateness"? What sort of
 
 ## Data Sources
 
+
+1. [MTA Real Time Subway data](http://datamine.mta.info/) is accessible with an API
+2. [Staten Island Ferry Departure data](https://data.cityofnewyork.us/Transportation/Test-Staten-Island-Ferry-Daily-Performance-data/7gic-pibm)
+
 Yes, the MTA data is just as messy as the subways, buses, trains, and ferries. 
 
-I will use real-time subway data from the 1 train, as well as departure time data from the Staten Island Ferry. The MTA provides the subway data using APIs, which I’ve not really used before, so I will need to learn how to access the data, get what I need into R, and extract appropriate features from the time series. New York City data is notoriously messy, so I will need to clean it extensively.
+
 
 ## Plans + Goals
 
