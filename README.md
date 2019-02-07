@@ -12,13 +12,11 @@ Any Staten Islander will tell you this is true and go on an angry rant about the
 
 ![](Images/guygirlmeme2_edit.jpg)
 
-## Well, how bad is it?
-
 Let’s get a little serious – Staten Islanders have some of the worst commutes in the country, with an average commute of 69 minutes each way. Compare this to the average of about 40 minutes for other New Yorkers. Yet research has shown that long commutes can detract from people’s quality of life and is associated with lower life satisfaction. 
 
 The public transportation issue for Staten Islanders isn’t only related to their quality of life, but their love lives as well! Surveys of single New Yorkers found that only 8 percent of Manhattan, Brooklyn, and Queens residents said they would be willing to regularly date someone who lives on the Island, with most single New Yorkers citing public transportation as the biggest issue with dating someone from Staten Island! Those of us lucky enough to date among that 8 percent never hear the end of how long it took to get the Island from our significant others.
 
-## What can we do?
+## Research Questions
 
 If we can improve the connection between the 1 train and the Staten Island ferry, that could shave off up to 30 minute wait times for commuters. We turn to data to get answers to two questions. 
 
