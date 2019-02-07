@@ -6,11 +6,11 @@ All New Yorkers can seem to talk about are delays, delays, delays! Poor subway s
 
 The poor service on the 1 train has become so bad that Staten Islanders have christened it with a grammatically incorrect meme: the 1 train is named after how many minutes you’ll miss ferry. 
 
-![](1trainmeme.jpg)
+![](Images/1trainmeme.jpg)
 
 Any Staten Islander will tell you this is true and go on an angry rant about the 1 train and the ferry. Out of my own frustrations, I created the second meme: everyone ignores Staten Island!
 
-![](guygirlmeme2_edit.jpg)
+![](Images/guygirlmeme2_edit.jpg)
 
 ## Well, how bad is it?
 
