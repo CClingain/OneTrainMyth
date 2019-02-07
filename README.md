@@ -18,7 +18,13 @@ But let’s get a little serious – Staten Islanders have some of the worst com
 
 ## What can we do?
 
-If we can improve the connection between the 1 train and the Staten Island ferry, that could shave off up to 30 minute wait times for commuters. We turn to data to get answers to two questions. First, how often is the 1 train late to making the connection to the Staten Island Ferry? Second, what schedule changes can be implemented so that the connection is made more often?
+If we can improve the connection between the 1 train and the Staten Island ferry, that could shave off up to 30 minute wait times for commuters. We turn to data to get answers to two questions. 
+
+1. How often is the 1 train late to making the connection to the Staten Island Ferry? 
+
+2. What schedule changes can be implemented so that the connection is made more often?
+
+Answering these questions is tricky. How do we quantify "lateness"? What sort of margin should be given to account for passengers exiting the subway station and entering the ferry terminal?
 
 ## Data Sources
 
