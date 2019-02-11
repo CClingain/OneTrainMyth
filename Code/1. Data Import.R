@@ -44,9 +44,14 @@ onetrain_stoptime <- NULL
 
 # Code idea
 for(i in 1:length(lst)) {
-  temp <- t(as.matrix(unlist(lst[[i]]$dt_trip_info)))
+  temp <- as.data.frame(as.matrix(lst[[i]]$dt_trip_info))
   onetrain_info <- rbind(onetrain_info, temp)
   
-  #temp2 <- t(as.matrix(unlist(lst[[i]]$dt_stop_time_update)))
-  #onetrain_stoptime <- rbind(onetrain_stoptime, temp2)
+  temp2 <- as.data.frame(as.matrix(lst[[i]]$dt_stop_time_update))
+  onetrain_stoptime <- rbind(onetrain_stoptime, temp2)
 }
+
+# Based on MTA website, South Ferry is stop 142
+# See: http://web.mta.info/developers/data/nyct/subway/Stations.csv
+
+# Convert to data frames after running
