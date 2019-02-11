@@ -54,4 +54,6 @@ for(i in 1:length(lst)) {
 # Based on MTA website, South Ferry is stop 142
 # See: http://web.mta.info/developers/data/nyct/subway/Stations.csv
 
-# Convert to data frames after running
+# Export current data
+save(onetrain_info, file = "Data/onetrain_infoJan31.RData")
+save(onetrain_stoptime, file = "Data/onetrain_stoptimeJan31.RData")
