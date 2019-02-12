@@ -1,0 +1,12 @@
+---
+title: "Process Journal"
+author: "Clare Clingain"
+date: "February 12, 2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this document, I will record my design process.
