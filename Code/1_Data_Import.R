@@ -37,7 +37,6 @@ lst[[1]]
 # Based on the documentation, appears stops have a code. S = Southbound, 
 # first digit may be train line, middle digits TBD
 
-
 # Unlisting data
 
 onetrain_info <- NULL
@@ -58,3 +57,33 @@ for(i in 1:length(lst)) {
 # Export current data
 save(onetrain_info, file = paste("Data/Raw/onetrain_info",Sys.Date(),".RData", sep = ""))
 save(onetrain_stoptime, file = paste("Data/Raw/onetrain_stoptime",Sys.Date(),".RData", sep = ""))
+
+# Turn this process into a function that will run every 30 seconds for n intervals
+
+extract_data <- function(n){
+  # Initiate storage
+  onetrain_info <- NULL
+  onetrain_stoptime <- NULL
+  
+  for(i in 1:n){
+    # Get the data
+    url <- "http://datamine.mta.info/mta_esi.php?key=51469dd0902e2edb2e1a327a2c413334&feed_id=1"
+    test <- GET(url)
+    FeedMessage <- gtfs_realtime(test)
+    lst <- gtfs_tripUpdates(FeedMessage) 
+    
+    for(i in 1:length(lst)) {
+      temp <- as.data.frame(as.matrix(lst[[i]]$dt_trip_info))
+      onetrain_info <- rbind(onetrain_info, temp)
+      
+      temp2 <- as.data.frame(as.matrix(lst[[i]]$dt_stop_time_update))
+      onetrain_stoptime <- rbind(onetrain_stoptime, temp2)
+    }
+    Sys.sleep(30)
+  }
+  return(onetrain_stoptime)
+}
+
+# Test the function
+
+x <- extract_data(n = 4)
