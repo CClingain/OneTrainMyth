@@ -76,6 +76,7 @@ extract_data <- function(n){
     FeedMessage <- gtfs_realtime(test)
     lst <- gtfs_tripUpdates(FeedMessage) 
     
+    # Move data from a bunch of lists into two dataframes
     for(i in 1:length(lst)) {
       temp <- as.data.frame(as.matrix(lst[[i]]$dt_trip_info))
       onetrain_info <- rbind(onetrain_info, temp)
@@ -83,6 +84,7 @@ extract_data <- function(n){
       temp2 <- as.data.frame(as.matrix(lst[[i]]$dt_stop_time_update))
       onetrain_stoptime <- rbind(onetrain_stoptime, temp2)
     }
+    # Wait 30 seconds and then repeat process n times
     Sys.sleep(30)
   }
   return(onetrain_stoptime)
