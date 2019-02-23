@@ -4,6 +4,7 @@
 
 
 # devtools::install_github("SymbolixAU/gtfsway")
+require(taskscheduleR)
 require(gtfsway)
 require(httr)
 require(jsonlite)
