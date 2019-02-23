@@ -2,7 +2,7 @@
 ###### 2. Data Cleaning #########
 #################################
 
-load("Data/onetrain_stoptimeJan31.Rdata")
+load(paste("Data/Raw/onetrain_stoptime",Sys.Date(),".RData"))
 
 # Convert data classes
 onetrain_stoptime$arrival_time <- as.numeric(as.character(onetrain_stoptime$arrival_time))
@@ -24,4 +24,4 @@ onetrain_stoptime$departure_time[departNA] <- NA
 onetrain_stoptime_sub <- onetrain_stoptime[onetrain_stoptime$stop_id=="142S",]
 
 # Save the current data
-save(onetrain_stoptime_sub, file = "Data/onetrain_stoptimeJan31_clean.Rdata")
+save(onetrain_stoptime_sub, file = paste("Data/Clean/onetrain_stoptime",Sys.Date(),"_clean",".RData"))

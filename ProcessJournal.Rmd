@@ -1,12 +1,3 @@
----
-title: "Process Journal"
-author: "Clare Clingain"
-date: "February 12, 2019"
-output: pdf_document
----
+#### February 23, 2019
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-In this document, I will record my design process.
+After thinking about my data and looking at what I was getting, I realized that I will need to stream in a series of data to get the full picture because I won't be able to get all the real-time data. Obtaining all the real time data would require constant retrieval. Instead, I'm going to take samples of the data. I'm reworking my data import and cleaning scripts so that they can automate this process. 

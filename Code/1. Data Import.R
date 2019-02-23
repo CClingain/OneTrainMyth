@@ -3,10 +3,10 @@
 #################################
 
 
-devtools::install_github("SymbolixAU/gtfsway")
-library(gtfsway)
-library(httr)
-library(jsonlite)
+# devtools::install_github("SymbolixAU/gtfsway")
+require(gtfsway)
+require(httr)
+require(jsonlite)
 
 url <- "http://datamine.mta.info/mta_esi.php?key=51469dd0902e2edb2e1a327a2c413334&feed_id=1"
 
@@ -55,5 +55,5 @@ for(i in 1:length(lst)) {
 # See: http://web.mta.info/developers/data/nyct/subway/Stations.csv
 
 # Export current data
-save(onetrain_info, file = "Data/onetrain_infoJan31.RData")
-save(onetrain_stoptime, file = "Data/onetrain_stoptimeJan31.RData")
+save(onetrain_info, file = paste("Data/Raw/onetrain_info",Sys.Date(),".RData"))
+save(onetrain_stoptime, file = paste("Data/Raw/onetrain_stoptime",Sys.Date(),".RData"))
