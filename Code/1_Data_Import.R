@@ -5,7 +5,7 @@
 # Schedule script to run every hour -- not working
 require(taskscheduleR)
 myscript <- system.file("extdata", "0_Data_Extraction.R", package = "taskscheduleR")
-taskscheduler_create(taskname = "DatExtractionEDSP", rscript = myscript, schedule="HOURLY", startdate = format(as.Date("2019-02-23"), "%m/%d/%Y"),starttime = "13:22")
+taskscheduler_create(taskname = "0_Data_Extraction.R", rscript = myscript, schedule="HOURLY", startdate = format(as.Date("2019-02-23"), "%m/%d/%Y"))
 
 
 # devtools::install_github("SymbolixAU/gtfsway")
