@@ -4,7 +4,7 @@
 
 
 # devtools::install_github("SymbolixAU/gtfsway")
-require(taskscheduleR)
+# require(taskscheduleR)
 require(gtfsway)
 require(httr)
 require(jsonlite)
@@ -56,5 +56,5 @@ for(i in 1:length(lst)) {
 # See: http://web.mta.info/developers/data/nyct/subway/Stations.csv
 
 # Export current data
-save(onetrain_info, file = paste("Data/Raw/onetrain_info",Sys.Date(),".RData"))
-save(onetrain_stoptime, file = paste("Data/Raw/onetrain_stoptime",Sys.Date(),".RData"))
+save(onetrain_info, file = paste("Data/Raw/onetrain_info",Sys.Date(),".RData", sep = ""))
+save(onetrain_stoptime, file = paste("Data/Raw/onetrain_stoptime",Sys.Date(),".RData", sep = ""))
