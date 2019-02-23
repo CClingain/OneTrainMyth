@@ -32,11 +32,11 @@ for(i in 1:length(lst)) {
 time <- Sys.time()
 
 # Save Raw data
-save(onetrain_info, file = paste("Data/Raw/onetrain_info",time,".RData", sep = ""))
-save(onetrain_stoptime, file = paste("Data/Raw/onetrain_stoptime",time,".RData", sep = ""))
+save(onetrain_info, file = paste("C:/Users/Clare/Documents/Spring 2019 Educaton Data Science Practicum/edsp2019project-CClingain/Data/Raw/onetrain_info",time,".RData", sep = ""))
+save(onetrain_stoptime, file = paste("C:/Users/Clare/Documents/Spring 2019 Educaton Data Science Practicum/edsp2019project-CClingain/Data/Raw/onetrain_stoptime",time,".RData", sep = ""))
 
 # Load Raw data
-load(paste("Data/Raw/onetrain_stoptime",time,".RData", sep = ""))
+load(paste("C:/Users/Clare/Documents/Spring 2019 Educaton Data Science Practicum/edsp2019project-CClingain/Data/Raw/onetrain_stoptime",time,".RData", sep = ""))
 
 # Convert data classes
 onetrain_stoptime$arrival_time <- as.numeric(as.character(onetrain_stoptime$arrival_time))
@@ -58,4 +58,4 @@ onetrain_stoptime$departure_time[departNA] <- NA
 onetrain_stoptime_sub <- onetrain_stoptime[onetrain_stoptime$stop_id=="142S",]
 
 # Save the clean data
-save(onetrain_stoptime_sub, file = paste("Data/Clean/onetrain_stoptime",time,"_clean",".RData", sep = ""))
+save(onetrain_stoptime_sub, file = paste("C:/Users/Clare/Documents/Spring 2019 Educaton Data Science Practicum/edsp2019project-CClingain/Data/Clean/onetrain_stoptime",time,"_clean",".RData", sep = ""))
