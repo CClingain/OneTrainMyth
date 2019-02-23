@@ -42,7 +42,7 @@ lst[[1]]
 onetrain_info <- NULL
 onetrain_stoptime <- NULL
 
-# Code idea
+# Extract data into dataframes
 for(i in 1:length(lst)) {
   temp <- as.data.frame(as.matrix(lst[[i]]$dt_trip_info))
   onetrain_info <- rbind(onetrain_info, temp)
