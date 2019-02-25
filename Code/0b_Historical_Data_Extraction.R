@@ -27,19 +27,22 @@ date.times <- expand.grid(timestamps, dates)
 # All possible links
 require(tidyr)
 links <- unite(date.times, links, c("Var2","Var1"), sep = "-")
+links <- links$links
 
+for(i in 1:length(links)){
+  
+  link <- paste("https://datamine-history.s3.amazonaws.com/gtfs-",links[i], sep = "")
+  # Get the raw data
+  raw <- GET(link)
+  # Convert it from gtfs format
+  feed.message <- gtfs_realtime(raw)
+  dat <- gtfs_tripUpdates(feed.message) 
+  
+  # Initiate storage
+  onetrain_info <- NULL
+  onetrain_stoptime <- NULL
+}
 
-link <- "https://datamine-history.s3.amazonaws.com/gtfs-2018-01-01-09-41"
-
-
-
-raw <- GET(link)
-
-feed.message <- gtfs_realtime(raw)
-dat <- gtfs_tripUpdates(feed.message) 
-
-onetrain_info <- NULL
-onetrain_stoptime <- NULL
 
 # Extract from lists
 for(i in 1:length(dat)) {
@@ -54,24 +57,67 @@ for(i in 1:length(dat)) {
 }
 
 
-# Convert data classes
-onetrain_stoptime$arrival_time <- as.numeric(as.character(onetrain_stoptime$arrival_time))
-onetrain_stoptime$arrival_delay <- as.numeric(as.character(onetrain_stoptime$arrival_delay))
-onetrain_stoptime$departure_time <- as.numeric(as.character(onetrain_stoptime$departure_time))
-onetrain_stoptime$departure_delay <- as.numeric(as.character(onetrain_stoptime$departure_delay))
+# Function to extract historical data
+extract_historical <- function(url){
+  link <- paste("https://datamine-history.s3.amazonaws.com/gtfs-",url, sep = "")
+  # Get the raw data
+  raw <- GET(link)
+  # Convert it from gtfs format
+  feed.message <- gtfs_realtime(raw)
+  dat <- gtfs_tripUpdates(feed.message) 
+  
+  # Initiate storage
+  onetrain_info <- NULL
+  onetrain_stoptime <- NULL
+  
+  
+  # Extract from lists
+  for(i in 1:length(dat)) {
+    temp <- as.data.frame(as.matrix(dat[[i]]$dt_trip_info))
+    onetrain_info <- rbind(onetrain_info, temp)
+    
+    temp2 <- as.data.frame(as.matrix(dat[[i]]$dt_stop_time_update))
+    # Add in train id
+    temp2$train_id <- temp$trip_id
+    onetrain_stoptime <- rbind(onetrain_stoptime, temp2)
+    
+  
+  }
+  return(onetrain_stoptime)
+}
 
-# Convert times from # of seconds since POSIX time (1970-01-01 00:00:00)
-class(onetrain_stoptime$arrival_time) <- c('POSIXt','POSIXct')
-class(onetrain_stoptime$departure_time) <- c('POSIXt', 'POSIXct')
+# Function to clean historical data
+clean_historical <- function(data){
+  # Convert data classes
+  data$arrival_time <- as.numeric(as.character(data$arrival_time))
+  data$arrival_delay <- as.numeric(as.character(data$arrival_delay))
+  data$departure_time <- as.numeric(as.character(data$departure_time))
+  data$departure_delay <- as.numeric(as.character(data$departure_delay))
+  
+  # Convert times from # of seconds since POSIX time (1970-01-01 00:00:00)
+  class(data$arrival_time) <- c('POSIXt','POSIXct')
+  class(data$departure_time) <- c('POSIXt', 'POSIXct')
+  
+  # Fix 0 cells to be NA (not sure if this best approach?)
+  arrivalsNA <- which(data$arrival_time < "2017-12-31")
+  data$arrival_time[arrivalsNA] <- NA
+  departNA <- which(data$departure_time < "2017-12-31")
+  data$departure_time[departNA] <- NA
+  
+  # Subset South Ferry trains only
+  data_sub <- data[data$stop_id=="142S",]
+  
+  # Put the rows in order of time
+  data_sub[order(data_sub$arrival_time),]
+  
+  return(data_sub)
+}
 
-# Fix 0 cells to be NA (not sure if this best approach?)
-arrivalsNA <- which(onetrain_stoptime$arrival_time < "2017-12-31")
-onetrain_stoptime$arrival_time[arrivalsNA] <- NA
-departNA <- which(onetrain_stoptime$departure_time < "2017-12-31")
-onetrain_stoptime$departure_time[departNA] <- NA
-
-# Subset South Ferry trains only
-onetrain_stoptime_sub <- onetrain_stoptime[onetrain_stoptime$stop_id=="142S",]
-
-# Put the rows in order of time
-onetrain_stoptime_sub[order(onetrain_stoptime_sub$arrival_time),]
+# Get data for all date/times
+for(i in 1:length(links)){
+  dat <- extract_historical(links[i])
+  
+  dat_clean <- clean_historical(dat)
+  
+}
+# maybe do this as lists?
