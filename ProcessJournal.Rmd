@@ -1,3 +1,7 @@
 #### February 23, 2019
 
 After thinking about my data and looking at what I was getting, I realized that I will need to stream in a series of data to get the full picture because I won't be able to get all the real-time data. Obtaining all the real time data would require constant retrieval. Instead, I'm going to take samples of the data. I'm reworking my data import and cleaning scripts so that they can automate this process. 
+
+#### February 25, 2019
+
+Whie I have been extracting the data using the script I made, I realized that there wil be an inherent issue with getting the data from the train to match up with the data from the ferry. How can get a distribution of wait times if I don't have all the data? Luckily, the MTA saves the real-time data for all the train lines since 2014. Pairing this up with the ferry data, I have enough to go back to September 2014... Step one will be to access the historical real-time data [here](http://web.mta.info/developers/MTA-Subway-Time-historical-data.html).
