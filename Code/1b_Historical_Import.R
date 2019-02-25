@@ -6,7 +6,7 @@
 require(gtfsway)
 require(httr)
 
-link <- "https://datamine-history.s3.amazonaws.com/gtfs-2018-01-01-09-31"
+link <- "https://datamine-history.s3.amazonaws.com/gtfs-2018-01-01-09-41"
 raw <- GET(link)
 
 feed.message <- gtfs_realtime(raw)
@@ -21,7 +21,10 @@ for(i in 1:length(dat)) {
   onetrain_info <- rbind(onetrain_info, temp)
   
   temp2 <- as.data.frame(as.matrix(dat[[i]]$dt_stop_time_update))
+  # Add in train id
+  temp2$train_id <- temp$trip_id
   onetrain_stoptime <- rbind(onetrain_stoptime, temp2)
+  
 }
 
 
@@ -43,6 +46,9 @@ onetrain_stoptime$departure_time[departNA] <- NA
 
 # Subset South Ferry trains only
 onetrain_stoptime_sub <- onetrain_stoptime[onetrain_stoptime$stop_id=="142S",]
+
+# Put the rows in order of time
+onetrain_stoptime_sub[order(onetrain_stoptime_sub$arrival_time),]
 
 # Save the current data
 # save(onetrain_stoptime_sub, file = paste("Data/Clean/onetrain_stoptime",Sys.Date(),"_clean",".RData", sep = ""))
