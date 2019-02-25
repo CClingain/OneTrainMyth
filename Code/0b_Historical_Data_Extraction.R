@@ -121,3 +121,6 @@ for(i in 1:length(links)){
   
 }
 # maybe do this as lists?
+# Like this:
+mini <- links[1:10]
+testfun <- lapply(mini, FUN = function(x) clean_historical(extract_historical(x)))
