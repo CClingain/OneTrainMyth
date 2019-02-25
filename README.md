@@ -28,7 +28,8 @@ Answering these questions is tricky. How do we quantify "lateness"? What sort of
 
 ## Data Sources
 
-1. [MTA Real Time Subway data](http://datamine.mta.info/) is accessible with an API
+1a. [MTA Real Time Subway data](http://datamine.mta.info/) is accessible with an API
+1b [MTA Historical Real Time Subway data](https://datamine-history.s3.amazonaws.com/index.html)
 2. [Staten Island Ferry Departure data](https://data.cityofnewyork.us/Transportation/Test-Staten-Island-Ferry-Daily-Performance-data/7gic-pibm)
 
 Yes, the MTA data is just as messy as the subways, buses, trains, and ferries. 
