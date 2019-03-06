@@ -116,7 +116,7 @@ clean_historical <- function(data){
 # Function to subset out predicted times
 remove_pred <- function(data, linkpos){
   # get the date from current link
-   date <- links[linkpos]
+   date <- links[[linkpos]]
   # remove cases after that date
    data2 <- data[data$arrival_time <= date,]
    return(data2)
@@ -149,5 +149,6 @@ data <- lapply(1:length(links), function(i) remove_pred(clean_historical(extract
 # try with loop?
 data <- list()
 for(i in 1:length(links)){
-  data <- remove_pred(clean_historical(extract_historical(links[i])), linkpos = i)
+  data <- remove_pred(clean_historical(extract_historical(links[[i]])), linkpos = i)
 }
+# also breaks at 161
