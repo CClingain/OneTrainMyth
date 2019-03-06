@@ -28,6 +28,7 @@ date.times <- expand.grid(timestamps, dates)
 require(tidyr)
 links <- unite(date.times, links, c("Var2","Var1"), sep = "-")
 links <- links$links
+class(links) <- c("POSIXt", "POSIXct")
 
 for(i in 1:length(links)){
   
@@ -148,7 +149,9 @@ data <- lapply(1:length(links), function(i) remove_pred(clean_historical(extract
 
 # try with loop?
 data <- list()
-for(i in 1:length(links)){
-  data <- remove_pred(clean_historical(extract_historical(links[[i]])), linkpos = i)
+for(k in 1:length(links)){
+  data <- remove_pred(clean_historical(extract_historical(links[[k]])), linkpos = k)
 }
 # also breaks at 161
+# looks like error comes at extract_historical function
+# as.matrix(dat[[i]]$dt_trip_info) returns subscript out of bounds
