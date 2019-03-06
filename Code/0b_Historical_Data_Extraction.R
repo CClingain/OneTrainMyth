@@ -113,14 +113,28 @@ clean_historical <- function(data){
   return(data_sub)
 }
 
+# Function to subset out predicted times
+remove_pred <- function(data, linkpos){
+  # get the date from current link
+   date <- links[linkpos]
+  # remove cases after that date
+   data2 <- data[data$arrival_time <= date,]
+   return(data2)
+}
+
 # Get data for all date/times
 for(i in 1:length(links)){
   dat <- extract_historical(links[i])
   
-  dat_clean <- clean_historical(dat)
+  dat_clean <- remove_pred(clean_historical(dat), linkpos = i)
   
 }
 # maybe do this as lists?
 # Like this:
 mini <- links[1:10]
 testfun <- lapply(mini, FUN = function(x) clean_historical(extract_historical(x)))
+# but how to add remove_pred to this?
+testfun <- lapply(mini, FUN = function(x, i) remove_pred(clean_historical(extract_historical(x))), linkpos = i)
+testfun <- lapply(seq_along(mini), FUN = function(i) remove_pred(clean_historical(extract_historical(mini)), linkpos = i))
+mini <- as.list(mini)
+testfun <- lapply(1:length(mini), function(i) remove_pred(clean_historical(extract_historical(mini[i])),linkpos = i) )
