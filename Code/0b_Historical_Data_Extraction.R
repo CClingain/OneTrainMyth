@@ -144,3 +144,10 @@ fulltime # in hours
 # Full: 
 links <- as.list(links)
 data <- lapply(1:length(links), function(i) remove_pred(clean_historical(extract_historical(links[i])),linkpos = i) )
+# breaks after 161
+
+# try with loop?
+data <- list()
+for(i in 1:length(links)){
+  data <- remove_pred(clean_historical(extract_historical(links[i])), linkpos = i)
+}
