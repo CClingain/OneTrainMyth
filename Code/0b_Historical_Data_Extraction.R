@@ -129,12 +129,18 @@ for(i in 1:length(links)){
   dat_clean <- remove_pred(clean_historical(dat), linkpos = i)
   
 }
-# maybe do this as lists?
-# Like this:
-mini <- links[1:10]
-testfun <- lapply(mini, FUN = function(x) clean_historical(extract_historical(x)))
-# but how to add remove_pred to this?
-testfun <- lapply(mini, FUN = function(x, i) remove_pred(clean_historical(extract_historical(x))), linkpos = i)
-testfun <- lapply(seq_along(mini), FUN = function(i) remove_pred(clean_historical(extract_historical(mini)), linkpos = i))
+# Run for all links
+# Test:
+start <- Sys.time()
 mini <- as.list(mini)
 testfun <- lapply(1:length(mini), function(i) remove_pred(clean_historical(extract_historical(mini[i])),linkpos = i) )
+end <- Sys.time()
+end - start
+# how long will this take to run?
+timefor1 <- (end-start)/10
+fulltime <- as.numeric(timefor1*length(links))
+fulltime <- (fulltime/60)/60 #divide by 60 for sec/min, divide by 60 for min/hr
+fulltime # in hours
+# Full: 
+links <- as.list(links)
+data <- lapply(1:length(links), function(i) remove_pred(clean_historical(extract_historical(links[i])),linkpos = i) )
