@@ -32,34 +32,6 @@ links <- links$links
 #class(links$links) <- c("POSIXt", "POSIXct")
 #links <- parse_date_time(links$links, order = '%Y %m %d %H %M')
 
-for(i in 1:length(links)){
-  
-  link <- paste("https://datamine-history.s3.amazonaws.com/gtfs-",links[i], sep = "")
-  # Get the raw data
-  raw <- GET(link)
-  # Convert it from gtfs format
-  feed.message <- gtfs_realtime(raw)
-  dat <- gtfs_tripUpdates(feed.message) 
-  
-  # Initiate storage
-  onetrain_info <- NULL
-  onetrain_stoptime <- NULL
-}
-
-
-# Extract from lists
-for(i in 1:length(dat)) {
-  temp <- as.data.frame(as.matrix(dat[[i]]$dt_trip_info))
-  onetrain_info <- rbind(onetrain_info, temp)
-  
-  temp2 <- as.data.frame(as.matrix(dat[[i]]$dt_stop_time_update))
-  # Add in train id
-  temp2$train_id <- temp$trip_id
-  onetrain_stoptime <- rbind(onetrain_stoptime, temp2)
-  
-}
-
-
 # Function to extract historical data
 extract_historical <- function(url){
   # show current position
