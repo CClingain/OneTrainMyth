@@ -35,6 +35,13 @@ jan.full <- cbind.data.frame(jan, weekdays, jandates)
 # extract weekdates only
 jandates_weekday <- jan.full$jandates[jan.full$weekdays!="Sat"&jan.full$weekdays!="Sun"]
 #compress whitespace with .
-jandates_weekday <- gsub(x = jandates_weekday, " ",".")
+jandates_weekday <- gsub(x= jandates_weekday, " ",".")
 # rename the columns
 names(ferry) <- c("Schedule",jandates_weekday,"Schedule")
+
+# NOTE: a wonderful thing about the ferry data is that we now now what
+# cutoff makes a ferry a late ferry: 6 minutes.
+
+# Remove extraneous rows (remove the late/missing reasons and NAs)
+row.end <- which(ferry$Schedule=="PEAK")
+ferry <- ferry[1:end,]
