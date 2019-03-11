@@ -17,3 +17,5 @@ Let's get back to the data cleaning. After receiving feedback and taking time to
 #### March 11th, 2019
 
 There has been a few issues with extracting the historical data, but hopefully the current fix will work. I think the reason I was getting the error is that the links were converted to POSIX when I just need to keep them as characters. I've set the code to extract, so hopefully it goes through this time. In the meantime, I may start cleaning the ferry data for the same period.
+
+One hour later... After another break of the fix I was sure would work, I realized what the problem was: some urls just don't return any data! They would break at the selection of each data frame from the lists because there were no data frames to select. I've now added in a fail safe for the extract_historical() and clean_historical() functions. Any link that has no data will instead return a 1 x 7 data frame with NAs. The remove_pred() function doesn't need a fail safe since any rows with NA are considered to be smaller than the given date. The code is currently running. Let's hope this does it! 
