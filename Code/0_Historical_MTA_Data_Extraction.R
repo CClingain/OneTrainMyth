@@ -133,39 +133,14 @@ remove_pred <- function(data, linkpos){
    return(data2)
 }
 
-# Get data for all date/times
-for(i in 1:length(links)){
-  dat <- extract_historical(links[i])
-  
-  dat_clean <- remove_pred(clean_historical(dat), linkpos = i)
-  
+###### EXTRACT DATA: JANUARY######
+links.jan <- links[links < "2018-02-01"]
+data.jan <- list()
+for(k in 1:length(links.jan)){
+  data.jan <- remove_pred(clean_historical(extract_historical(links.jan[[k]])), linkpos = k)
 }
-# Run for all links
-# Test:
-start <- Sys.time()
-mini <- as.list(mini)
-testfun <- lapply(1:length(mini), function(i) remove_pred(clean_historical(extract_historical(mini[i])),linkpos = i) )
-end <- Sys.time()
-end - start
-# how long will this take to run?
-timefor1 <- (end-start)/10
-fulltime <- as.numeric(timefor1*length(links))
-fulltime <- (fulltime/60)/60 #divide by 60 for sec/min, divide by 60 for min/hr
-fulltime # in hours
-# Full: 
-links <- as.list(links)
-data <- lapply(1:length(links), function(i) remove_pred(clean_historical(extract_historical(links[i])),linkpos = i) )
-# breaks after 161
+###### EXTRACT DATA: JANUARY TO FEBRUARY ######
 
-# try with loop?
-data <- list()
 for(k in 1:length(links)){
   data <- remove_pred(clean_historical(extract_historical(links[[k]])), linkpos = k)
 }
-# now breaks at 389L
-# looks like error comes at extract_historical function
-# as.matrix(dat[[i]]$dt_trip_info) returns subscript out of bounds
-# This seems to stem from an error in GET(), Could not resolve host: 2018-01-02-08-21
-
-# I think I've found the issue. Some links have no data. Will try to find
-# a way around this
