@@ -147,7 +147,8 @@ remove_pred <- function(data, linkpos){
 }
 
 ###### EXTRACT DATA: JANUARY######
-links.jan <- links[links < "2018-02-01"]
+# test with week 1 of jan
+links.jan <- links[links < "2018-01-08"]
 data.jan <- list()
 for(k in 1:length(links.jan)){
   data.jan[[k]] <- remove_pred(clean_historical(extract_historical(links.jan[[k]])), linkpos = k)
