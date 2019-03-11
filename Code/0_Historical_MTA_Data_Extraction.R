@@ -2,10 +2,11 @@
 ####### 0b. Historical Data Extraction ##########
 #################################################
 
+suppressPackageStartupMessages(require(httr))
+suppressPackageStartupMessages(require(gtfsway))
+suppressPackageStartupMessages(require(lubridate))
 
 
-require(gtfsway)
-require(httr)
 
 # time stamps to cycle through
 minstamps <- c("01","06","11","16","21","26","31","36","41","46","51","56")
@@ -113,6 +114,8 @@ clean_historical <- function(data){
 remove_pred <- function(data, linkpos){
   # get the date from current link
    date <- links[[linkpos]]
+   # convert to date object
+   date <- parse_date_time(date, "%Y %m %d %H %M", tz = "EST")
   # remove cases after that date
    data2 <- data[data$arrival_time <= date,]
    return(data2)
