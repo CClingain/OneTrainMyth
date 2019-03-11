@@ -19,13 +19,22 @@
 # I need to extract 2 sheets: Weekday Whitehall and Weekend Whitehall.
 
 # Test run: first excel file
-
+library(lubridate)
 library(readxl)
 
 ferry <- read_excel("Data/Ferry/01 January  2018.xlsx", sheet = 2)
 
+# remove last column
+ferry <- ferry[,-ncol(ferry)]
+
+# Rename the columns: Step 1. Capture dates and weekdays
 jandates <- paste("Jan",1:31,"2018")
-parse_date_time(jandates, order = "%m %d %Y")
+jan <- parse_date_time(jandates, order = "%m %d %Y")
+weekdays <- wday(jan, label = T)
+jan.full <- cbind.data.frame(jan, weekdays, jandates)
 # extract weekdates only
-jandates_weekday <- 
-names(ferry) <- c("Schedule",jandates,"Schedule")
+jandates_weekday <- jan.full$jandates[jan.full$weekdays!="Sat"&jan.full$weekdays!="Sun"]
+#compress whitespace with .
+jandates_weekday <- gsub(x = jandates_weekday, " ",".")
+# rename the columns
+names(ferry) <- c("Schedule",jandates_weekday,"Schedule")
