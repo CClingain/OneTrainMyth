@@ -123,7 +123,7 @@ remove_pred <- function(data, linkpos){
 
 ###### EXTRACT DATA: JANUARY######
 # test with week 1 of jan
-links.jan <- links[links < "2018-01-08"]
+links.jan <- links[links < "2018-02-01-00-01"]
 data.jan <- list()
 for(k in 1:length(links.jan)){
   data.jan[[k]] <- remove_pred(clean_historical(extract_historical(links.jan[[k]])), linkpos = k)
@@ -134,7 +134,19 @@ save(data.jan, file = "Data/Raw/jan2018.Rdata")
 #save(data.jan,file="Data/Raw/jan2018_1_through_break.Rdata")
 
 ###### EXTRACT DATA: FEBRUARY ######
-
+links.feb<- links[links < "2018-03-01" & links > "2018-01-31-23-56"]
+data.feb <- list()
 for(k in 1:length(links)){
-  data <- remove_pred(clean_historical(extract_historical(links[[k]])), linkpos = k)
+  data.feb[[k]] <- remove_pred(clean_historical(extract_historical(links[[k]])), linkpos = k)
 }
+# Save the results
+save(data.feb, file = "Data/Raw/feb2018.Rdata")
+
+###### EXTRACT DATA: March ######
+links.march<- links[links < "2018-04-01" & links > "2018-02-28-23-56"]
+data.march <- list()
+for(k in 1:length(links)){
+  data.march[[k]] <- remove_pred(clean_historical(extract_historical(links[[k]])), linkpos = k)
+}
+# Save the results
+save(data.march, file = "Data/Raw/march2018.Rdata")
