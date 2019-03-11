@@ -77,6 +77,7 @@ extract_historical <- function(url){
   
   if(length(dat)==0){
     onetrain_stoptime <- as.data.frame(matrix(ncol = 7, nrow = 1, NA))
+    colnames(onetrain_stoptime) <- c("stop_sequence","stop_id","arrival_time","arrival_delay","departure_time","departure_delay","train_id")
   } else if(length(dat)!=0){
   # Extract from lists
   for(i in 1:length(dat)) {
@@ -107,6 +108,8 @@ clean_historical <- function(data){
   # If the data was empty to begin with, just return the NAs
   if(dim(data)[1]==1){
     data_sub <- as.data.frame(matrix(ncol = 7, nrow = 1, NA))
+    colnames(data_sub) <- c("stop_sequence","stop_id","arrival_time","arrival_delay","departure_time","departure_delay","train_id")
+    
   } else { 
   
   # Convert data classes
@@ -149,6 +152,10 @@ data.jan <- list()
 for(k in 1:length(links.jan)){
   data.jan[[k]] <- remove_pred(clean_historical(extract_historical(links.jan[[k]])), linkpos = k)
 }
+
+# 3/11/2019 - 2:53pm save out where loop broke at 01-03-20-56
+save(data.jan,file="Data/Raw/jan2018_1_through_break.Rdata")
+
 ###### EXTRACT DATA: JANUARY TO FEBRUARY ######
 
 for(k in 1:length(links)){
