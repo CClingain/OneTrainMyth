@@ -128,11 +128,12 @@ data.jan <- list()
 for(k in 1:length(links.jan)){
   data.jan[[k]] <- remove_pred(clean_historical(extract_historical(links.jan[[k]])), linkpos = k)
 }
-
+# Save the results
+save(data.jan, file = "Data/Raw/jan2018.Rdata")
 # 3/11/2019 - 4:37pm save out where loop stopped at 01-03-16-16
 #save(data.jan,file="Data/Raw/jan2018_1_through_break.Rdata")
 
-###### EXTRACT DATA: JANUARY TO FEBRUARY ######
+###### EXTRACT DATA: FEBRUARY ######
 
 for(k in 1:length(links)){
   data <- remove_pred(clean_historical(extract_historical(links[[k]])), linkpos = k)
