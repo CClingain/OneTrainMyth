@@ -66,7 +66,7 @@ extract_historical <- function(url){
   print(url)
   link <- paste("https://datamine-history.s3.amazonaws.com/gtfs-",url, sep = "")
   # Get the raw data
-  raw <- GET(link)
+  raw <- GET(link, timeout = 60)
   # Convert it from gtfs format
   feed.message <- gtfs_realtime(raw)
   dat <- gtfs_tripUpdates(feed.message) 
