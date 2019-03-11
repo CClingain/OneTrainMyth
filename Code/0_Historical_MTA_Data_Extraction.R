@@ -62,6 +62,8 @@ for(i in 1:length(dat)) {
 
 # Function to extract historical data
 extract_historical <- function(url){
+  # show current position
+  print(url)
   link <- paste("https://datamine-history.s3.amazonaws.com/gtfs-",url, sep = "")
   # Get the raw data
   raw <- GET(link)
@@ -78,13 +80,21 @@ extract_historical <- function(url){
   } else if(length(dat)!=0){
   # Extract from lists
   for(i in 1:length(dat)) {
+    
+    # if there was a live update, extract
+    if(dim (dat[[i]]$dt_stop_time_update)[1] != 0){
+      
     temp <- as.data.frame(as.matrix(dat[[i]]$dt_trip_info))
     onetrain_info <- rbind(onetrain_info, temp)
-    
+ 
     temp2 <- as.data.frame(as.matrix(dat[[i]]$dt_stop_time_update))
     # Add in train id
     temp2$train_id <- temp$trip_id
-    onetrain_stoptime <- rbind(onetrain_stoptime, temp2)
+    onetrain_stoptime <- rbind(onetrain_stoptime, temp2) 
+    } else {
+      onetrain_stoptime <- as.data.frame(matrix(ncol = 7, nrow = 1, NA))
+      
+    }
   }
   
   }
@@ -137,7 +147,7 @@ remove_pred <- function(data, linkpos){
 links.jan <- links[links < "2018-02-01"]
 data.jan <- list()
 for(k in 1:length(links.jan)){
-  data.jan <- remove_pred(clean_historical(extract_historical(links.jan[[k]])), linkpos = k)
+  data.jan[[k]] <- remove_pred(clean_historical(extract_historical(links.jan[[k]])), linkpos = k)
 }
 ###### EXTRACT DATA: JANUARY TO FEBRUARY ######
 
