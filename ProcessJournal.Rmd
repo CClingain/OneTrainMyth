@@ -13,3 +13,7 @@ One of the problems arising from this data is that there are very close time int
 Based on what I was seeing in the preliminary data, I was concerned about some of the time stamps. Some trains  seemed to come in too quick succession. To understand if this is possible and does happen, I spent a good amount of time this past week waiting for a few 1 trains to pass by.  I kept track of the times that trains were arriving, as well as when trains were departing South Ferry. The data doesn't lie! Some trains do arrive in quick auccession of one another. 
 
 Let's get back to the data cleaning. After receiving feedback and taking time to think, I will remove any data that is predicted from each import. I have to build this into my functions and test it out. Logistically, running all of this code may be a bit of a nightmare. There are 78,336 files to pull. Pending my computer holding up, I may subset to a smaller time range. This will also depend on any broken links -- this would stop the process. Luckily, Madison suggested using possibly() from the purrrr package, which allows for functions to run even if they break in certain instances.
+
+#### March 11th, 2019
+
+There has been a few issues with extracting the historical data, but hopefully the current fix will work. I think the reason I was getting the error is that the links were converted to POSIX when I just need to keep them as characters. I've set the code to extract, so hopefully it goes through this time. In the meantime, I may start cleaning the ferry data for the same period.

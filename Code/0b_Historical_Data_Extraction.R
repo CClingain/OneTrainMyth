@@ -26,9 +26,11 @@ dates <- seq(as.Date("2018-01-01"), by = "day", length.out = 272)
 date.times <- expand.grid(timestamps, dates)
 # All possible links
 require(tidyr)
+require(lubridate)
 links <- unite(date.times, links, c("Var2","Var1"), sep = "-")
 links <- links$links
-class(links) <- c("POSIXt", "POSIXct")
+#class(links$links) <- c("POSIXt", "POSIXct")
+#links <- parse_date_time(links$links, order = '%Y %m %d %H %M')
 
 for(i in 1:length(links)){
   
