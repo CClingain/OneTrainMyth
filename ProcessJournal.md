@@ -79,7 +79,7 @@ server. After reading some results online, it is possible that this may
 be happening because of my organization’s network (NYU). If I keep
 getting this error, I may try running it from my home wifi.
 
-A couple hours later… I fugred out the latest code break, which came as
+A couple hours later… I figured out the latest code break, which came as
 a result of one of the fail safes. The data frames didn’t have the same
 columns. Hopefully now it’ll work…
 

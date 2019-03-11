@@ -27,7 +27,7 @@ One hour later... After another break of the fix I was sure would work, I realiz
 
 A few hours later... The functions are working! However, a new issue has come up. It seems like the GET request times out automatically after 10 seconds. For one of the urls, it couldn't grab the data within 10 seconds, so it broke the whole loop. I've not set a max wait time of 60 seconds; that seems like a reasonable amount of time to connect to the server. After reading some results online, it is possible that this may be happening because of my organization's network (NYU). If I keep getting this error, I may try running it from my home wifi.
 
-A couple hours later... I fugred out the latest code break, which came as a result of one of the fail safes. The data frames didn't have the same columns. Hopefully now it'll work...
+A couple hours later... I figured out the latest code break, which came as a result of one of the fail safes. The data frames didn't have the same columns. Hopefully now it'll work...
 
 
 The code is working! The new issues are a) amount of time for code to run and b) extensive, consectutive missing data. I'm thinking of creating a script that will have some sort of skip logic in a big function that will do what my three functions do now. It would also be a good idea to see if I can filter out the 1 train data earlier, mainly in extraction. 
