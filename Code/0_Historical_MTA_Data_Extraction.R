@@ -73,7 +73,9 @@ extract_historical <- function(url){
   onetrain_info <- NULL
   onetrain_stoptime <- NULL
   
-  
+  if(length(dat)==0){
+    onetrain_stoptime <- as.data.frame(matrix(ncol = 7, nrow = 1, NA))
+  } else if(length(dat)!=0){
   # Extract from lists
   for(i in 1:length(dat)) {
     temp <- as.data.frame(as.matrix(dat[[i]]$dt_trip_info))
@@ -83,7 +85,7 @@ extract_historical <- function(url){
     # Add in train id
     temp2$train_id <- temp$trip_id
     onetrain_stoptime <- rbind(onetrain_stoptime, temp2)
-    
+  }
   
   }
   return(onetrain_stoptime)
@@ -91,6 +93,12 @@ extract_historical <- function(url){
 
 # Function to clean historical data
 clean_historical <- function(data){
+  
+  # If the data was empty to begin with, just return the NAs
+  if(dim(data)[1]==1){
+    data_sub <- as.data.frame(matrix(ncol = 7, nrow = 1, NA))
+  } else { 
+  
   # Convert data classes
   data$arrival_time <- as.numeric(as.character(data$arrival_time))
   data$arrival_delay <- as.numeric(as.character(data$arrival_delay))
@@ -112,7 +120,7 @@ clean_historical <- function(data){
   
   # Put the rows in order of time
   data_sub[order(data_sub$arrival_time),]
-  
+  }
   return(data_sub)
 }
 
@@ -154,6 +162,10 @@ data <- list()
 for(k in 1:length(links)){
   data <- remove_pred(clean_historical(extract_historical(links[[k]])), linkpos = k)
 }
-# also breaks at 161
+# now breaks at 389L
 # looks like error comes at extract_historical function
 # as.matrix(dat[[i]]$dt_trip_info) returns subscript out of bounds
+# This seems to stem from an error in GET(), Could not resolve host: 2018-01-02-08-21
+
+# I think I've found the issue. Some links have no data. Will try to find
+# a way around this

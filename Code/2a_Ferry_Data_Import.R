@@ -20,3 +20,12 @@
 
 # Test run: first excel file
 
+library(readxl)
+
+ferry <- read_excel("Data/Ferry/01 January  2018.xlsx", sheet = 2)
+
+jandates <- paste("Jan",1:31,"2018")
+parse_date_time(jandates, order = "%m %d %Y")
+# extract weekdates only
+jandates_weekday <- 
+names(ferry) <- c("Schedule",jandates,"Schedule")
