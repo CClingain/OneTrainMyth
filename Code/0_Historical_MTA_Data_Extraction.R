@@ -5,7 +5,7 @@
 suppressPackageStartupMessages(require(httr))
 suppressPackageStartupMessages(require(gtfsway))
 suppressPackageStartupMessages(require(lubridate))
-
+suppressPackageStartupMessages(require(tidyr))
 
 
 # time stamps to cycle through
@@ -26,8 +26,6 @@ dates <- seq(as.Date("2018-01-01"), by = "day", length.out = 272)
 # All possible date-times
 date.times <- expand.grid(timestamps, dates)
 # All possible links
-require(tidyr)
-require(lubridate)
 links <- unite(date.times, links, c("Var2","Var1"), sep = "-")
 links <- links$links
 #class(links$links) <- c("POSIXt", "POSIXct")
