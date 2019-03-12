@@ -6,7 +6,7 @@
 require(gtfsway)
 require(httr)
 
-link <- "https://datamine-history.s3.amazonaws.com/gtfs-2018-01-01-09-41"
+link <- "https://datamine-history.s3.amazonaws.com/gtfs-2018-03-01-06-51"
 raw <- GET(link)
 
 feed.message <- gtfs_realtime(raw)

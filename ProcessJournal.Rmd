@@ -31,3 +31,7 @@ A couple hours later... I figured out the latest code break, which came as a res
 
 
 The code is working! The new issues are a) amount of time for code to run and b) extensive, consectutive missing data. I'm thinking of creating a script that will have some sort of skip logic in a big function that will do what my three functions do now. It would also be a good idea to see if I can filter out the 1 train data earlier, mainly in extraction. 
+
+##### March 12, 2019
+
+I have finished the script to get all 9 months of data and will be sending it off to Yoav shortly. My main concern is that the script sometimes stops for reasons that seem to link to NYU limiting my calls. I have toyed with the idea of adding a system sleep time, but even 1 second of sleep time will add up since each month has roughly 8,900 links to go through. We'll see how things go. I'm testing the code for each month to make sure it runs smoothly. There was only one more bug I had to fix. Let's hope this goes well.

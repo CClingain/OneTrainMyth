@@ -111,7 +111,7 @@ clean_historical <- function(data){
 }
 
 # Function to subset out predicted times
-remove_pred <- function(data, linkpos){
+remove_pred <- function(data, linkpos, links){
   # get the date from current link
    date <- links[[linkpos]]
    # convert to date object
@@ -126,7 +126,7 @@ remove_pred <- function(data, linkpos){
 links.jan <- links[links < "2018-02-01-00-01"]
 data.jan <- list()
 for(k in 1:length(links.jan)){
-  data.jan[[k]] <- remove_pred(clean_historical(extract_historical(links.jan[[k]])), linkpos = k)
+  data.jan[[k]] <- remove_pred(clean_historical(extract_historical(links.jan[[k]])), linkpos = k, links = links.jan)
 }
 # Save the results
 save(data.jan, file = "Data/Raw/jan2018.Rdata")
@@ -136,8 +136,8 @@ save(data.jan, file = "Data/Raw/jan2018.Rdata")
 ###### EXTRACT DATA: FEBRUARY ######
 links.feb<- links[links < "2018-03-01" & links > "2018-01-31-23-56"]
 data.feb <- list()
-for(k in 1:length(links)){
-  data.feb[[k]] <- remove_pred(clean_historical(extract_historical(links[[k]])), linkpos = k)
+for(k in 1:length(links.feb)){
+  data.feb[[k]] <- remove_pred(clean_historical(extract_historical(links.feb[[k]])), linkpos = k, links = links.feb)
 }
 # Save the results
 save(data.feb, file = "Data/Raw/feb2018.Rdata")
@@ -145,8 +145,67 @@ save(data.feb, file = "Data/Raw/feb2018.Rdata")
 ###### EXTRACT DATA: March ######
 links.march<- links[links < "2018-04-01" & links > "2018-02-28-23-56"]
 data.march <- list()
-for(k in 1:length(links)){
-  data.march[[k]] <- remove_pred(clean_historical(extract_historical(links[[k]])), linkpos = k)
+for(k in 1:length(links.march)){
+  data.march[[k]] <- remove_pred(clean_historical(extract_historical(links.march[[k]])), linkpos = k, links = links.march)
 }
 # Save the results
 save(data.march, file = "Data/Raw/march2018.Rdata")
+
+###### EXTRACT DATA: April ######
+links.april <- links[links < "2018-05-01" & links > "2018-03-31-23-56"]
+data.april <- list()
+for(k in 1:length(links.april)){
+  data.april[[k]] <- remove_pred(clean_historical(extract_historical(links.april[[k]])), linkpos = k, links = links.april)
+}
+# Save the results
+save(data.april, file = "Data/Raw/april2018.Rdata")
+
+
+###### EXTRACT DATA: May ######
+links.may <- links[links < "2018-06-01" & links > "2018-04-30-23-56"]
+data.may <- list()
+for(k in 1:length(links.may)){
+  data.may[[k]] <- remove_pred(clean_historical(extract_historical(links.may[[k]])), linkpos = k, links = links.may)
+}
+# Save the results
+save(data.may, file = "Data/Raw/may2018.Rdata")
+
+###### EXTRACT DATA: June ######
+links.june <- links[links < "2018-07-01" & links > "2018-05-31-23-56"]
+data.june <- list()
+for(k in 1:length(links.june)){
+  data.june <- remove_pred(clean_historical(extract_historical(links.june[[k]])), linkpos = k, links = links.june)
+}
+# Save the results
+save(data.june, file = "Data/Raw/june2018.Rdata")
+
+###### EXTRACT DATA: July ######
+links.july <- links[links < "2018-08-01" & links > "2018-06-30-23-56"]
+data.july <- list()
+for(k in 1:length(links.july)){
+  data.july <- remove_pred(clean_historical(extract_historical(links.july[[k]])), linkpos = k, links = links.july)
+}
+# Save the results
+save(data.july, file = "Data/Raw/july2018.Rdata")
+
+###### EXTRACT DATA: August ######
+links.aug <- links[links < "2018-09-01" & links > "2018-07-31-23-56"]
+data.aug <- list()
+for(k in 1:length(links.aug)){
+  data.aug <- remove_pred(clean_historical(extract_historical(links.aug[[k]])), linkpos = k, links = links.aug)
+}
+# Save the results
+save(data.aug, file = "Data/Raw/aug2018.Rdata")
+
+###### EXTRACT DATA: September ######
+links.sep <- links[links < "2018-10-01" & links > "2018-08-31-23-56"]
+data.sep <- list()
+for(k in 1:length(links.sep)){
+  data.sep <- remove_pred(clean_historical(extract_historical(links.sep[[k]])), linkpos = k, links = links.sep)
+}
+# Save the results
+save(data.sep, file = "Data/Raw/sep2018.Rdata")
+
+
+
+
