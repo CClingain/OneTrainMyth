@@ -174,7 +174,7 @@ save(data.may, file = "Data/Raw/may2018.Rdata")
 links.june <- links[links < "2018-07-01" & links > "2018-05-31-23-56"]
 data.june <- list()
 for(k in 1:length(links.june)){
-  data.june <- remove_pred(clean_historical(extract_historical(links.june[[k]])), linkpos = k, links = links.june)
+  data.june[[k]] <- remove_pred(clean_historical(extract_historical(links.june[[k]])), linkpos = k, links = links.june)
 }
 # Save the results
 save(data.june, file = "Data/Raw/june2018.Rdata")
@@ -183,7 +183,7 @@ save(data.june, file = "Data/Raw/june2018.Rdata")
 links.july <- links[links < "2018-08-01" & links > "2018-06-30-23-56"]
 data.july <- list()
 for(k in 1:length(links.july)){
-  data.july <- remove_pred(clean_historical(extract_historical(links.july[[k]])), linkpos = k, links = links.july)
+  data.july[[k]] <- remove_pred(clean_historical(extract_historical(links.july[[k]])), linkpos = k, links = links.july)
 }
 # Save the results
 save(data.july, file = "Data/Raw/july2018.Rdata")
@@ -192,7 +192,7 @@ save(data.july, file = "Data/Raw/july2018.Rdata")
 links.aug <- links[links < "2018-09-01" & links > "2018-07-31-23-56"]
 data.aug <- list()
 for(k in 1:length(links.aug)){
-  data.aug <- remove_pred(clean_historical(extract_historical(links.aug[[k]])), linkpos = k, links = links.aug)
+  data.aug[[k]] <- remove_pred(clean_historical(extract_historical(links.aug[[k]])), linkpos = k, links = links.aug)
 }
 # Save the results
 save(data.aug, file = "Data/Raw/aug2018.Rdata")
@@ -201,7 +201,7 @@ save(data.aug, file = "Data/Raw/aug2018.Rdata")
 links.sep <- links[links < "2018-10-01" & links > "2018-08-31-23-56"]
 data.sep <- list()
 for(k in 1:length(links.sep)){
-  data.sep <- remove_pred(clean_historical(extract_historical(links.sep[[k]])), linkpos = k, links = links.sep)
+  data.sep[[k]] <- remove_pred(clean_historical(extract_historical(links.sep[[k]])), linkpos = k, links = links.sep)
 }
 # Save the results
 save(data.sep, file = "Data/Raw/sep2018.Rdata")
