@@ -2,6 +2,9 @@
 ####### 0b. Historical Data Extraction ##########
 #################################################
 
+# Set path
+path <-"Data/Raw/"
+
 suppressPackageStartupMessages(require(httr))
 suppressPackageStartupMessages(require(gtfsway))
 suppressPackageStartupMessages(require(lubridate))
@@ -54,18 +57,19 @@ extract_historical <- function(url){
   for(i in 1:length(dat)) {
     
     # if there was a live update, extract
-    if(dim (dat[[i]]$dt_stop_time_update)[1] != 0){
+    if(dim(dat[[i]]$dt_stop_time_update)[1] != 0){
       
-    temp <- as.data.frame(as.matrix(dat[[i]]$dt_trip_info))
-    onetrain_info <- rbind(onetrain_info, temp)
+      temp <- as.data.frame(as.matrix(dat[[i]]$dt_trip_info))
+      onetrain_info <- rbind(onetrain_info, temp)
  
-    temp2 <- as.data.frame(as.matrix(dat[[i]]$dt_stop_time_update))
-    # Add in train id
-    temp2$train_id <- temp$trip_id
-    onetrain_stoptime <- rbind(onetrain_stoptime, temp2) 
-    } else {
-      onetrain_stoptime <- as.data.frame(matrix(ncol = 7, nrow = 1, NA))
+      temp2 <- as.data.frame(as.matrix(dat[[i]]$dt_stop_time_update))
+      # Add in train id
+      temp2$train_id <- temp$trip_id
+      onetrain_stoptime <- rbind(onetrain_stoptime, temp2) 
+    } else if (dim(dat[[i]]$dt_stop_time_update)[1] == 0) {
       
+      onetrain_stoptime <- as.data.frame(matrix(ncol = 7, nrow = 1, NA))
+      colnames(onetrain_stoptime) <- c("stop_sequence","stop_id","arrival_time","arrival_delay","departure_time","departure_delay","train_id")
     }
   }
   
@@ -127,9 +131,7 @@ for(k in 1:length(links.jan)){
   data.jan[[k]] <- remove_pred(clean_historical(extract_historical(links.jan[[k]])), linkpos = k, links = links.jan)
 }
 # Save the results
-save(data.jan, file = "Data/Raw/jan2018.Rdata")
-# 3/11/2019 - 4:37pm save out where loop stopped at 01-03-16-16
-#save(data.jan,file="Data/Raw/jan2018_1_through_break.Rdata")
+save(data.jan, file = paste(path,"jan2018.RData", sep = ""))
 
 ###### EXTRACT DATA: FEBRUARY ######
 links.feb<- links[links < "2018-03-01" & links > "2018-01-31-23-56"]
@@ -138,7 +140,7 @@ for(k in 1:length(links.feb)){
   data.feb[[k]] <- remove_pred(clean_historical(extract_historical(links.feb[[k]])), linkpos = k, links = links.feb)
 }
 # Save the results
-save(data.feb, file = "Data/Raw/feb2018.Rdata")
+save(data.feb, file = paste(path,"feb2018.RData", sep = ""))
 
 ###### EXTRACT DATA: March ######
 links.march<- links[links < "2018-04-01" & links > "2018-02-28-23-56"]
@@ -147,7 +149,7 @@ for(k in 1:length(links.march)){
   data.march[[k]] <- remove_pred(clean_historical(extract_historical(links.march[[k]])), linkpos = k, links = links.march)
 }
 # Save the results
-save(data.march, file = "Data/Raw/march2018.Rdata")
+save(data.march, file = paste(path,"march2018.RData", sep = ""))
 
 ###### EXTRACT DATA: April ######
 links.april <- links[links < "2018-05-01" & links > "2018-03-31-23-56"]
@@ -156,7 +158,7 @@ for(k in 1:length(links.april)){
   data.april[[k]] <- remove_pred(clean_historical(extract_historical(links.april[[k]])), linkpos = k, links = links.april)
 }
 # Save the results
-save(data.april, file = "Data/Raw/april2018.Rdata")
+save(data.april, file = paste(path,"april2018.RData", sep = ""))
 
 
 ###### EXTRACT DATA: May ######
@@ -166,7 +168,7 @@ for(k in 1:length(links.may)){
   data.may[[k]] <- remove_pred(clean_historical(extract_historical(links.may[[k]])), linkpos = k, links = links.may)
 }
 # Save the results
-save(data.may, file = "Data/Raw/may2018.Rdata")
+save(data.may, file = paste(path,"may2018.RData", sep = ""))
 
 ###### EXTRACT DATA: June ######
 links.june <- links[links < "2018-07-01" & links > "2018-05-31-23-56"]
@@ -175,7 +177,7 @@ for(k in 1:length(links.june)){
   data.june[[k]] <- remove_pred(clean_historical(extract_historical(links.june[[k]])), linkpos = k, links = links.june)
 }
 # Save the results
-save(data.june, file = "Data/Raw/june2018.Rdata")
+save(data.june, file = paste(path,"june2018.RData", sep = ""))
 
 ###### EXTRACT DATA: July ######
 links.july <- links[links < "2018-08-01" & links > "2018-06-30-23-56"]
@@ -184,7 +186,7 @@ for(k in 1:length(links.july)){
   data.july[[k]] <- remove_pred(clean_historical(extract_historical(links.july[[k]])), linkpos = k, links = links.july)
 }
 # Save the results
-save(data.july, file = "Data/Raw/july2018.Rdata")
+save(data.july, file = paste(path,"july2018.RData", sep = ""))
 
 ###### EXTRACT DATA: August ######
 links.aug <- links[links < "2018-09-01" & links > "2018-07-31-23-56"]
@@ -193,7 +195,7 @@ for(k in 1:length(links.aug)){
   data.aug[[k]] <- remove_pred(clean_historical(extract_historical(links.aug[[k]])), linkpos = k, links = links.aug)
 }
 # Save the results
-save(data.aug, file = "Data/Raw/aug2018.Rdata")
+save(data.aug, file = paste(path,"aug2018.RData", sep = ""))
 
 
 
