@@ -94,7 +94,7 @@ clean_historical <- function(data){
   # Convert times from # of seconds since POSIX time (1970-01-01 00:00:00)
   class(data$arrival_time) <- c('POSIXt','POSIXct')
   class(data$departure_time) <- c('POSIXt', 'POSIXct')
-  
+
   # Fix 0 cells to be NA (not sure if this best approach?)
   arrivalsNA <- which(data$arrival_time < "2017-12-31")
   data$arrival_time[arrivalsNA] <- NA
@@ -197,14 +197,6 @@ for(k in 1:length(links.aug)){
 # Save the results
 save(data.aug, file = "Data/Raw/aug2018.Rdata")
 
-###### EXTRACT DATA: September ######
-links.sep <- links[links < "2018-10-01" & links > "2018-08-31-23-56"]
-data.sep <- list()
-for(k in 1:length(links.sep)){
-  data.sep[[k]] <- remove_pred(clean_historical(extract_historical(links.sep[[k]])), linkpos = k, links = links.sep)
-}
-# Save the results
-save(data.sep, file = "Data/Raw/sep2018.Rdata")
 
 
 
