@@ -228,3 +228,44 @@ for(k in 3678:length(links.aug)){
 }
 # Save the results
 save(data.aug, file = paste(path,"aug_pt5_2018.RData", sep = ""))
+
+
+# MTA missing file for 4840, skipping ahead
+
+for(k in 4841:length(links.aug)){
+  data.aug[[k]] <- remove_pred(clean_historical(extract_historical(links.aug[[k]])), linkpos = k, links = links.aug)
+}
+# Save the results
+save(data.aug, file = paste(path,"aug_pt6_2018.RData", sep = ""))
+
+
+# MTA missing file for 4996, skipping ahead
+for(k in 4997:length(links.aug)){
+  data.aug[[k]] <- remove_pred(clean_historical(extract_historical(links.aug[[k]])), linkpos = k, links = links.aug)
+}
+# Save the results
+save(data.aug, file = paste(path,"aug_pt7_2018.RData", sep = ""))
+
+# MTA missing file for 5334, skipping ahead
+for(k in 5335:length(links.aug)){
+  data.aug[[k]] <- remove_pred(clean_historical(extract_historical(links.aug[[k]])), linkpos = k, links = links.aug)
+}
+# Save the results
+save(data.aug, file = paste(path,"aug_pt8_2018.RData", sep = ""))
+
+# MTA missing file 5573, skipping ahead
+for(k in 5574:length(links.aug)){
+  data.aug[[k]] <- remove_pred(clean_historical(extract_historical(links.aug[[k]])), linkpos = k, links = links.aug)
+}
+# Save the results
+save(data.aug, file = paste(path,"aug_pt9_2018.RData", sep = ""))
+
+# MTA missing file 5664
+
+for(k in 5665:length(links.aug)){
+  data.aug[[k]] <- remove_pred(clean_historical(extract_historical(links.aug[[k]])), linkpos = k, links = links.aug)
+}
+# Save the results
+save(data.aug, file = paste(path,"aug_pt10_2018.RData", sep = ""))
+
+# Stopping for the night: k = 7581
