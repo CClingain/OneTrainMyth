@@ -40,7 +40,7 @@ extract_historical <- function(url){
   print(url)
   link <- paste("https://datamine-history.s3.amazonaws.com/gtfs-",url, sep = "")
   # Get the raw data
-  raw <- GET(link, timeout = 120)
+  raw <- GET(link, timeout = 240)
   # Convert it from gtfs format
   feed.message <- gtfs_realtime(raw)
   dat <- gtfs_tripUpdates(feed.message) 
@@ -212,3 +212,19 @@ for(k in 2398:length(links.aug)){
 }
 # Save the results
 save(data.aug, file = paste(path,"aug_pt3_2018.RData", sep = ""))
+
+# connectin broke at k = 3559 due to home wifi issues ("2018-08-13-08-31")
+
+for(k in 3559:length(links.aug)){
+  data.aug[[k]] <- remove_pred(clean_historical(extract_historical(links.aug[[k]])), linkpos = k, links = links.aug)
+}
+# Save the results
+save(data.aug, file = paste(path,"aug_pt4_2018.RData", sep = ""))
+
+# MTA missing file for 3677, skipping ahead
+
+for(k in 3678:length(links.aug)){
+  data.aug[[k]] <- remove_pred(clean_historical(extract_historical(links.aug[[k]])), linkpos = k, links = links.aug)
+}
+# Save the results
+save(data.aug, file = paste(path,"aug_pt5_2018.RData", sep = ""))
