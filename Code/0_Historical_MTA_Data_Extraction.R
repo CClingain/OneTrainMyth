@@ -40,7 +40,7 @@ extract_historical <- function(url){
   print(url)
   link <- paste("https://datamine-history.s3.amazonaws.com/gtfs-",url, sep = "")
   # Get the raw data
-  raw <- GET(link, timeout = 60)
+  raw <- GET(link, timeout = 120)
   # Convert it from gtfs format
   feed.message <- gtfs_realtime(raw)
   dat <- gtfs_tripUpdates(feed.message) 
@@ -198,6 +198,17 @@ for(k in 1:length(links.aug)){
 save(data.aug, file = paste(path,"aug2018.RData", sep = ""))
 
 
+# start at new k
+for(k in 202:length(links.aug)){
+  data.aug[[k]] <- remove_pred(clean_historical(extract_historical(links.aug[[k]])), linkpos = k, links = links.aug)
+}
+# Save the results
+save(data.aug, file = paste(path,"aug_pt2_2018.RData", sep = ""))
 
+# saved for the night at "2018-08-09-07-46" k = 2398
 
-
+for(k in 2398:length(links.aug)){
+  data.aug[[k]] <- remove_pred(clean_historical(extract_historical(links.aug[[k]])), linkpos = k, links = links.aug)
+}
+# Save the results
+save(data.aug, file = paste(path,"aug_pt3_2018.RData", sep = ""))
