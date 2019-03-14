@@ -188,6 +188,8 @@ for(k in 1:length(links.july)){
 # Save the results
 save(data.july, file = paste(path,"july2018.RData", sep = ""))
 
+# Stopped for class: k = 4003
+
 ###### EXTRACT DATA: August ######
 links.aug <- links[links < "2018-09-01" & links > "2018-07-31-23-56"]
 data.aug <- list()
