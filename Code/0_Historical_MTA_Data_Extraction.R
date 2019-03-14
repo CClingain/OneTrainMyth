@@ -269,3 +269,18 @@ for(k in 5665:length(links.aug)){
 save(data.aug, file = paste(path,"aug_pt10_2018.RData", sep = ""))
 
 # Stopping for the night: k = 7581
+
+for(k in 7581:length(links.aug)){
+  data.aug[[k]] <- remove_pred(clean_historical(extract_historical(links.aug[[k]])), linkpos = k, links = links.aug)
+}
+# Save the results
+save(data.aug, file = paste(path,"aug_pt11_2018.RData", sep = ""))
+
+# Stopping for class: k = 8222
+for(k in 8222:length(links.aug)){
+  data.aug[[k]] <- remove_pred(clean_historical(extract_historical(links.aug[[k]])), linkpos = k, links = links.aug)
+}
+# Save the results
+save(data.aug, file = paste(path,"aug_pt12_2018.RData", sep = ""))
+
+
