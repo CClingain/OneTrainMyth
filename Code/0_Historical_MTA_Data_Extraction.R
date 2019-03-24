@@ -189,6 +189,22 @@ for(k in 1:length(links.july)){
 save(data.july, file = paste(path,"july2018.RData", sep = ""))
 
 # Stopped for class: k = 4003
+for(k in 4003:length(links.july)){
+  data.july[[k]] <- remove_pred(clean_historical(extract_historical(links.july[[k]])), linkpos = k, links = links.july)
+}
+# Save the results
+save(data.july, file = paste(path,"july_pt2_2018.RData", sep = ""))
+
+# MTA missing link at k = 4416, skipping ahead
+for(k in 4417:length(links.july)){
+  data.july[[k]] <- remove_pred(clean_historical(extract_historical(links.july[[k]])), linkpos = k, links = links.july)
+}
+# Save the results
+save(data.july, file = paste(path,"july_pt3_2018.RData", sep = ""))
+
+# Stopping for commute: k = 5762
+
+
 
 ###### EXTRACT DATA: August ######
 links.aug <- links[links < "2018-09-01" & links > "2018-07-31-23-56"]
