@@ -1,0 +1,46 @@
+
+/* Global changes */
+
+body
+{
+  background-color: #708090;
+  color: white;
+  font: Helvetica;
+}
+
+/* paragraphs */
+p {
+    color: white;
+}
+
+/* bullet points */
+.reveal ul, 
+.reveal ol {
+    color: white;
+}
+/* titles */
+.reveal h3 { 
+  color: white;
+  font-weight: bold;
+}
+
+/* One train font color */
+.reveal section del {
+  color: red;
+  font-weight: bold;
+}
+
+/* emphasis */
+.reveal section strong {
+  color: #9ACD32;
+  font-weight: bold;
+}
+
+/* thank you slide */
+.reveal section thanks {
+  color: #9ACD32;
+  font-weight: bold;
+  display: inline;
+  text-align: center;
+  font-size: 100px;
+}
