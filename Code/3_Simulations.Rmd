@@ -1,0 +1,80 @@
+---
+title: "Simulated Lateness Distributions"
+author: "Clare Clingain"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+
+From the MTA data, I'll obtain lateness distributions which will show by how many minutes people miss the connection between the 1 train and the Staten Island ferry. Before looking at the empirical distributions, I'll first simulate what these distributions could look like given a set of assumptions. 
+
+We first assume that the 1 train and the Staten Island ferry have fixed schedules. We can then work with two possible assumptions:
+
+1) normal distribution of lateness with some variance (fixed through the day)
+
+2) beta distribution of lateness. Since the beta distribution is positive, this means that trains will always be late (gets worse throughout the day)
+
+# Data Structure
+
+The simulated data will start off with two columns: time stamps for schedule and day number (1:n). The noise will be added as a third column, with the fourth column calculated as the final arrival times. 
+
+# Simulations
+
+```{r set up}
+start_time <- as.POSIXct("2018-01-01 01:04:00")
+# train is every 20 minutes until 5:40ish
+diff <- 60*20
+times <- NULL
+for(i in 1:15){
+  if(i == 1){
+    times[i] <- start_time
+  } else {
+    prev <- i - 1
+  times[i] <- times[prev] + diff
+  }
+}
+# train is every 10 minutes until 7:25ish
+diff <- 60*10
+for(i in 16:27){
+  prev <- i - 1
+  times[i] <- times[prev] + diff
+}
+# train is every 4-6 minutes until 12:25ish (will go with 5 mins)
+diff <- 60*5
+for(i in 28:88){
+  prev <- i - 1
+  times[i] <- times[prev] + diff
+}
+# train is every 6 minutes until 3:51ish
+diff <- 60*6
+for(i in 89:119){
+  prev <- i - 1
+  times[i] <- times[prev] + diff
+}
+# train is every 4-6 minutes until 9:37ish (pm) (will go with 5 mins)
+diff <- 60*5
+for(i in 119:187){
+  prev <- i - 1
+  times[i] <- times[prev] + diff
+}
+# train is every 6 minutes until 11ish
+diff <- 60*6
+for(i in 187:200){
+  prev <- i - 1
+  times[i] <- times[prev] + diff
+}
+# train is every 10 minutes till 12:50ish
+diff <- 60*10
+for(i in 201:206){
+  prev <- i - 1
+  times[i] <- times[prev] + diff
+}
+# convert back to POSIX
+class(times) <- c('POSIXt', 'POSIXct')
+```
+
+This will serve as our fixed 1 train schedule.
