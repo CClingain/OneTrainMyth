@@ -260,6 +260,13 @@ get_wait <- function(data){
   
   ## Step 3: Obtain wait times
   data$wait_time <- as.numeric(data$ferry_departure - data$arrival)
+  
+  # if it looks like it's in minutes, change to seconds
+  if(mean(data$wait_time)<120){
+      data$wait_time <- data$wait_time*60
+  } else {
+    
+  }
 
   ## Step 4: Obtain scheduled wait times
   data$wait_time_predicted <- as.numeric(data$ferry_departure - data$schedule)*60
@@ -310,7 +317,7 @@ plot(y = sims_results$wait_time, x = sims_results$arrival)
 
 ![](3_Simulations_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->
 
-## Normal will average delay off 4 minutes
+## Normal with average delay off 4 minutes
 
 ``` r
 sims2 <- norm_sims(days = 100, noise_mean = 240, noise_sd = 120, seed = 10314)
@@ -318,11 +325,11 @@ sims_results2 <- get_wait(sims2)
 
 # NOTE: current issue coming from some dates being made that are pushed onto the next day. Solution: added 12:30am ferry for next day so that it'll recognize that time stamp as teh closest
 
-summary(sims_results$wait_time)
+summary(sims_results2$wait_time)
 ```
 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##     1.0   320.0   766.0   776.6  1133.0  1800.0
+    ##       1     326     684     736    1107    1800
 
 ``` r
 # % different from their actual connections?
@@ -343,3 +350,35 @@ plot(y = sims_results2$wait_time, x = sims_results2$arrival)
 ```
 
 ![](3_Simulations_files/figure-gfm/unnamed-chunk-6-2.png)<!-- -->
+
+## Beta with average delay off 2 minutes
+
+``` r
+sims3 <- beta_sims(days = 100, noise_beta = 120, noise_alpha = 30, seed = 10314)
+sims_results3 <- get_wait(sims3)
+
+summary(sims_results3$wait_time)
+```
+
+    ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    ##   222.0   350.0   887.0   859.2  1189.0  1794.0
+
+``` r
+# % different from their actual connections?
+sum(sims_results3$closest_ferry==sims_results3$closest_ferry_predicted)/dim(sims_results3)[1]
+```
+
+    ## [1] 0.8349515
+
+``` r
+# graph it
+plot(density(sims_results3$wait_time))
+```
+
+![](3_Simulations_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+
+``` r
+plot(y = sims_results3$wait_time, x = sims_results3$arrival)
+```
+
+![](3_Simulations_files/figure-gfm/unnamed-chunk-7-2.png)<!-- -->
