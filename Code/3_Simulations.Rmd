@@ -117,6 +117,40 @@ plot(density(sim1$noise), main = "Lateness")
 ## Beta function
 
 ```{r}
+beta_sims <- function(days,noise, seed){
+  # Initiate data frame
+  data <- NULL
+  # Create timestamps for given # of days
+  data$timestamp <- rep(times,days)
+  # Add in the day id
+  data$dayid <- rep(1:days, each = length(times))
+  
+  # Create the noise term (input in seconds, converted to minutes)
+  set.seed(seed)
+  data$noise <- rbeta(length(data$timestamp),shape2 = noise/60,shape1 = 0.5)
+   # Convert back to seconds
+  data$noise <- data$noise * 60
+   # Round for time 
+  data$noise <- round(data$noise,0)
+
+  
+  # return the data
+  return(as.data.frame(data))
+}
+```
+
+Test with 100 days
+
+```{r}
+sim1 <- beta_sims(days = 100, noise = 65, seed = 10314)
+
+summary(sim1$noise)
+plot(density(sim1$noise), main = "Lateness")
+```
+
+## ferry schedule
+
+```{r}
 
 ```
 
