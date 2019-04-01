@@ -234,6 +234,13 @@ get_wait <- function(data){
   
   ## Step 3: Obtain wait times
   data$wait_time <- as.numeric(data$ferry_departure - data$arrival)
+  
+  # if it looks like it's in minutes, change to seconds
+  if(mean(data$wait_time)<120){
+      data$wait_time <- data$wait_time*60
+  } else {
+    
+  }
 
   ## Step 4: Obtain scheduled wait times
   data$wait_time_predicted <- as.numeric(data$ferry_departure - data$schedule)*60
@@ -267,7 +274,7 @@ plot(density(sims_results$wait_time))
 plot(y = sims_results$wait_time, x = sims_results$arrival)
 ```
 
-## Normal will average delay off 4 minutes
+## Normal with average delay off 4 minutes
 
 ```{r}
 sims2 <- norm_sims(days = 100, noise_mean = 240, noise_sd = 120, seed = 10314)
@@ -275,12 +282,27 @@ sims_results2 <- get_wait(sims2)
 
 # NOTE: current issue coming from some dates being made that are pushed onto the next day. Solution: added 12:30am ferry for next day so that it'll recognize that time stamp as teh closest
 
-summary(sims_results$wait_time)
+summary(sims_results2$wait_time)
 # % different from their actual connections?
 sum(sims_results2$closest_ferry==sims_results2$closest_ferry_predicted)/dim(sims_results2)[1]
 
 # graph it
 plot(density(sims_results2$wait_time))
 plot(y = sims_results2$wait_time, x = sims_results2$arrival)
+```
+
+## Beta with average delay off 2 minutes
+
+```{r}
+sims3 <- beta_sims(days = 100, noise_beta = 120, noise_alpha = 30, seed = 10314)
+sims_results3 <- get_wait(sims3)
+
+summary(sims_results3$wait_time)
+# % different from their actual connections?
+sum(sims_results3$closest_ferry==sims_results3$closest_ferry_predicted)/dim(sims_results3)[1]
+
+# graph it
+plot(density(sims_results3$wait_time))
+plot(y = sims_results3$wait_time, x = sims_results3$arrival)
 ```
 
