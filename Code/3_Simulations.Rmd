@@ -24,6 +24,10 @@ The simulated data will start off with two columns: time stamps for schedule and
 
 # Simulations
 
+## 1 train schedule
+
+Based off of the real [schedule](http://web.mta.info/nyct/service/pdf/t1cur.pdf), I will create an approximate one since the PDF doesn't contain complete time stamps.  
+
 ```{r set up}
 start_time <- as.POSIXct("2018-01-01 01:04:00")
 # train is every 20 minutes until 5:40ish
@@ -78,3 +82,41 @@ class(times) <- c('POSIXt', 'POSIXct')
 ```
 
 This will serve as our fixed 1 train schedule.
+
+## Normal noise
+
+```{r normal noise function}
+norm_sims <- function(days,noise, seed){
+  # Initiate data frame
+  data <- NULL
+  # Create timestamps for given # of days
+  data$timestamp <- rep(times,days)
+  # Add in the day id
+  data$dayid <- rep(1:days, each = length(times))
+  
+  # Create the noise term (in seconds)
+  set.seed(seed)
+  data$noise <- rnorm(length(data$timestamp),noise,30)
+  # Round for time 
+  data$noise <- round(data$noise,0)
+  
+  # return the data
+  return(as.data.frame(data))
+}
+```
+
+Test with 100 days
+
+```{r}
+sim1 <- norm_sims(days = 100, noise = 65, seed = 10314)
+
+summary(sim1$noise)
+plot(density(sim1$noise), main = "Lateness")
+```
+
+## Beta function
+
+```{r}
+
+```
+
