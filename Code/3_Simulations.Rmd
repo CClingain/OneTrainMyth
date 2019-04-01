@@ -26,7 +26,7 @@ The simulated data will start off with two columns: time stamps for schedule and
 
 ## 1 train schedule
 
-Based off of the real [schedule](http://web.mta.info/nyct/service/pdf/t1cur.pdf), I will create an approximate one since the PDF doesn't contain complete time stamps.  
+Based off of the real [schedule](http://web.mta.info/nyct/service/pdf/t1cur.pdf), I will create an approximate one since the PDF doesn't contain complete time stamps. Note that I'm assuming a weekday schedule.
 
 ```{r set up}
 start_time <- as.POSIXct("2018-01-01 01:04:00")
@@ -83,6 +83,70 @@ class(times) <- c('POSIXt', 'POSIXct')
 
 This will serve as our fixed 1 train schedule.
 
+## Ferry schedule
+
+The Staten Island bound ferry schedule can be found [here](https://www.siferry.com/schedules.html). Note that I'm assuming a weekday schedule.
+
+```{r ferry schedule}
+ferry_start <- as.POSIXct("2018-01-01 00:00:00")
+# every half hour until 6:30 (then goes to 6:50)
+diff <- 60*30
+ferry_times <- NULL
+for(i in 1:14){
+  if(i == 1){
+    ferry_times[i] <- ferry_start
+  } else {
+    prev <- i - 1
+  ferry_times[i] <- ferry_times[prev] + diff
+  }
+}
+# next 3 are every 20 minutes
+diff <- 60*20
+for(i in 15:17){
+  prev <- i - 1
+  ferry_times[i] <- ferry_times[prev] + diff
+}
+# every 15 minutes
+diff <- 60*15
+for(i in 18:25){
+  prev <- i - 1
+  ferry_times[i] <- ferry_times[prev] + diff
+    
+}
+# every 30 minutes
+diff <- 60*30
+for(i in 26:38){
+  prev <- i - 1
+  ferry_times[i] <- ferry_times[prev] + diff
+}
+# every 20 minutes
+diff <- 60*20
+for(i in 39:41){
+  prev <- i - 1
+  ferry_times[i] <- ferry_times[prev] + diff
+}
+# every 15 minutes
+diff <- 60*15
+for(i in 42:49){
+  prev <- i - 1
+  ferry_times[i] <- ferry_times[prev] + diff
+}
+# every 20 minutes
+diff <- 60*20
+for(i in 50:52){
+  prev <- i - 1
+  ferry_times[i] <- ferry_times[prev] + diff
+}
+# every 30 minutes
+diff <- 60*30
+for(i in 53:60){
+  prev <- i - 1
+  ferry_times[i] <- ferry_times[prev] + diff
+}
+# Convert back to time
+class(ferry_times) <- c('POSIXt', 'POSIXct')
+```
+
 ## Normal noise
 
 ```{r normal noise function}
@@ -99,6 +163,9 @@ norm_sims <- function(days,noise, seed){
   data$noise <- rnorm(length(data$timestamp),noise,30)
   # Round for time 
   data$noise <- round(data$noise,0)
+  
+  # Create updated arrival time
+  data$arrival <- data$timestamp + data$noise
   
   # return the data
   return(as.data.frame(data))
@@ -125,14 +192,16 @@ beta_sims <- function(days,noise, seed){
   # Add in the day id
   data$dayid <- rep(1:days, each = length(times))
   
-  # Create the noise term (input in seconds, converted to minutes)
+  # Create the noise term (in seconds)
   set.seed(seed)
-  data$noise <- rbeta(length(data$timestamp),shape2 = noise/60,shape1 = 0.5)
-   # Convert back to seconds
-  data$noise <- data$noise * 60
-   # Round for time 
+  data$noise <- rbeta(length(data$timestamp),shape2 = noise,shape1 = 30)
+   # Convert to seconds
+  data$noise <- data$noise*60 + 60
+  # Round for time 
   data$noise <- round(data$noise,0)
 
+  # Create updated arrival time
+  data$arrival <- data$timestamp + data$noise
   
   # return the data
   return(as.data.frame(data))
@@ -142,15 +211,9 @@ beta_sims <- function(days,noise, seed){
 Test with 100 days
 
 ```{r}
-sim1 <- beta_sims(days = 100, noise = 65, seed = 10314)
+sim1 <- beta_sims(days = 100, noise = 120, seed = 10314)
 
 summary(sim1$noise)
 plot(density(sim1$noise), main = "Lateness")
-```
-
-## ferry schedule
-
-```{r}
-
 ```
 
