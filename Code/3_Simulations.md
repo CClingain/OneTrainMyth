@@ -244,60 +244,68 @@ plot(density(sim1$noise), main = "Lateness")
 
 ![](3_Simulations_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
-# Getting wait distributions
+## Create function to extract wait times and connections
+
+``` r
+get_wait <- function(data){
+  ## Step 1: Find the closest ferry
+  closest_ferry <- unlist(lapply(data$arrival, FUN = function(x) min(which((ferry_times - x)>0))))
+
+  data$closest_ferry <- closest_ferry
+  
+  ## Step 2: Get ferry time stamp
+  ferry_timestamp <- unlist(lapply(data$closest_ferry, FUN = function(x)ferry_times[x]))
+  data$ferry_departure <- ferry_timestamp
+  class(data$ferry_departure) <- c('POSIXt', 'POSIXct')
+  
+  ## Step 3: Obtain wait times
+  data$wait_time <- as.numeric(data$ferry_departure - data$arrival)
+
+  ## Step 4: Obtain scheduled wait times
+  data$wait_time_predicted <- as.numeric(data$ferry_departure - data$schedule)*60
+  
+  ## Step 5: Obtain scheduled closest ferries
+  data$closest_ferry_predicted <- unlist(lapply(data$schedule, FUN = function(x) min(which((ferry_times - x)>0))))
+
+  ## Step 6: Get the predicted ferry connections
+  data$ferry_predicted <- unlist(lapply(data$closest_ferry, FUN = function(x)ferry_times[x]))
+
+class(data$ferry_predicted) <- c('POSIXt', 'POSIXct')
+
+return(data)
+}
+```
+
+# Simulations
 
 ## Normal with average delay of 2 minutes
 
 ``` r
 sims <- norm_sims(days = 100, noise_mean = 120, noise_sd = 60, seed = 10314)
+sims_results <- get_wait(sims)
 
-# there are 288 scheduled arrivals a day. want to find next ferry, get time difference between train arrival and next ferry
-
-# find the closest ferry
-closest_ferry <- lapply(sims$arrival, FUN = function(x) min(which((ferry_times - x)>0)))
-closest_ferry <- unlist(closest_ferry)
-# add to data frame
-sims$closest_ferry <- closest_ferry
-
-# get ferry time stamp
-ferry_timestamp <- lapply(sims$closest_ferry, FUN = function(x)ferry_times[x])
-ferry_timestamp <- unlist(ferry_timestamp)
-sims$ferry_departure <- ferry_timestamp
-class(sims$ferry_departure) <- c('POSIXt', 'POSIXct')
-
-# get wait times
-sims$wait_time <- as.numeric(sims$ferry_departure - sims$arrival)
-summary(sims$wait_time)
+summary(sims_results$wait_time)
 ```
 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
     ##     1.0   320.0   766.0   776.6  1133.0  1800.0
 
 ``` r
-# graph it
-plot(density(sims$wait_time))
-```
-
-![](3_Simulations_files/figure-gfm/sim%20norm%20round1-1.png)<!-- -->
-
-``` r
-plot(y = sims$wait_time, x = sims$arrival)
-```
-
-![](3_Simulations_files/figure-gfm/sim%20norm%20round1-2.png)<!-- -->
-
-``` r
-# get the scheduled wait times and predicted ferries
-sims$wait_time_predicted <- as.numeric(sims$ferry_departure - sims$schedule)*60
-
-sims$closest_ferry_predicted <- unlist(lapply(sims$schedule, FUN = function(x) min(which((ferry_times - x)>0))))
-
-sims$ferry_predicted <- unlist(lapply(sims$closest_ferry, FUN = function(x)ferry_times[x]))
-
-class(sims$ferry_predicted) <- c('POSIXt', 'POSIXct')
-
 # % different from their actual connections?
-sum(sims$closest_ferry==sims$closest_ferry_predicted)/dim(sims)[1]
+sum(sims_results$closest_ferry==sims_results$closest_ferry_predicted)/dim(sims_results)[1]
 ```
 
     ## [1] 0.8607767
+
+``` r
+# graph it
+plot(density(sims_results$wait_time))
+```
+
+![](3_Simulations_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
+``` r
+plot(y = sims_results$wait_time, x = sims_results$arrival)
+```
+
+![](3_Simulations_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->
