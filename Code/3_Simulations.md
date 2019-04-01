@@ -148,7 +148,7 @@ for(i in 50:52){
 }
 # every 30 minutes
 diff <- 60*30
-for(i in 53:60){
+for(i in 53:61){
   prev <- i - 1
   ferry_times[i] <- ferry_times[prev] + diff
 }
@@ -309,3 +309,37 @@ plot(y = sims_results$wait_time, x = sims_results$arrival)
 ```
 
 ![](3_Simulations_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->
+
+## Normal will average delay off 4 minutes
+
+``` r
+sims2 <- norm_sims(days = 100, noise_mean = 240, noise_sd = 120, seed = 10314)
+sims_results2 <- get_wait(sims2)
+
+# NOTE: current issue coming from some dates being made that are pushed onto the next day. Solution: added 12:30am ferry for next day so that it'll recognize that time stamp as teh closest
+
+summary(sims_results$wait_time)
+```
+
+    ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    ##     1.0   320.0   766.0   776.6  1133.0  1800.0
+
+``` r
+# % different from their actual connections?
+sum(sims_results2$closest_ferry==sims_results2$closest_ferry_predicted)/dim(sims_results2)[1]
+```
+
+    ## [1] 0.8038835
+
+``` r
+# graph it
+plot(density(sims_results2$wait_time))
+```
+
+![](3_Simulations_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+
+``` r
+plot(y = sims_results2$wait_time, x = sims_results2$arrival)
+```
+
+![](3_Simulations_files/figure-gfm/unnamed-chunk-6-2.png)<!-- -->
