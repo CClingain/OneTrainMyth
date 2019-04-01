@@ -259,3 +259,45 @@ class(sims$ferry_predicted) <- c('POSIXt', 'POSIXct')
 sum(sims$closest_ferry==sims$closest_ferry_predicted)/dim(sims)[1]
 ```
 
+## Create this into a function
+
+```{r}
+get_wait <- function(data){
+  ## Step 1: Find the closest ferry
+  closest_ferry <- unlist(lapply(data$arrival, FUN = function(x) min(which((ferry_times - x)>0))))
+
+  data$closest_ferry <- closest_ferry
+  
+  ## Step 2: Get ferry time stamp
+  ferry_timestamp <- unlist(lapply(data$closest_ferry, FUN = function(x)ferry_times[x]))
+  data$ferry_departure <- ferry_timestamp
+  class(data$ferry_departure) <- c('POSIXt', 'POSIXct')
+  
+  ## Step 3: Obtain wait times
+  data$wait_time <- as.numeric(data$ferry_departure - data$arrival)
+
+  ## Step 4: Obtain scheduled wait times
+  data$wait_time_predicted <- as.numeric(data$ferry_departure - data$schedule)*60
+  
+  ## Step 5: Obtain scheduled closest ferries
+  data$closest_ferry_predicted <- unlist(lapply(data$schedule, FUN = function(x) min(which((ferry_times - x)>0))))
+
+  ## Step 6: Get the predicted ferry connections
+  data$ferry_predicted <- unlist(lapply(data$closest_ferry, FUN = function(x)ferry_times[x]))
+
+class(data$ferry_predicted) <- c('POSIXt', 'POSIXct')
+
+return(data)
+}
+```
+
+Test the function
+
+```{r}
+sims_results <- get_wait(sims)
+
+summary(sims_results$wait_time)
+# % different from their actual connections?
+sum(sims_results$closest_ferry==sims_results$closest_ferry_predicted)/dim(sims_results)[1]
+```
+
