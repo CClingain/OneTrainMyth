@@ -317,7 +317,7 @@ plot(y = sims_results$wait_time, x = sims_results$arrival)
 
 ![](3_Simulations_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->
 
-## Normal with average delay off 4 minutes
+## Normal with average delay of 4 minutes
 
 ``` r
 sims2 <- norm_sims(days = 100, noise_mean = 240, noise_sd = 120, seed = 10314)
@@ -351,7 +351,7 @@ plot(y = sims_results2$wait_time, x = sims_results2$arrival)
 
 ![](3_Simulations_files/figure-gfm/unnamed-chunk-6-2.png)<!-- -->
 
-## Beta with average delay off 2 minutes
+## Beta with beta delay of 2 minutes
 
 ``` r
 sims3 <- beta_sims(days = 100, noise_beta = 120, noise_alpha = 30, seed = 10314)

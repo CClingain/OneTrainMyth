@@ -274,7 +274,7 @@ plot(density(sims_results$wait_time))
 plot(y = sims_results$wait_time, x = sims_results$arrival)
 ```
 
-## Normal with average delay off 4 minutes
+## Normal with average delay of 4 minutes
 
 ```{r}
 sims2 <- norm_sims(days = 100, noise_mean = 240, noise_sd = 120, seed = 10314)
@@ -291,7 +291,7 @@ plot(density(sims_results2$wait_time))
 plot(y = sims_results2$wait_time, x = sims_results2$arrival)
 ```
 
-## Beta with average delay off 2 minutes
+## Beta with beta delay of 2 minutes
 
 ```{r}
 sims3 <- beta_sims(days = 100, noise_beta = 120, noise_alpha = 30, seed = 10314)
