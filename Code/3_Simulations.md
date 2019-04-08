@@ -197,7 +197,7 @@ summary(sim1$noise)
 plot(density(sim1$noise), main = "Lateness")
 ```
 
-![](3_Simulations_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+![](3_Simulations_files/figure-gfm/test%20normal%20function-1.png)<!-- -->
 
 ## Beta function
 
@@ -242,7 +242,7 @@ summary(sim1$noise)
 plot(density(sim1$noise), main = "Lateness")
 ```
 
-![](3_Simulations_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](3_Simulations_files/figure-gfm/test%20beta%20function-1.png)<!-- -->
 
 ## Create function to extract wait times and connections
 
@@ -299,23 +299,23 @@ summary(sims_results$wait_time)
 
 ``` r
 # % different from their actual connections?
-sum(sims_results$closest_ferry==sims_results$closest_ferry_predicted)/dim(sims_results)[1]
+paste("Proportion of connections that are unchanged due to delay",sum(sims_results$closest_ferry==sims_results$closest_ferry_predicted)/dim(sims_results)[1])
 ```
 
-    ## [1] 0.8607767
+    ## [1] "Proportion of connections that are unchanged due to delay 0.860776699029126"
 
 ``` r
 # graph it
 plot(density(sims_results$wait_time), main = "Density Plot of Wait Times")
 ```
 
-![](3_Simulations_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](3_Simulations_files/figure-gfm/norm%20sim%201-1.png)<!-- -->
 
 ``` r
 plot(y = sims_results$wait_time, x = sims_results$arrival, main = "", xlab = "Arrival Time", ylab = "Wait Time")
 ```
 
-![](3_Simulations_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->
+![](3_Simulations_files/figure-gfm/norm%20sim%201-2.png)<!-- -->
 
 ## Normal with average delay of 4 minutes
 
@@ -323,7 +323,7 @@ plot(y = sims_results$wait_time, x = sims_results$arrival, main = "", xlab = "Ar
 sims2 <- norm_sims(days = 100, noise_mean = 240, noise_sd = 120, seed = 10314, exit_time = 0)
 sims_results2 <- get_wait(sims2)
 
-# NOTE: current issue coming from some dates being made that are pushed onto the next day. Solution: added 12:30am ferry for next day so that it'll recognize that time stamp as teh closest
+# NOTE: current issue coming from some dates being made that are pushed onto the next day. Solution: added 12:30am ferry for next day so that it'll recognize that time stamp as the closest
 
 summary(sims_results2$wait_time)
 ```
@@ -333,23 +333,23 @@ summary(sims_results2$wait_time)
 
 ``` r
 # % different from their actual connections?
-sum(sims_results2$closest_ferry==sims_results2$closest_ferry_predicted)/dim(sims_results2)[1]
+paste("Proportion of connections that are unchanged due to delay",sum(sims_results2$closest_ferry==sims_results2$closest_ferry_predicted)/dim(sims_results2)[1])
 ```
 
-    ## [1] 0.8038835
+    ## [1] "Proportion of connections that are unchanged due to delay 0.803883495145631"
 
 ``` r
 # graph it
 plot(density(sims_results2$wait_time), main = "Density Plot of Wait Times")
 ```
 
-![](3_Simulations_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](3_Simulations_files/figure-gfm/norm%20sim%202-1.png)<!-- -->
 
 ``` r
 plot(y = sims_results2$wait_time, x = sims_results2$arrival, main = "", xlab = "Arrival Time", ylab = "Wait Time")
 ```
 
-![](3_Simulations_files/figure-gfm/unnamed-chunk-6-2.png)<!-- -->
+![](3_Simulations_files/figure-gfm/norm%20sim%202-2.png)<!-- -->
 
 ## Beta with beta delay of 2 minutes
 
@@ -365,23 +365,23 @@ summary(sims_results3$wait_time)
 
 ``` r
 # % different from their actual connections?
-sum(sims_results3$closest_ferry==sims_results3$closest_ferry_predicted)/dim(sims_results3)[1]
+paste("Proportion of connections that are unchanged due to delay",sum(sims_results3$closest_ferry==sims_results3$closest_ferry_predicted)/dim(sims_results3)[1])
 ```
 
-    ## [1] 0.8349515
+    ## [1] "Proportion of connections that are unchanged due to delay 0.83495145631068"
 
 ``` r
 # graph it
 plot(density(sims_results3$wait_time), main = "Density Plot of Wait Times")
 ```
 
-![](3_Simulations_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](3_Simulations_files/figure-gfm/beta%20sim%203-1.png)<!-- -->
 
 ``` r
 plot(y = sims_results3$wait_time, x = sims_results3$arrival, main = "", xlab = "Arrival Time", ylab = "Wait Time")
 ```
 
-![](3_Simulations_files/figure-gfm/unnamed-chunk-7-2.png)<!-- -->
+![](3_Simulations_files/figure-gfm/beta%20sim%203-2.png)<!-- -->
 
 ## Normal with average delay of 2 minutes + 2 minutes to exit station
 
@@ -397,23 +397,23 @@ summary(sims_results4$wait_time)
 
 ``` r
 # % different from their actual connections?
-sum(sims_results4$closest_ferry==sims_results4$closest_ferry_predicted)/dim(sims_results4)[1]
+paste("Proportion of connections that are unchanged due to delay",sum(sims_results4$closest_ferry==sims_results4$closest_ferry_predicted)/dim(sims_results4)[1])
 ```
 
-    ## [1] 0.8262621
+    ## [1] "Proportion of connections that are unchanged due to delay 0.82626213592233"
 
 ``` r
 # graph it
 plot(density(sims_results4$wait_time), main = "Density Plot of Wait Times")
 ```
 
-![](3_Simulations_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](3_Simulations_files/figure-gfm/norm%20sim%204%20with%20delay-1.png)<!-- -->
 
 ``` r
 plot(y = sims_results4$wait_time, x = sims_results4$arrival, main = "", xlab = "Arrival Time", ylab = "Wait Time")
 ```
 
-![](3_Simulations_files/figure-gfm/unnamed-chunk-8-2.png)<!-- -->
+![](3_Simulations_files/figure-gfm/norm%20sim%204%20with%20delay-2.png)<!-- -->
 
 ## Normal with average delay of 4 minutes + 2 minutes to exit the station
 
@@ -431,23 +431,23 @@ summary(sims_results5$wait_time)
 
 ``` r
 # % different from their actual connections?
-sum(sims_results5$closest_ferry==sims_results5$closest_ferry_predicted)/dim(sims_results5)[1]
+paste("Proportion of connections that are unchanged due to delay",sum(sims_results5$closest_ferry==sims_results5$closest_ferry_predicted)/dim(sims_results5)[1])
 ```
 
-    ## [1] 0.6138835
+    ## [1] "Proportion of connections that are unchanged due to delay 0.613883495145631"
 
 ``` r
 # graph it
 plot(density(sims_results5$wait_time), main = "Density Plot of Wait Times")
 ```
 
-![](3_Simulations_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](3_Simulations_files/figure-gfm/norm%20sim%205%20with%20delay-1.png)<!-- -->
 
 ``` r
 plot(y = sims_results5$wait_time, x = sims_results5$arrival, main = "", xlab = "Arrival Time", ylab = "Wait Time")
 ```
 
-![](3_Simulations_files/figure-gfm/unnamed-chunk-9-2.png)<!-- -->
+![](3_Simulations_files/figure-gfm/norm%20sim%205%20with%20delay-2.png)<!-- -->
 
 ## Beta with beta delay of 2 minutes + 2 minutes to exit station
 
@@ -465,20 +465,84 @@ summary(sims_results6$wait_time)
 
 ``` r
 # % different from their actual connections?
-sum(sims_results6$closest_ferry==sims_results6$closest_ferry_predicted)/dim(sims_results6)[1]
+paste("Proportion of connections that are unchanged due to delay",sum(sims_results6$closest_ferry==sims_results6$closest_ferry_predicted)/dim(sims_results6)[1])
 ```
 
-    ## [1] 0.8058252
+    ## [1] "Proportion of connections that are unchanged due to delay 0.805825242718447"
 
 ``` r
 # graph it
 plot(density(sims_results6$wait_time), main = "Density Plot of Wait Times")
 ```
 
-![](3_Simulations_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](3_Simulations_files/figure-gfm/beta%20sim%206%20with%20delay-1.png)<!-- -->
 
 ``` r
 plot(y = sims_results6$wait_time, x = sims_results6$arrival, main = "", xlab = "Arrival Time", ylab = "Wait Time")
 ```
 
-![](3_Simulations_files/figure-gfm/unnamed-chunk-10-2.png)<!-- -->
+![](3_Simulations_files/figure-gfm/beta%20sim%206%20with%20delay-2.png)<!-- -->
+
+## Normal with average delay of 2 minutes + 2 minutes to exit station (200 days)
+
+``` r
+sims7 <- norm_sims(days = 200, noise_mean = 120, noise_sd = 60, seed = 10314, exit_time = 120)
+sims_results7 <- get_wait(sims7)
+
+summary(sims_results7$wait_time)
+```
+
+    ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    ##     1.0   312.0   686.0   704.9  1055.0  1800.0
+
+``` r
+# % different from their actual connections?
+paste("Proportion of connections that are unchanged due to delay",sum(sims_results7$closest_ferry==sims_results7$closest_ferry_predicted)/dim(sims_results7)[1])
+```
+
+    ## [1] "Proportion of connections that are unchanged due to delay 0.825728155339806"
+
+``` r
+# graph it
+plot(density(sims_results7$wait_time), main = "Density Plot of Wait Times")
+```
+
+![](3_Simulations_files/figure-gfm/norm%20sim%207%20with%20delay%20200%20days-1.png)<!-- -->
+
+``` r
+plot(y = sims_results7$wait_time, x = sims_results7$arrival, main = "", xlab = "Arrival Time", ylab = "Wait Time")
+```
+
+![](3_Simulations_files/figure-gfm/norm%20sim%207%20with%20delay%20200%20days-2.png)<!-- -->
+
+## Normal with average delay of 4 minutes + 2 minutes to exit station (200 days)
+
+``` r
+sims8 <- norm_sims(days = 200, noise_mean = 240, noise_sd = 60, seed = 10314, exit_time = 120)
+sims_results8 <- get_wait(sims8)
+
+summary(sims_results8$wait_time)
+```
+
+    ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    ##     1.0   327.0   653.0   754.3  1154.0  1800.0
+
+``` r
+# % different from their actual connections?
+paste("Proportion of connections that are unchanged due to delay",sum(sims_results8$closest_ferry==sims_results8$closest_ferry_predicted)/dim(sims_results8)[1])
+```
+
+    ## [1] "Proportion of connections that are unchanged due to delay 0.707402912621359"
+
+``` r
+# graph it
+plot(density(sims_results8$wait_time), main = "Density Plot of Wait Times")
+```
+
+![](3_Simulations_files/figure-gfm/norm%20sim%208%20with%20delay%20200%20days-1.png)<!-- -->
+
+``` r
+plot(y = sims_results8$wait_time, x = sims_results8$arrival, main = "", xlab = "Arrival Time", ylab = "Wait Time")
+```
+
+![](3_Simulations_files/figure-gfm/norm%20sim%208%20with%20delay%20200%20days-2.png)<!-- -->
