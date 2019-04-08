@@ -203,7 +203,13 @@ for(k in 4417:length(links.july)){
 save(data.july, file = paste(path,"july_pt3_2018.RData", sep = ""))
 
 # Stopping for commute: k = 5762
+for(k in 5762:length(links.july)){
+  data.july[[k]] <- remove_pred(clean_historical(extract_historical(links.july[[k]])), linkpos = k, links = links.july)
+}
+# Save the results
+save(data.july, file = paste(path,"july_pt4_2018.RData", sep = ""))
 
+# Stopped at 6424 for class
 
 
 ###### EXTRACT DATA: August ######
