@@ -89,3 +89,30 @@ creating a script that will have some sort of skip logic in a big
 function that will do what my three functions do now. It would also be a
 good idea to see if I can filter out the 1 train data earlier, mainly in
 extraction.
+
+##### March 12, 2019
+
+I have finished the script to get all 9 months of data and will be
+sending it off to Yoav shortly. My main concern is that the script
+sometimes stops for reasons that seem to link to NYU limiting my calls.
+I have toyed with the idea of adding a system sleep time, but even 1
+second of sleep time will add up since each month has roughly 8,900
+links to go through. We’ll see how things go. I’m testing the code for
+each month to make sure it runs smoothly. There was only one more bug I
+had to fix. Let’s hope this goes well.
+
+##### April 8, 2019
+
+Over the last few weeks, I’ve gotten all my data\! Before looking at the
+data, I ran some simulations to see what the lateness distributions and
+connections could look like. I used both a normal distributino and a
+beta distribution to add the lateness noise. Based on the sims, it’s
+interesting to see that the early hours of the morning where botht he
+ferry and the 1 train run so infrequently (though the ferry less so),
+the delays are a hit or miss – either you wait a short amount of time or
+you wait for nearly 30 minutes. There’s also something interesting going
+on during the tourst peak hours (11am-3pm) where the wait time looks
+near continuous – you may wait any amount of time.
+
+At this point, I may run a few more simulations, but I think Im ready to
+take a look at the data.

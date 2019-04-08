@@ -174,7 +174,7 @@ norm_sims <- function(days,noise_mean, noise_sd, seed, exit_time){
 
 Test with 100 days
 
-```{r}
+```{r test normal function}
 sim1 <- norm_sims(days = 100, noise_mean = 65, noise_sd = 30, seed = 10314, exit_time = 0)
 
 summary(sim1$noise)
@@ -183,7 +183,7 @@ plot(density(sim1$noise), main = "Lateness")
 
 ## Beta function
 
-```{r}
+```{r beta noise function}
 beta_sims <- function(days,noise_beta, noise_alpha, seed, exit_time){
   # Initiate data frame
   data <- NULL
@@ -210,7 +210,7 @@ beta_sims <- function(days,noise_beta, noise_alpha, seed, exit_time){
 
 Test with 100 days
 
-```{r}
+```{r test beta function}
 sim1 <- beta_sims(days = 100, noise_beta = 120, noise_alpha = 30, seed = 10314, exit_time = 0)
 
 summary(sim1$noise)
@@ -220,7 +220,7 @@ plot(density(sim1$noise), main = "Lateness")
 ## Create function to extract wait times and connections
 
 
-```{r}
+```{r extract wait times function}
 get_wait <- function(data){
   ## Step 1: Find the closest ferry
   closest_ferry <- unlist(lapply(data$arrival, FUN = function(x) min(which((ferry_times - x)>0))))
@@ -261,13 +261,13 @@ return(data)
 
 ## Normal with average delay of 2 minutes
 
-```{r}
+```{r norm sim 1}
 sims <- norm_sims(days = 100, noise_mean = 120, noise_sd = 60, seed = 10314, exit_time = 0)
 sims_results <- get_wait(sims)
 
 summary(sims_results$wait_time)
 # % different from their actual connections?
-sum(sims_results$closest_ferry==sims_results$closest_ferry_predicted)/dim(sims_results)[1]
+paste("Percentage of connections that are unchanged due to delay",sum(sims_results$closest_ferry==sims_results$closest_ferry_predicted)/dim(sims_results)[1])
 
 # graph it
 plot(density(sims_results$wait_time), main = "Density Plot of Wait Times")
@@ -276,7 +276,7 @@ plot(y = sims_results$wait_time, x = sims_results$arrival, main = "", xlab = "Ar
 
 ## Normal with average delay of 4 minutes
 
-```{r}
+```{r norm sim 2}
 sims2 <- norm_sims(days = 100, noise_mean = 240, noise_sd = 120, seed = 10314, exit_time = 0)
 sims_results2 <- get_wait(sims2)
 
@@ -284,7 +284,7 @@ sims_results2 <- get_wait(sims2)
 
 summary(sims_results2$wait_time)
 # % different from their actual connections?
-sum(sims_results2$closest_ferry==sims_results2$closest_ferry_predicted)/dim(sims_results2)[1]
+paste("Percentage of connections that are unchanged due to delay",sum(sims_results2$closest_ferry==sims_results2$closest_ferry_predicted)/dim(sims_results2)[1])
 
 # graph it
 plot(density(sims_results2$wait_time), main = "Density Plot of Wait Times")
@@ -293,13 +293,13 @@ plot(y = sims_results2$wait_time, x = sims_results2$arrival, main = "", xlab = "
 
 ## Beta with beta delay of 2 minutes
 
-```{r}
+```{r beta sim 3}
 sims3 <- beta_sims(days = 100, noise_beta = 120, noise_alpha = 30, seed = 10314, exit_time = 0)
 sims_results3 <- get_wait(sims3)
 
 summary(sims_results3$wait_time)
 # % different from their actual connections?
-sum(sims_results3$closest_ferry==sims_results3$closest_ferry_predicted)/dim(sims_results3)[1]
+paste("Percentage of connections that are unchanged due to delay",sum(sims_results3$closest_ferry==sims_results3$closest_ferry_predicted)/dim(sims_results3)[1])
 
 # graph it
 plot(density(sims_results3$wait_time), main = "Density Plot of Wait Times")
@@ -308,13 +308,13 @@ plot(y = sims_results3$wait_time, x = sims_results3$arrival, main = "", xlab = "
 
 ## Normal with average delay of 2 minutes + 2 minutes to exit station
 
-```{r}
+```{r norm sim 4 with delay}
 sims4 <- norm_sims(days = 100, noise_mean = 120, noise_sd = 60, seed = 10314, exit_time = 120)
 sims_results4 <- get_wait(sims4)
 
 summary(sims_results4$wait_time)
 # % different from their actual connections?
-sum(sims_results4$closest_ferry==sims_results4$closest_ferry_predicted)/dim(sims_results4)[1]
+paste("Percentage of connections that are unchanged due to delay",sum(sims_results4$closest_ferry==sims_results4$closest_ferry_predicted)/dim(sims_results4)[1])
 
 # graph it
 plot(density(sims_results4$wait_time), main = "Density Plot of Wait Times")
@@ -323,7 +323,7 @@ plot(y = sims_results4$wait_time, x = sims_results4$arrival, main = "", xlab = "
 
 ## Normal with average delay of 4 minutes + 2 minutes to exit the station
 
-```{r}
+```{r norm sim 5 with delay}
 sims5 <- norm_sims(days = 100, noise_mean = 240, noise_sd = 120, seed = 10314, exit_time = 120)
 # add the 2 minutes to exit station
 sims5$arrival <- sims5$arrival + 120
@@ -331,7 +331,7 @@ sims_results5 <- get_wait(sims5)
 
 summary(sims_results5$wait_time)
 # % different from their actual connections?
-sum(sims_results5$closest_ferry==sims_results5$closest_ferry_predicted)/dim(sims_results5)[1]
+paste("Percentage of connections that are unchanged due to delay",sum(sims_results5$closest_ferry==sims_results5$closest_ferry_predicted)/dim(sims_results5)[1])
 
 # graph it
 plot(density(sims_results5$wait_time), main = "Density Plot of Wait Times")
@@ -340,7 +340,7 @@ plot(y = sims_results5$wait_time, x = sims_results5$arrival, main = "", xlab = "
 
 ## Beta with beta delay of 2 minutes + 2 minutes to exit station
 
-```{r}
+```{r beta sim 6 with delay}
 sims6 <- beta_sims(days = 100, noise_beta = 120, noise_alpha = 30, seed = 10314, exit_time = 120)
 # add the 2 minutes to exit station
 sims6$arrival <- sims6$arrival + 120
@@ -348,9 +348,10 @@ sims_results6 <- get_wait(sims6)
 
 summary(sims_results6$wait_time)
 # % different from their actual connections?
-sum(sims_results6$closest_ferry==sims_results6$closest_ferry_predicted)/dim(sims_results6)[1]
+paste("Percentage of connections that are unchanged due to delay",sum(sims_results6$closest_ferry==sims_results6$closest_ferry_predicted)/dim(sims_results6)[1])
 
 # graph it
 plot(density(sims_results6$wait_time), main = "Density Plot of Wait Times")
 plot(y = sims_results6$wait_time, x = sims_results6$arrival, main = "", xlab = "Arrival Time", ylab = "Wait Time")
 ```
+
