@@ -61,20 +61,24 @@ ferry2$date <- dates
 # Combine into single columns (date + time)
 ferry_final <- matrix(ncol=21, nrow = 71)
 for(i in 2:73){
-  temp <- unite(ferry2,temp, c("date",paste("V",i,sep="")), sep = " ")
-  ferry_final[i,] <- temp$temp
+  temp <- unite(ferry2,temp, c("date",paste("V",i,sep="")), sep = " ")$temp
+  ferry_final <- rbind(ferry_final,temp)
 }
-ferry2$V2 <- unite(ferry2, V2, c("date","V2"), sep = " ")$V2
-ferry2$V3 <- unite(ferry2, V3, c("date","V3"), sep = " ")$V3
-ferry2$V4 <- unite(ferry2, V4, c("date","V4"), sep = " ")$V4
-ferry2$V5 <- unite(ferry2, V5, c("date","V5"), sep = " ")$V5
-
+# only issue is that it did combine the NAs
 
 # Check missing by row (there should only be 14 missing for there to have been a full schedule)
 missing.rows <- apply(ferry2, 1, FUN = function(x)sum(is.na(x)))
 # Remove those that have no data at all  (72)
 nodata <- which(missing.rows == 72)
 ferry2 <- ferry2[-nodata,]
+
+# Change to times
+ferry_final2 <- apply(ferry_final,1,FUN = function(x)parse_date_time(x, " %Y-%m-%d HM"))
+# Convert to data frame and make POSIX objects
+ferry_final2  <- as.data.frame(ferry_final2)
+#class(ferry_final2) <- c('POSIXt','POSIXct')
+
+########### TO BE FIXED ################
 
 # Now, we need to line up the times such that there aren't missing spaces and
 # extra variables in the middle of the data. We'll move any necessary extra
@@ -89,7 +93,7 @@ for(i in 1:length(rownames(ferry2))){
   
   # remove the col names
   colnames(ferry_row) <- c()
-
+  
   # if it has more than 61 rows
   if(length(ferry_row) > 61){
     num.rows <- length(ferry_row)
@@ -97,12 +101,9 @@ for(i in 1:length(rownames(ferry2))){
     ferry_row <- append(ferry_row, rep(NA,times))
     ferry_final[i,] <- as.vector(ferry_row)
   } else {
-  # if it has 61 rows exactly
-  ferry_row <- append(ferry_row,rep(NA,5))
-  ferry_final[i,] <- as.vector(ferry_row)
-    }
+    # if it has 61 rows exactly
+    ferry_row <- append(ferry_row,rep(NA,5))
+    ferry_final[i,] <- as.vector(ferry_row)
+  }
   
 }
-
-# Change to times
-ferry_final <- apply(ferry2,1,FUN = function(x)parse_date_time(x, "HM"))
