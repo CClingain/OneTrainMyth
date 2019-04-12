@@ -41,3 +41,7 @@ I have finished the script to get all 9 months of data and will be sending it of
 Over the last few weeks, I've gotten all my data! Before looking at the data, I ran some simulations to see what the lateness distributions and connections could look like. I used both a normal distributino and a beta distribution to add the lateness noise. Based on the sims, it's interesting to see that the early hours of the morning where botht he ferry and the 1 train run so infrequently (though the ferry less so), the delays are a hit or miss -- either you wait a short amount of time or you wait for nearly 30 minutes. There's also something interesting going on during the tourst peak hours (11am-3pm) where the wait time looks near continuous -- you may wait any amount of time. 
 
 At this point, I may run a few more simulations, but I think Im ready to take a look at the data. 
+
+##### April 12, 2019
+
+The goal I have for this Monday is to clean and merge all the ferry data. I need this completed before I can get the waiting time distributions.

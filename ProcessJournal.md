@@ -116,3 +116,9 @@ near continuous – you may wait any amount of time.
 
 At this point, I may run a few more simulations, but I think Im ready to
 take a look at the data.
+
+##### April 12, 2019
+
+The goal I have for this Monday is to clean and merge all the ferry
+data. I need this completed before I can get the waiting time
+distributions.

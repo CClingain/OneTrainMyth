@@ -210,7 +210,11 @@ for(k in 5762:length(links.july)){
 save(data.july, file = paste(path,"july_pt4_2018.RData", sep = ""))
 
 # Stopped at 6424 for class
-
+for(k in 6424:length(links.july)){
+  data.july[[k]] <- remove_pred(clean_historical(extract_historical(links.july[[k]])), linkpos = k, links = links.july)
+}
+# Save the results
+save(data.july, file = paste(path,"july_pt5_2018.RData", sep = ""))
 
 ###### EXTRACT DATA: August ######
 links.aug <- links[links < "2018-09-01" & links > "2018-07-31-23-56"]
