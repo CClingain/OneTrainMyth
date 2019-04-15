@@ -79,49 +79,40 @@ ferry_final2  <- as.data.frame(ferry_final2)
 #class(ferry_final2) <- c('POSIXt','POSIXct')
 
 # Before I fix the classes, I need to get the rows lined up.
-ferry_singlemat <- NULL
-
 remove_nas <- function(data){
   temp <- data
   nonmissing <- which(!is.na(temp))
-  final <- temp[nonmissing]
+  ferry_row <- temp[nonmissing]
+  
+  
+  # if it has less than 58 rows
+  if(length(ferry_row) < 58){
+    num.rows <- length(ferry_row)
+    times <- 58 - num.rows
+    ferry_row <- append(as.character(ferry_row), rep(NA,times))
+    final <- as.numeric(ferry_row)
+  } else {
+    final <- as.numeric(ferry_row)
+  }
   
   return(final)
 }
+# Apply to all rows
+ferry_singlemat <- NULL
 for(i in 1:dim(ferry_final2)[1]){
-  temp <- ferry_final2[i,]
-  nonmissing <- which(!is.na(temp))
-  final <- temp[nonmissing]
+  final <- remove_nas(ferry_final2[i,])
   
   ferry_singlemat <- rbind(ferry_singlemat, final)
 }
 
-########### TO BE FIXED ################
+# rename the columns and the rows
+names <- paste("time",1:58, sep = "")
+ferry_singlemat <- as.data.frame(ferry_singlemat)
+colnames(ferry_singlemat) <- names
+rownames(ferry_singlemat) <- dates
 
-# Now, we need to line up the times such that there aren't missing spaces and
-# extra variables in the middle of the data. We'll move any necessary extra
-# variables to the end of the data
-# the col dim for most of the data is 61, but can go up to 66
-# sp 66 will be the max col
-ferry_final <- matrix(ncol = 66, nrow = 21)
-for(i in 1:length(rownames(ferry2))){
-  ferry_row <- as.vector(ferry2[i,])
-  missing <- which(is.na(ferry_row))
-  ferry_row <- ferry_row[,-missing]
-  
-  # remove the col names
-  colnames(ferry_row) <- c()
-  
-  # if it has more than 61 rows
-  if(length(ferry_row) > 61){
-    num.rows <- length(ferry_row)
-    times <- 66 - num.rows
-    ferry_row <- append(ferry_row, rep(NA,times))
-    ferry_final[i,] <- as.vector(ferry_row)
-  } else {
-    # if it has 61 rows exactly
-    ferry_row <- append(ferry_row,rep(NA,5))
-    ferry_final[i,] <- as.vector(ferry_row)
-  }
-  
+# convert each column to POSIX to get times
+for(i in 1:dim(ferry_singlemat)[2]){
+  col <- names[i]
+  class(ferry_singlemat[,col]) <- c('POSIXt','POSIXct')
 }
