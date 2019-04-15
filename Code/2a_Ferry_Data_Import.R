@@ -63,20 +63,16 @@ ferry_final <- NULL
 for(i in 2:73){
   temp <- unite(ferry2,temp, c("date",paste("V",i,sep="")), sep = " ")$temp
   ferry_final <- rbind(ferry_final,temp)
-}
+} 
 # only issue is that it did combine the NAs
 
 # Check missing by row (there should only be 14 missing for there to have been a full schedule)
 missing.rows <- apply(ferry2, 1, FUN = function(x)sum(is.na(x)))
-# Remove those that have no data at all  (72)
-nodata <- which(missing.rows == 72)
-ferry2 <- ferry2[-nodata,]
 
 # Change to times
-ferry_final2 <- apply(ferry_final,1,FUN = function(x)parse_date_time(x, " %Y-%m-%d HM"))
+ferry_final2 <- apply(ferry_final,2,FUN = function(x)parse_date_time(x, " %Y-%m-%d HM"))
 # Convert to data frame and make POSIX objects
-ferry_final2  <- as.data.frame(ferry_final2)
-#class(ferry_final2) <- c('POSIXt','POSIXct')
+ferry_final2  <- as.data.frame(t(ferry_final2))
 
 # Before I fix the classes, I need to get the rows lined up.
 remove_nas <- function(data){
@@ -106,7 +102,8 @@ for(i in 1:dim(ferry_final2)[1]){
 }
 
 # rename the columns and the rows
-names <- paste("time",1:58, sep = "")
+end <- dim(ferry_singlemat)[2]
+names <- paste("time",1:end, sep = "")
 ferry_singlemat <- as.data.frame(ferry_singlemat)
 colnames(ferry_singlemat) <- names
 rownames(ferry_singlemat) <- dates
@@ -115,4 +112,6 @@ rownames(ferry_singlemat) <- dates
 for(i in 1:dim(ferry_singlemat)[2]){
   col <- names[i]
   class(ferry_singlemat[,col]) <- c('POSIXt','POSIXct')
+  ferry_singlemat[,col] <- with_tz(ferry_singlemat[,col], "UTC")
+  #attributes(ferry_singlemat[,col])$tzone <- "UTC"
 }
