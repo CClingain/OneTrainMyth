@@ -59,7 +59,7 @@ ferry2 <- as.data.frame(t(ferry))
 ferry2$date <- dates
 
 # Combine into single columns (date + time)
-ferry_final <- matrix(ncol=21, nrow = 71)
+ferry_final <- NULL
 for(i in 2:73){
   temp <- unite(ferry2,temp, c("date",paste("V",i,sep="")), sep = " ")$temp
   ferry_final <- rbind(ferry_final,temp)
@@ -77,6 +77,24 @@ ferry_final2 <- apply(ferry_final,1,FUN = function(x)parse_date_time(x, " %Y-%m-
 # Convert to data frame and make POSIX objects
 ferry_final2  <- as.data.frame(ferry_final2)
 #class(ferry_final2) <- c('POSIXt','POSIXct')
+
+# Before I fix the classes, I need to get the rows lined up.
+ferry_singlemat <- NULL
+
+remove_nas <- function(data){
+  temp <- data
+  nonmissing <- which(!is.na(temp))
+  final <- temp[nonmissing]
+  
+  return(final)
+}
+for(i in 1:dim(ferry_final2)[1]){
+  temp <- ferry_final2[i,]
+  nonmissing <- which(!is.na(temp))
+  final <- temp[nonmissing]
+  
+  ferry_singlemat <- rbind(ferry_singlemat, final)
+}
 
 ########### TO BE FIXED ################
 
