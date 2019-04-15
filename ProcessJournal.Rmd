@@ -45,3 +45,8 @@ At this point, I may run a few more simulations, but I think Im ready to take a 
 ##### April 12, 2019
 
 The goal I have for this Monday is to clean and merge all the ferry data. I need this completed before I can get the waiting time distributions.
+
+##### April 15, 2019
+
+Although I'm still working towards the goal I originally set on April 12, I have some good news: I finally got the rest of the July data! I'll run it through the cleaners now and push the code. Let's hope I can also complete the other goal too. :)
+
