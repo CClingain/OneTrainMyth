@@ -615,3 +615,44 @@ for(i in 1:dim(ferry_singlemat)[2]){
 }
 # Save out data
 save(ferry_singlemat, file = "Data/Ferry/Clean/ferry_aug.RData")
+
+#### Combine all ferry months into single data frame ####
+# Load all files and rename
+load("Data/Ferry/Clean/ferry_jan.RData")
+ferry_jan <- ferry_singlemat
+load("Data/Ferry/Clean/ferry_feb.RData")
+ferry_feb <- ferry_singlemat
+load("Data/Ferry/Clean/ferry_march.RData")
+ferry_march <- ferry_singlemat
+load("Data/Ferry/Clean/ferry_april.RData")
+ferry_april <- ferry_singlemat
+load("Data/Ferry/Clean/ferry_may.RData")
+ferry_may <- ferry_singlemat
+load("Data/Ferry/Clean/ferry_june.RData")
+ferry_june <- ferry_singlemat
+load("Data/Ferry/Clean/ferry_july.RData")
+ferry_july <- ferry_singlemat
+load("Data/Ferry/Clean/ferry_aug.RData")
+ferry_aug <- ferry_singlemat
+
+# add extra column where needed 
+ferry_jan$time59 <- NA
+ferry_feb$time59 <- NA
+ferry_march$time59 <- NA
+ferry_april$time59 <- NA
+ferry_june$time59 <- NA
+
+# combine chronologically
+ferry_master <- rbind.data.frame(ferry_jan, ferry_feb, ferry_march, ferry_april,
+                                 ferry_may, ferry_june, ferry_july, ferry_aug)
+
+# save
+save(ferry_master, file = "Data/Ferry/Clean/ferry_2018.RData")
+
+# remove extraneous data
+rm(ferry_jan, ferry_feb, ferry_march, ferry_april,
+   ferry_may, ferry_june, ferry_july, ferry_aug, ferry, ferry2, ferry_final,
+   ferry_final2, ferry_singlemat, jandates, febdates, marchdates, aprildates,
+   junedates, julydates, augdates, jandates_weekday, febdates_weekday, 
+   marchdates_weekday, aprildates_weekday, maydates_weekday, junedates_weekday,
+   julydates_weekday, augdates_weekday, ferry_row, ferry_start)
