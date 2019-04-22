@@ -65,7 +65,7 @@ weekends <- parse_date_time(weekends, "%Y-%m-%d")
 # combine
 holidays_weekends <- c(holidays,weekends)
 # Filter
-mta_sub <- filter(mta_master2, grepl(paste(holidays_weekends, collapse="|"), arrival_time))
+mta_sub <- filter(mta_master2, !grepl(paste(holidays_weekends, collapse="|"), arrival_time))
 ```
 
 
