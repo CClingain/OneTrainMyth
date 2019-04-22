@@ -39,6 +39,10 @@ for(i in 56544:length(mta_master)){
   }
   print(i)
 }
+
+# fix classes
+mta_master2$arrival_time <- parse_date_time(mta_master2$arrival_time,  "%Y-%m-%d %H:%M:%S")
+# Save data
 save(mta_master2, file = "Data/Clean/mta_master.RData")
 ```
 
@@ -46,5 +50,48 @@ save(mta_master2, file = "Data/Clean/mta_master.RData")
 
 ```{r}
 head(mta_master2)
+```
+
+# Get closest ferry and wait times
+
+```{r get wait function}
+get_wait <- function(data){
+  ## Step 1: Find the closest ferry
+  closest_ferry <- unlist(lapply(data$arrival, FUN = function(x) min(which((ferry_master - x)>0))))
+
+  data$closest_ferry <- closest_ferry
+  
+  ## Step 2: Get ferry time stamp
+  ferry_timestamp <- unlist(lapply(data$closest_ferry, FUN = function(x)ferry_times[x]))
+  data$ferry_departure <- ferry_timestamp
+  class(data$ferry_departure) <- c('POSIXt', 'POSIXct')
+  
+  ## Step 3: Obtain wait times
+  data$wait_time <- as.numeric(data$ferry_departure - data$arrival)
+  
+  # if it looks like it's in minutes, change to seconds
+  if(mean(data$wait_time)<120){
+      data$wait_time <- data$wait_time*60
+  } else {
+    
+  }
+
+  ## Step 4: Obtain scheduled wait times
+  data$wait_time_predicted <- as.numeric(data$ferry_departure - data$schedule)*60
+  
+  ## Step 5: Obtain scheduled closest ferries
+  data$closest_ferry_predicted <- unlist(lapply(data$schedule, FUN = function(x) min(which((ferry_times - x)>0))))
+
+  ## Step 6: Get the predicted ferry connections
+  data$ferry_predicted <- unlist(lapply(data$closest_ferry, FUN = function(x)ferry_times[x]))
+
+class(data$ferry_predicted) <- c('POSIXt', 'POSIXct')
+
+return(data)
+}
+```
+
+```{r}
+
 ```
 
