@@ -7,10 +7,44 @@ output: pdf_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+require(lubridate)
+
+# ferry data
+#load("Data/Ferry/Clean/ferry_2018.RData")
+# mta data
+#load("Data/Clean/jan_clean.RData")
+#load("Data/Clean/feb_clean.RData")
+#load("Data/Clean/march_clean.RData")
+#load("Data/Clean/april_clean.RData")
+#load("Data/Clean/may_clean.RData")
+#load("Data/Clean/june_clean.RData")
+#load("Data/Clean/july_clean.RData")
+#load("Data/Clean/aug_clean.RData")
 ```
 
-# Load the data
-```{r}
+# Merge and Unlist MTA data
 
+```{r merge mta}
+mta_master <- c(jan_clean, feb_clean, march_clean, april_clean, may_clean, june_clean, july_clean, aug_clean)
+
+mta_master2 <- NULL
+
+for(i in 56544:length(mta_master)){
+  if(is.null(mta_master[[i]])==TRUE){
+    print("This line is empty")
+  } else{
+  temp <- as.data.frame(as.matrix(mta_master[[i]]))
+  mta_master2 <- rbind(mta_master2, temp)
+  }
+  print(i)
+}
+save(mta_master2, file = "Data/Clean/mta_master.RData")
+```
+
+# Check data
+
+```{r}
+head(mta_master2)
 ```
 
