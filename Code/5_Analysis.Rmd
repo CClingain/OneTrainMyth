@@ -75,11 +75,15 @@ mta_sub <- mta_sub[-remove,]
 
 ```{r}
 # Find the row we should look in 
-dist <- which((rownames(ferry_master) > mta_sub$arrival_time)==FALSE)
+dist <- lapply(mta_sub$arrival_time, FUN = function(x) which((rownames(ferry_master) > x)==FALSE)) #RUN THIS AGAIN
 
-ferry_row <- unlist(lapply(mta_sub$arrival_time, FUN = function(x) max(which((rownames(ferry_master) > x)==FALSE))))
+max_dist <- lapply(dist, FUN = function(x)max(x))
 
-ferry_row <- lapply(mta_sub$arrival_time, FUN = function(x) max(which((rownames(ferry_master) > x)==FALSE)))
+ferry_row <- unlist(max_dist)
+
+#ferry_row <- unlist(lapply(mta_sub$arrival_time, FUN = function(x) max(which((rownames(ferry_master) > x)==FALSE))))
+
+#ferry_row <- lapply(mta_sub$arrival_time, FUN = function(x) max(which((rownames(ferry_master) > x)==FALSE)))
 # Getting Inf error -- TO BE FIXED
 ```
 
