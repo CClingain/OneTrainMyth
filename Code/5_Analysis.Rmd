@@ -1,0 +1,16 @@
+---
+title: "Analysis"
+author: "Clare Clingain"
+date: "April 22, 2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load the data
+```{r}
+
+```
+
