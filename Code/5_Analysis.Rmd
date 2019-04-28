@@ -85,6 +85,10 @@ ferry_row <- unlist(max_dist)
 
 #ferry_row <- lapply(mta_sub$arrival_time, FUN = function(x) max(which((rownames(ferry_master) > x)==FALSE)))
 # Getting Inf error -- TO BE FIXED
+
+inf_ret <- which(is.infinite(ferry_row))
+# looks like the inf rows are the ones that had no data to begin with
+# will remove them and repeat the process
 ```
 
 
