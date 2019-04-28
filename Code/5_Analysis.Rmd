@@ -70,25 +70,21 @@ mta_sub <- filter(mta_master2, !grepl(paste(holidays_weekends, collapse="|"), ar
 # Remove the 12/31 data
 remove <- grep("2017-12-31", mta_sub$arrival_time)
 mta_sub <- mta_sub[-remove,]
+
+# remove the empty rows
+mta_sub <- mta_sub[complete.cases(mta_sub[,"arrival_time"]),]
+
+# remove empty ferry rows
+ferry_sub <- ferry_master[complete.cases(ferry_master[,"time1"]),]
 ```
 
 
 ```{r}
 # Find the row we should look in 
-dist <- lapply(mta_sub$arrival_time, FUN = function(x) which((rownames(ferry_master) > x)==FALSE)) #RUN THIS AGAIN
+ferry_row <- unlist(lapply(mta_sub$arrival_time, FUN = function(x) max(which((as.Date(rownames(ferry_sub)) > x)==FALSE))))
 
-max_dist <- lapply(dist, FUN = function(x)max(x))
-
-ferry_row <- unlist(max_dist)
-
-#ferry_row <- unlist(lapply(mta_sub$arrival_time, FUN = function(x) max(which((rownames(ferry_master) > x)==FALSE))))
-
-#ferry_row <- lapply(mta_sub$arrival_time, FUN = function(x) max(which((rownames(ferry_master) > x)==FALSE)))
-# Getting Inf error -- TO BE FIXED
-
-inf_ret <- which(is.infinite(ferry_row))
-# looks like the inf rows are the ones that had no data to begin with
-# will remove them and repeat the process
+# rename the rownames of mta_sub so that they'll match the ferry_row index
+rownames(mta_sub) <- 1:dim(mta_sub)[1]
 ```
 
 
@@ -96,9 +92,11 @@ inf_ret <- which(is.infinite(ferry_row))
 
 ```{r get wait function}
 get_wait <- function(data){
-  ## Step 1: Find the closest ferry
+  ## Step 1: Find the closest ferry row
+  data$ferry_row <- ferry_row
+  
+  ## Step 2: Find the closest ferry
   closest_ferry <- unlist(lapply(data$arrival, FUN = function(x) min(which((ferry_master - x)>0))))
-
   data$closest_ferry <- closest_ferry
   
   ## Step 2: Get ferry time stamp
