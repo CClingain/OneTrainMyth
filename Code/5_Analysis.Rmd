@@ -230,3 +230,16 @@ plot(wait_times_2min)
 plot(wait_times_3min)
 ```
 
+# Combine into data frame
+
+```{r}
+analysis_data <- mta_sub
+analysis_data$wait_times_raw <- wait_times
+analysis_data$wait_times_1min <- wait_times_1min
+analysis_data$wait_times_2min <- wait_times_2min
+analysis_data$wait_times_3min <- wait_times_3min
+
+# remove extra columns
+analysis_data <- analysis_data[,c(3,7:11)]
+```
+
