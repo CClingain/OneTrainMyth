@@ -646,6 +646,10 @@ ferry_june$time59 <- NA
 ferry_master <- rbind.data.frame(ferry_jan, ferry_feb, ferry_march, ferry_april,
                                  ferry_may, ferry_june, ferry_july, ferry_aug)
 
+# make time59 POSIX
+class(ferry_master$time59) <-c('POSIXt','POSIXct')
+ferry_master$time59 <- with_tz(ferry_master$time59, "UTC")
+
 # save
 save(ferry_master, file = "Data/Ferry/Clean/ferry_2018.RData")
 
