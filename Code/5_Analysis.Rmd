@@ -88,7 +88,7 @@ rownames(mta_sub) <- 1:dim(mta_sub)[1]
 ```
 
 
-# Get closest ferry and wait times
+# Get closest ferry
 
 ```{r get ferry function}
 get_ferry <- function(data, index_row){
@@ -127,32 +127,45 @@ for (i in 1:dim(mta_sub)[1]){
 }
 ```
 
+# Get wait timess
 
-```{r}
-
-get_wait <- function(data, ferry){
+```{r get wait function}
+get_wait <- function(data, ferry, index_row){
+  # Obtains the wait times between each train and its closest ferry
+  # data = MTA data set used in closest_ferry()
+  # ferry = return vector of closest_ferry()
+  
+  ## Step 1: Pull the closest ferry from vector
+  closest_ferry <- ferry[index_row]
+  
+  ## Step 2: Convert to POSIX
+  class(closest_ferry) <- c('POSIXt','POSIXct')
+  closest_ferry <- with_tz(closest_ferry, "UTC")
+  
   ## Step 3: Obtain wait times
-  data$wait_time <- as.numeric(data$closest_ferry - data$arrival_time)
+  wait_time <- as.numeric(closest_ferry - data$arrival_time[index_row])
   
   # if it looks like it's in minutes, change to seconds
-  if(mean(data$wait_time)<120){
-      data$wait_time <- data$wait_time*60
-  } else {
-    
-  }
+  #if(mean(data$wait_time)<120){
+  #    data$wait_time <- data$wait_time*60
+  #} else {
+  #  
+  #}
+return(wait_time)
+}
+```
 
-  ## Step 4: Obtain scheduled wait times
-  data$wait_time_predicted <- as.numeric(data$ferry_departure - data$schedule)*60
+```{r run wait times}
+# Initialize storage
+wait_times <- NULL
+
+# Get the wait times for each arrival
+for (i in 1:dim(mta_sub)[1]){
+  # printing i for time purposes
+  print(i)
   
-  ## Step 5: Obtain scheduled closest ferries
-  data$closest_ferry_predicted <- unlist(lapply(data$schedule, FUN = function(x) min(which((ferry_times - x)>0))))
-
-  ## Step 6: Get the predicted ferry connections
-  data$ferry_predicted <- unlist(lapply(data$closest_ferry, FUN = function(x)ferry_times[x]))
-
-class(data$ferry_predicted) <- c('POSIXt', 'POSIXct')
-
-return(data)
+  wait_times[i] <- get_wait(data = mta_sub, ferry = ferry_match, i)
+  
 }
 ```
 
