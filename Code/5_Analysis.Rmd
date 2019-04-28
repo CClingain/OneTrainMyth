@@ -132,8 +132,8 @@ for (i in 1:dim(mta_sub)[1]){
 ```{r get wait function}
 get_wait <- function(data, ferry, index_row){
   # Obtains the wait times between each train and its closest ferry
-  # data = MTA data set used in closest_ferry()
-  # ferry = return vector of closest_ferry()
+  # data = MTA data set used in get_ferry()
+  # ferry = return vector of get_ferry()
   
   ## Step 1: Pull the closest ferry from vector
   closest_ferry <- ferry[index_row]
@@ -167,5 +167,66 @@ for (i in 1:dim(mta_sub)[1]){
   wait_times[i] <- get_wait(data = mta_sub, ferry = ferry_match, i)
   
 }
+```
+
+# Check the raw wait times
+
+```{r}
+summary(wait_times)
+plot(wait_times)
+```
+
+The max wait time is 59 minutes, which is fine since some ferry boats don't show up, making the wait time longer. (This typically happens during the midnight hours). 
+
+# Get the closest ferry and wait time for 1, 2, and 3 minutes exit time
+
+Note that I'm saving out the closest ferry vector instead of passing the get_ferry() within get_wait() in case of breaks. 
+
+```{r wait times with exit}
+# 1 min
+mta_sub_1min <- mta_sub
+mta_sub_1min$arrival_time <- mta_sub_1min$arrival_time + 60
+# 2 min
+mta_sub_2min <- mta_sub
+mta_sub_2min$arrival_time <- mta_sub_2min$arrival_time + 120
+# 3 min
+mta_sub_3min <- mta_sub
+mta_sub_3min$arrival_time <- mta_sub_3min$arrival_time + 180
+
+# Initialize storage
+ferry_matches_1min <- NULL
+ferry_matches_2min <- NULL
+ferry_matches_3min <- NULL
+wait_times_1min <- NULL
+wait_times_2min <- NULL
+wait_times_3min <- NULL
+
+# Get the closest ferry and wait time for each train + exit time
+for (i in 1:dim(mta_sub)[1]){
+  # printing i for time purposes
+  print(i)
+  # closest ferry
+  ferry_matches_1min[i] <- get_ferry(mta_sub_1min, i)
+  ferry_matches_2min[i] <- get_ferry(mta_sub_2min, i)
+  ferry_matches_3min[i] <- get_ferry(mta_sub_3min, i)
+
+  # wait times
+  wait_times_1min[i] <- get_wait(data = mta_sub_1min, ferry = ferry_matches_1min, i)
+  wait_times_2min[i] <- get_wait(data = mta_sub_2min, ferry = ferry_matches_2min, i)
+  wait_times_3min[i] <- get_wait(data = mta_sub_3min, ferry = ferry_matches_3min, i)
+  
+}
+```
+
+# Check the adjusted wait times
+
+```{r check adjusted}
+summary(wait_times_1min)
+summary(wait_times_2min)
+summary(wait_times_3min)
+
+plot(wait_times_1min)
+plot(wait_times_2min)
+plot(wait_times_3min)
 ```
 
