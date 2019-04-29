@@ -13,14 +13,14 @@ require(dplyr)
 # ferry data
 #load("./Data/Ferry/Clean/ferry_2018.RData")
 # mta data
-#load("./Data/Clean/jan_clean.RData")
-#load("./Data/Clean/feb_clean.RData")
-#load("./Data/Clean/march_clean.RData")
-#load("./Data/Clean/april_clean.RData")
-#load("./Data/Clean/may_clean.RData")
-#load("./Data/Clean/june_clean.RData")
-#load("./Data/Clean/july_clean.RData")
-#load("./Data/Clean/aug_clean.RData")
+#load("../Data/Clean/jan_clean.RData")
+#load("../Data/Clean/feb_clean.RData")
+#load("../Data/Clean/march_clean.RData")
+#load("../Data/Clean/april_clean.RData")
+#load("../Data/Clean/may_clean.RData")
+#load("../Data/Clean/june_clean.RData")
+#load("../Data/Clean/july_clean.RData")
+#load("../Data/Clean/aug_clean.RData")
 ```
 
 # Analysis Data Preparation
@@ -45,11 +45,11 @@ for(i in 56544:length(mta_master)){
 # fix classes
 mta_master2$arrival_time <- parse_date_time(mta_master2$arrival_time,  "%Y-%m-%d %H:%M:%S")
 # Save data
-save(mta_master2, file = "./Data/Clean/mta_master.RData")
+save(mta_master2, file = "../Data/Clean/mta_master.RData")
 ```
 
 ```{r source for knit, include=FALSE}
-load("./Data/Clean/mta_master.RData")
+load("../Data/Clean/mta_master.RData")
 ```
 
 ## Check data
@@ -172,8 +172,8 @@ for (i in 1:dim(mta_sub)[1]){
 ```
 
 ```{r source for knit 2, include=FALSE}
-#save(wait_times, file = "./Data/Clean/wait_times_raw.RData")
-load("./Data/Clean/wait_times_raw.RData")
+#save(wait_times, file = "../Data/Clean/wait_times_raw.RData")
+load("../Data/Clean/wait_times_raw.RData")
 ```
 
 ## Check the raw wait times
@@ -226,12 +226,12 @@ for (i in 1:dim(mta_sub)[1]){
 ```
 
 ```{r source for knit 3, include = FALSE}
-#save(wait_times_1min, file = "./Data/Clean/wait_times_1min.RData")
-#save(wait_times_2min, file = "./Data/Clean/wait_times_2min.RData")
-#save(wait_times_3min, file = "./Data/Clean/wait_times_3min.RData")
-load("./Data/Clean/wait_times_1min.RData")
-load("./Data/Clean/wait_times_2min.RData")
-load("./Data/Clean/wait_times_3min.RData")
+#save(wait_times_1min, file = "../Data/Clean/wait_times_1min.RData")
+#save(wait_times_2min, file = "../Data/Clean/wait_times_2min.RData")
+#save(wait_times_3min, file = "../Data/Clean/wait_times_3min.RData")
+load("../Data/Clean/wait_times_1min.RData")
+load("../Data/Clean/wait_times_2min.RData")
+load("../Data/Clean/wait_times_3min.RData")
 ```
 
 ## Check the adjusted wait times
@@ -275,5 +275,5 @@ analysis_data$rushour <- rushour
 # remove extra columns
 analysis_data <- analysis_data[,c(3,7:15)]
 # save
-save(analysis_data, file = "./Data/Clean/analysis_data.RData")
+save(analysis_data, file = "../Data/Clean/analysis_data.RData")
 ```
