@@ -122,3 +122,24 @@ take a look at the data.
 The goal I have for this Monday is to clean and merge all the ferry
 data. I need this completed before I can get the waiting time
 distributions.
+
+##### April 15, 2019
+
+Although I’m still working towards the goal I originally set on April
+12, I have some good news: I finally got the rest of the July data\!
+I’ll run it through the cleaners now and push the code. Let’s hope I
+can also complete the other goal too. :)
+
+##### April 29, 2019
+
+These past two weeks, I ran all final cleaning for the data. Once the
+data was cleaned, I found the closest ferry, calculated the wait times,
+and extracted the relevant time features. As of today, I’ve run some
+initial analysis.
+
+One concern that I have is that my data are conditionally independent.
+That is, data from separate months or separate days are likely
+independent of one another, but consecutive data points are unlikey
+independent. This means any statistical test with an iid assumption will
+be a bit tricky. I will still use such tests, but will have to be
+cautious about the interpretation.
