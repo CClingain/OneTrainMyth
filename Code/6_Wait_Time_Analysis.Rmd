@@ -8,6 +8,7 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 require(lubridate)
 require(dplyr)
+library(tidyverse)
 load("../Data/Clean/analysis_data.RData")
 ```
 
@@ -38,12 +39,33 @@ The three distributions look quite similar. In terms of the simulations I ran, t
 ## Time (hour) x Wait times
 
 ```{r time by wait times}
-plot(analysis_data$hour, analysis_data$wait_times_1min, main = "Wait times  (1 min exit time)",xlab = "Hour of day",ylab = "Wait time")
-plot(analysis_data$hour, analysis_data$wait_times_2min, main = "Wait times  (2 min exit time)",xlab = "Hour of day",ylab = "Wait time")
-plot(analysis_data$hour, analysis_data$wait_times_3min, main = "Wait times (3 min exit time)",xlab = "Hour of day",ylab = "Wait time")
+plot(as.factor(analysis_data$hour), analysis_data$wait_times_1min, main = "Wait times  (1 min exit time)",xlab = "Hour of day",ylab = "Wait time")
+plot(as.factor(analysis_data$hour), analysis_data$wait_times_2min, main = "Wait times  (2 min exit time)",xlab = "Hour of day",ylab = "Wait time")
+plot(as.factor(analysis_data$hour), analysis_data$wait_times_3min, main = "Wait times (3 min exit time)",xlab = "Hour of day",ylab = "Wait time")
 ```
 
 It makes sense that the waits pile up late at night and during the tourist peak hours (10-3). I'm curious seeing that the very lengthy wait times caused by a missing ferry are so dispersed. I initially thought that it would be worse in the wee hours of the morning, but it looks to be a problem throughout the day. This isn't concerning in terms of something being wrong with the data because there are many reasons why a ferry or a train never shows. Both can break down, both can have sick passengers, and both can barely miss each other. 
+
+```{r med iqr}
+# medians
+medians_IQR <- analysis_data %>% 
+  group_by(as.factor(hour)) %>% 
+  summarise(median_1min = median(wait_times_1min),
+            median_2min = median(wait_times_2min),
+            median_3min = median(wait_times_3min),
+            IQR_1min = IQR(wait_times_1min),
+            IQR_2min = IQR(wait_times_2min),
+            IQR_3min = IQR(wait_times_3min))
+colnames(medians_IQR)[1] <- "hour"
+# plot the medians and IQR
+plot(x = as.numeric(medians_IQR$hour), y = medians_IQR$median_1min, pch = 16, main = "Median wait times by hour", ylab = "Wait time (in minutes)", xlab = "Hour")
+lines(x = as.numeric(medians_IQR$hour), y = medians_IQR$median_1min, lwd = 2)
+lines(x = as.numeric(medians_IQR$hour), y = medians_IQR$median_2min, lwd = 2, col = 2, type = 'o', pch = 16)
+lines(x = as.numeric(medians_IQR$hour), y = medians_IQR$median_3min, lwd = 2, col = 4, type = 'o', pch = 16)
+legend("bottomright",legend = c("1 min","2 min","3 min"), lty = 1, lwd = 2, col = c(1,2,4))
+```
+
+For the rush-hour and tourist peak hours, it looks like time-to-exit doesn't make a difference. A longer time-to-exit does seem to matter for the late night/early morning hours. 
 
 ## Time (weekday) x Wait times
 
