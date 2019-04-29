@@ -24,7 +24,9 @@ require(dplyr)
 #load("Data/Clean/aug_clean.RData")
 ```
 
-# Merge and Unlist MTA data
+# Analysis Data Preparation
+
+## Merge and Unlist MTA data
 
 ```{r merge mta}
 mta_master <- c(jan_clean, feb_clean, march_clean, april_clean, may_clean, june_clean, july_clean, aug_clean)
@@ -47,14 +49,13 @@ mta_master2$arrival_time <- parse_date_time(mta_master2$arrival_time,  "%Y-%m-%d
 save(mta_master2, file = "Data/Clean/mta_master.RData")
 ```
 
-# Check data
+## Check data
 
 ```{r}
 head(mta_master2)
 ```
 
-
-# Filter out holidays and weekends
+## Filter out holidays and weekends
 
 ```{r}
 holidays <- c("2018-01-01","2018-01-15","2018-02-19","2018-05-28","2018-07-04")
@@ -78,8 +79,7 @@ mta_sub <- mta_sub[complete.cases(mta_sub[,"arrival_time"]),]
 ferry_sub <- ferry_master[complete.cases(ferry_master[,"time1"]),]
 ```
 
-
-```{r}
+```{r find row}
 # Find the row we should look in 
 ferry_row <- unlist(lapply(mta_sub$arrival_time, FUN = function(x) max(which((as.Date(rownames(ferry_sub)) > x)==FALSE))))
 
@@ -87,8 +87,7 @@ ferry_row <- unlist(lapply(mta_sub$arrival_time, FUN = function(x) max(which((as
 rownames(mta_sub) <- 1:dim(mta_sub)[1]
 ```
 
-
-# Get closest ferry
+## Get closest ferry
 
 ```{r get ferry function}
 get_ferry <- function(data, index_row){
@@ -127,7 +126,7 @@ for (i in 1:dim(mta_sub)[1]){
 }
 ```
 
-# Get wait timess
+## Get wait times
 
 ```{r get wait function}
 get_wait <- function(data, ferry, index_row){
@@ -169,7 +168,7 @@ for (i in 1:dim(mta_sub)[1]){
 }
 ```
 
-# Check the raw wait times
+## Check the raw wait times
 
 ```{r}
 summary(wait_times)
@@ -178,7 +177,7 @@ plot(wait_times)
 
 The max wait time is 59 minutes, which is fine since some ferry boats don't show up, making the wait time longer. (This typically happens during the midnight hours). 
 
-# Get the closest ferry and wait time for 1, 2, and 3 minutes exit time
+## Get the closest ferry and wait time for 1, 2, and 3 minutes exit time
 
 Note that I'm saving out the closest ferry vector instead of passing the get_ferry() within get_wait() in case of breaks. 
 
@@ -218,7 +217,7 @@ for (i in 1:dim(mta_sub)[1]){
 }
 ```
 
-# Check the adjusted wait times
+## Check the adjusted wait times
 
 ```{r check adjusted}
 summary(wait_times_1min)
@@ -230,16 +229,41 @@ plot(wait_times_2min)
 plot(wait_times_3min)
 ```
 
-# Combine into data frame
+## Create additional time variables
 
-```{r}
+We'll want to look at differences in arrival times across times of day.
+
+```{r time create}
+hours <- hour(mta_sub$arrival_time)
+weekday <- wday(mta_sub$arrival_time, label = T)
+month <- month(mta_sub$arrival_time)
+
+# Rush hour variable
+rushour <- ifelse((mta_sub$arrival_time > 7 &  mta_sub$arrival_time <= 9),"Morning Rush", ifelse((mta_sub$arrival_time > 4 & mta_sub$arrival_time <= 7),"Evening Rush","Nonrush"))
+```
+
+
+## Combine into data frame
+
+```{r combine for analysis}
 analysis_data <- mta_sub
 analysis_data$wait_times_raw <- wait_times
 analysis_data$wait_times_1min <- wait_times_1min
 analysis_data$wait_times_2min <- wait_times_2min
 analysis_data$wait_times_3min <- wait_times_3min
-
+analysis_data$hour <- hours
+analysis_data$weekday <- weekday
+analysis_data$month <- month
+analysis_data$rushour <- rushour
 # remove extra columns
-analysis_data <- analysis_data[,c(3,7:11)]
+analysis_data <- analysis_data[,c(3,7:15)]
+```
+
+# Initial Visualizations
+
+## Time x Wait times
+
+```{r}
+plot(analysis_data$hour, analysis_data$wait_times_1min, main = "Wait times",xlab = "Hour of day",ylab = "Wait time (1 min exit time)")
 ```
 
