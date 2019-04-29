@@ -1,7 +1,6 @@
 ---
 title: "Wait Time Analysis"
 author: "Clare Clingain"
-date: "April 29, 2019"
 output: github_document
 ---
 
@@ -9,7 +8,7 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 require(lubridate)
 require(dplyr)
-load("Data/Clean/analysis_data.RData")
+load("./Data/Clean/analysis_data.RData")
 ```
 
 # Initial Visualizations
@@ -48,4 +47,4 @@ two_three_res
 paste("The adjusted p-values for each respective test are",p.adjust(c(one_two_res$p.value, one_three_res$p.value, two_three_res$p.value), method = "hochberg"))
 ```
 
-We see a significant difference between all three distributions. Although this is great news, I strongly wonder if the data violate the iid assumption of the KS test. Even though some wait times may be independent of one another (i.e., morning rush from evening rush, January from June), I doubt that this is the case across all the data. Two consectutive trains are unlikely to be independent. Nevertheless, this test gives us an additional peice of information that we will use with caution. 
+We see a significant difference between all three distributions. Although this is great news, I strongly wonder if the data violate the iid assumption of the KS test. Even though some wait times may be independent of one another (i.e., morning rush from evening rush, January from June), I doubt that this is the case across all the data. Two consectutive trains are unlikely to be independent. Nevertheless, this test gives us an additional piece of information that we will use with caution. 
