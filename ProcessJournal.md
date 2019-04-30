@@ -143,3 +143,11 @@ independent of one another, but consecutive data points are unlikey
 independent. This means any statistical test with an iid assumption will
 be a bit tricky. I will still use such tests, but will have to be
 cautious about the interpretation.
+
+##### April 30, 2019
+
+After discussing my concerns about the conditional independence with
+Frankie, I’ve realized that I could obtain a random sample from my
+distributions given a moving window that doesn’t select consecutive
+trains. Given time constraint, I may wait to do this until after I
+finish the initial analysis.

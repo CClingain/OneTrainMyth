@@ -55,3 +55,7 @@ Although I'm still working towards the goal I originally set on April 12, I have
 These past two weeks, I ran all final cleaning for the data. Once the data was cleaned, I found the closest ferry, calculated the wait times, and extracted the relevant time features. As of today, I've run some initial analysis.
 
 One concern that I have is that my data are conditionally independent. That is, data from separate months or separate days are likely independent of one another, but consecutive data points are unlikey independent. This means any statistical test with an iid assumption will be a bit tricky. I will still use such tests, but will have to be cautious about the interpretation. 
+
+##### April 30, 2019
+
+After discussing my concerns about the conditional independence with Frankie, I've realized that I could obtain a random sample from my distributions given a moving window that doesn't select consecutive trains. Given time constraint, I may wait to do this until after I finish the initial analysis.
