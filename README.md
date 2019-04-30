@@ -45,6 +45,6 @@ Yes, the MTA data is just as messy as the subways, buses, trains, and ferries.
 2. Extract necessary data for 1 train and Staten Island Ferry
 3. Clean the data
 4. Conduct exploratory analysis
-5. Further analysis TBD
+5. Compare the lateness distributions
 
 
