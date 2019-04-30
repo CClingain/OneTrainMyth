@@ -24,7 +24,7 @@ for(i in 56544:length(mta_master)){
 # fix classes
 mta_master2$arrival_time <- parse_date_time(mta_master2$arrival_time,  "%Y-%m-%d %H:%M:%S")
 # Save data
-save(mta_master2, file = "Data/Clean/mta_master.RData")
+save(mta_master2, file = "../Data/Clean/mta_master.RData")
 ```
 
 ## Check data
@@ -256,7 +256,8 @@ weekday <- wday(mta_sub$arrival_time, label = T)
 month <- month(mta_sub$arrival_time)
 
 # Rush hour variable
-rushour <- ifelse((mta_sub$arrival_time > 7 &  mta_sub$arrival_time <= 9),"Morning Rush", ifelse((mta_sub$arrival_time > 4 & mta_sub$arrival_time <= 7),"Evening Rush","Nonrush"))
+rushour <- ifelse((hours > 7 & hours <= 9),"Morning Rush", ifelse((hours > 16 & hours <= 19),"Evening Rush","Nonrush"))
+tourist_peak <- ifelse((hours > 9 & hours < 16), "Tourist Peak","Non-tourist peak")
 ```
 
 ## Combine into data frame
@@ -271,8 +272,9 @@ analysis_data$hour <- hours
 analysis_data$weekday <- weekday
 analysis_data$month <- month
 analysis_data$rushour <- rushour
+analysis_data$tourist_peak <- tourist_peak
 # remove extra columns
 analysis_data <- analysis_data[,c(3,7:15)]
 # save
-save(analysis_data, file = "Data/Clean/analysis_data.RData")
+save(analysis_data, file = "../Data/Clean/analysis_data.RData")
 ```

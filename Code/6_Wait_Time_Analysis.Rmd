@@ -87,6 +87,15 @@ plot(as.factor(analysis_data$month), analysis_data$wait_times_2min, main = "Wait
 plot(as.factor(analysis_data$month), analysis_data$wait_times_3min, main = "Wait times (3 min exit time)",xlab = "Month",ylab = "Wait time")
 ```
 
+## Time (Rush vs nonrush) x Wait times
+
+```{r rush wait}
+plot(analysis_data$rushour, analysis_data$wait_times_1min, main = "Wait times (1 min exit time)",xlab = "Day of the week",ylab = "Wait time")
+plot(analysis_data$rushour, analysis_data$wait_times_2min, main = "Wait times (2 min exit time)",xlab = "Day of the week",ylab = "Wait time")
+plot(analysis_data$rushour, analysis_data$wait_times_3min, main = "Wait times (3 min exit time)",xlab = "Day of the week",ylab = "Wait time")
+```
+
+
 
 # Test the difference between the wait distributions
 
