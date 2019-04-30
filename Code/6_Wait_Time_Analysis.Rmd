@@ -89,13 +89,15 @@ plot(as.factor(analysis_data$month), analysis_data$wait_times_3min, main = "Wait
 
 ## Time (Rush vs nonrush) x Wait times
 
+Next, I'll have a look at the three distributions by rush hour. 
+
 ```{r rush wait}
-plot(analysis_data$rushour, analysis_data$wait_times_1min, main = "Wait times (1 min exit time)",xlab = "Day of the week",ylab = "Wait time")
-plot(analysis_data$rushour, analysis_data$wait_times_2min, main = "Wait times (2 min exit time)",xlab = "Day of the week",ylab = "Wait time")
-plot(analysis_data$rushour, analysis_data$wait_times_3min, main = "Wait times (3 min exit time)",xlab = "Day of the week",ylab = "Wait time")
+plot(as.factor(analysis_data$rushour), analysis_data$wait_times_1min, main = "Wait times (1 min exit time)",xlab = "Rush hour vs Non-rush hour",ylab = "Wait time")
+plot(as.factor(analysis_data$rushour), analysis_data$wait_times_2min, main = "Wait times (2 min exit time)",xlab = "Rush hour vs Non-rush hour",ylab = "Wait time")
+plot(as.factor(analysis_data$rushour), analysis_data$wait_times_3min, main = "Wait times (3 min exit time)",xlab = "Rush hour vs Non-rush hourk",ylab = "Wait time")
 ```
 
-
+As expected, wait times are longer outside of rush hour. However, non rush hour includes late night hours as well as tourist peak hours. I'll break it down further by tourist peak hours. 
 
 # Test the difference between the wait distributions
 
