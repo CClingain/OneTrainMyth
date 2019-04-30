@@ -93,19 +93,19 @@ Now I’ll check the wait times by
 weekday.
 
 ``` r
-plot(analysis_data$weekday, analysis_data$wait_times_1min, main = "Wait times (1 min exit time)",xlab = "Hour of day",ylab = "Wait time")
+plot(analysis_data$weekday, analysis_data$wait_times_1min, main = "Wait times (1 min exit time)",xlab = "Day of the week",ylab = "Wait time")
 ```
 
 ![](6_Wait_Time_Analysis_files/figure-gfm/weekday%20by%20wait-1.png)<!-- -->
 
 ``` r
-plot(analysis_data$weekday, analysis_data$wait_times_2min, main = "Wait times (2 min exit time)",xlab = "Hour of day",ylab = "Wait time")
+plot(analysis_data$weekday, analysis_data$wait_times_2min, main = "Wait times (2 min exit time)",xlab = "Day of the week",ylab = "Wait time")
 ```
 
 ![](6_Wait_Time_Analysis_files/figure-gfm/weekday%20by%20wait-2.png)<!-- -->
 
 ``` r
-plot(analysis_data$weekday, analysis_data$wait_times_3min, main = "Wait times (3 min exit time)",xlab = "Hour of day",ylab = "Wait time")
+plot(analysis_data$weekday, analysis_data$wait_times_3min, main = "Wait times (3 min exit time)",xlab = "Day of the week",ylab = "Wait time")
 ```
 
 ![](6_Wait_Time_Analysis_files/figure-gfm/weekday%20by%20wait-3.png)<!-- -->
@@ -114,7 +114,28 @@ I’m curious as to why the distributions for Tuesday and Thursday seem
 more spread and have slightly higher medians than Monday, Wednesday, and
 Friday. Once again, we see that the long delays seem to be evenly
 distributed across days of the week. I’d like to test if these
-distrbutions are different from each other later on.
+distrbutions are different from each other later
+on.
+
+## Time (Month) x Wait times
+
+``` r
+plot(as.factor(analysis_data$month), analysis_data$wait_times_1min, main = "Wait times (1 min exit time)",xlab = "Month",ylab = "Wait time")
+```
+
+![](6_Wait_Time_Analysis_files/figure-gfm/month%20wait%20time-1.png)<!-- -->
+
+``` r
+plot(as.factor(analysis_data$month), analysis_data$wait_times_2min, main = "Wait times (2 min exit time)",xlab = "Month",ylab = "Wait time")
+```
+
+![](6_Wait_Time_Analysis_files/figure-gfm/month%20wait%20time-2.png)<!-- -->
+
+``` r
+plot(as.factor(analysis_data$month), analysis_data$wait_times_3min, main = "Wait times (3 min exit time)",xlab = "Month",ylab = "Wait time")
+```
+
+![](6_Wait_Time_Analysis_files/figure-gfm/month%20wait%20time-3.png)<!-- -->
 
 # Test the difference between the wait distributions
 
@@ -197,3 +218,31 @@ January from June), I doubt that this is the case across all the data.
 Two consectutive trains are unlikely to be independent. Nevertheless,
 this test gives us an additional piece of information that we will use
 with caution.
+
+# Test difference between distribution means
+
+As discussed above, the iid assumption is trick with this data. However,
+I’d like to get some 95% confidence intervals for the difference between
+the
+means.
+
+``` r
+t1 <- t.test(analysis_data$wait_times_1min, analysis_data$wait_times_2min)
+t2 <- t.test(analysis_data$wait_times_1min, analysis_data$wait_times_3min)
+t3 <- t.test(analysis_data$wait_times_2min, analysis_data$wait_times_3min)
+paste("The 95% confidence interval for the difference in means between 1min vs 2min is (", round(t1$conf.int[1],3),",", round(t1$conf.int[2],3),")")
+```
+
+    ## [1] "The 95% confidence interval for the difference in means between 1min vs 2min is ( -0.624 , -0.315 )"
+
+``` r
+paste("The 95% confidence interval for the difference in means between 1min vs 3min is (", round(t2$conf.int[1],3),",", round(t2$conf.int[2],3),")")
+```
+
+    ## [1] "The 95% confidence interval for the difference in means between 1min vs 3min is ( -0.464 , -0.161 )"
+
+``` r
+paste("The 95% confidence interval for the difference in means between 2min vs 3min is (", round(t3$conf.int[1],3),",", round(t3$conf.int[2],3),")")
+```
+
+    ## [1] "The 95% confidence interval for the difference in means between 2min vs 3min is ( 0.002 , 0.311 )"
