@@ -24,16 +24,18 @@ Research Questions
 Data
 ========================================================
 
-<b>Time:</b> January 2018 to August 2018
+<b>Time:</b> January 2018 - August 2018
 
 <b>MTA Historical Real-Time Data:</b> 5-minute intervals
 
 <b>Staten Island Ferry Historical Data:</b> All departures from Whitehall terminal
-  
+
 
 Process
 ========================================================
 -Massive amounts of data cleaning...
+
+<img src = "Figure1_Process.png"; style = "float:center;" >
 
 
 Slide With Plot
