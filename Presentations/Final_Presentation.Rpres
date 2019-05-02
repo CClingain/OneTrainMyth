@@ -16,7 +16,7 @@ Overview
 Research Questions
 ========================================================
 
-1) What does the distribution of lateness look like for connections between the 1 train and the Staten Island Ferry?
+1) What does the distribution of wait times look like for connections between the 1 train and the Staten Island Ferry?
 
 2) How does this distribution vary across time (e.g., rush hour vs tourist peak)?
 

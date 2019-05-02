@@ -20,20 +20,17 @@ The public transportation issue for Staten Islanders isn’t only related to the
 
 If we can improve the connection between the 1 train and the Staten Island ferry, that could shave off up to 30 minute wait times for commuters. We turn to data to get answers to two questions. 
 
-1) What does the distribution of lateness look like for connections between the 1 train and the Staten Island Ferry?
+1) What does the distribution of wait times look like for connections between the 1 train and the Staten Island Ferry?
 
 2) How does this distribution vary across time (e.g., rush hour vs tourist peak)?
 
 3) How does this distribution vary for people who can run versus people who can't run from the 1 train to the ferry?
 
-
-Answering these questions is tricky. How do we quantify "lateness"? What sort of margin should be given to account for passengers exiting the subway station and entering the ferry terminal? How does connection vary as a function of time and day?
+Wait times will be calculated with an additional 1, 2, and 3 minute exit time from South Ferry to Whitehall ferry terminal. 
 
 ## Data Sources
 
-1a. [MTA Real Time Subway data](http://datamine.mta.info/) is accessible with an API
-
-1b. [MTA Historical Real Time Subway data](https://datamine-history.s3.amazonaws.com/index.html)
+1. [MTA Historical Real Time Subway data](https://datamine-history.s3.amazonaws.com/index.html)
 
 2. [Staten Island Ferry Departure data](https://data.cityofnewyork.us/Transportation/Test-Staten-Island-Ferry-Daily-Performance-data/7gic-pibm)
 
