@@ -36,14 +36,15 @@ Data Process
 ========================================================
 Massive amounts of data cleaning...
 
-<img src = "Figure1_Process.png"; style = "float:left;">
+<img src = "Figure1_Process.png" style = background-color:transparent></img>
+
 
 Issues and Evolution
 ========================================================
 
 - Further cleaning needed
 - Ferry data in odd format
-- Reframing research questions
+- Reframing research questions given data
 
 RQ 1: The wait time distribution(s)
 ========================================================
