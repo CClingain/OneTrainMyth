@@ -59,3 +59,7 @@ One concern that I have is that my data are conditionally independent. That is, 
 ##### April 30, 2019
 
 After discussing my concerns about the conditional independence with Frankie, I've realized that I could obtain a random sample from my distributions given a moving window that doesn't select consecutive trains. Given time constraint, I may wait to do this until after I finish the initial analysis.
+
+##### May 2, 2019
+
+One additional thing I'd like to do is calculate the probability of waiting 30+ minutes, of waiting 27-29 minutes (the myth), and of waiting less than 5 minutes for each of the distributions. Beyond the current timeline, I think I'd like to run with this idea and build a Shiny app that let's people pick and choose the distributions and probabilities they want to examine given time of day, max wait time, and exit time. 

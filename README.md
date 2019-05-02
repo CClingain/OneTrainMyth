@@ -38,10 +38,10 @@ Yes, the MTA data is just as messy as the subways, buses, trains, and ferries.
 
 ## Plans + Goals
 
-1. Access MTA Real Time data through API
+1. Access MTA Historical Real Time data through servers
 2. Extract necessary data for 1 train and Staten Island Ferry
-3. Clean the data
-4. Conduct exploratory analysis
-5. Compare the lateness distributions
+3. Access Staten Island Ferry data
+4. Clean the MTA and SI Ferry data
+5. Compare the wait time distributions (see questions above)
 
 
