@@ -3,6 +3,7 @@ Final Presentation
 author: Clare Clingain
 autosize: true
 font-family: 'Helvetica'
+css: CSS/final_project.css
 
 Overview
 ========================================================
@@ -31,14 +32,43 @@ Data
 <b>Staten Island Ferry Historical Data:</b> All departures from Whitehall terminal
 
 
-Process
+Data Process
 ========================================================
--Massive amounts of data cleaning...
+Massive amounts of data cleaning...
 
-<img src = "Figure1_Process.png"; style = "float:center;" >
+<img src = "Figure1_Process.png"; style = "float:left;">
 
-
-Slide With Plot
+Issues and Evolution
 ========================================================
 
-![plot of chunk unnamed-chunk-1](Final_Presentation-figure/unnamed-chunk-1-1.png)
+- Further cleaning needed
+- Ferry data in odd format
+- Reframing research questions
+
+RQ 1: The wait time distribution(s)
+========================================================
+
+<img src="Final_Presentation-figure/unnamed-chunk-1-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" />
+
+RQ 2: Morning Rush vs Evening Rush vs Nonrush  
+========================================================
+
+![plot of chunk unnamed-chunk-2](Final_Presentation-figure/unnamed-chunk-2-1.png)![plot of chunk unnamed-chunk-2](Final_Presentation-figure/unnamed-chunk-2-2.png)![plot of chunk unnamed-chunk-2](Final_Presentation-figure/unnamed-chunk-2-3.png)
+
+
+RQ 2: Rush hour vs Non-rush hour
+========================================================
+
+![plot of chunk unnamed-chunk-3](Final_Presentation-figure/unnamed-chunk-3-1.png)![plot of chunk unnamed-chunk-3](Final_Presentation-figure/unnamed-chunk-3-2.png)![plot of chunk unnamed-chunk-3](Final_Presentation-figure/unnamed-chunk-3-3.png)
+
+RQ 3: Median wait times by hour... who waits longer and when?
+========================================================
+
+<img src="Final_Presentation-figure/unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" />
+
+Final Steps
+========================================================
+For each wait time, what's the probability of...
+- waiting longer than 30 minutes
+- having a wait time between 27-29 minutes (the myth)
+- having a wait time less that 5 minutes

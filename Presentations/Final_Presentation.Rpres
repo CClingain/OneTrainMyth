@@ -3,6 +3,7 @@ Final Presentation
 author: Clare Clingain
 autosize: true
 font-family: 'Helvetica'
+css: CSS/final_project.css
 
 Overview
 ========================================================
@@ -31,16 +32,75 @@ Data
 <b>Staten Island Ferry Historical Data:</b> All departures from Whitehall terminal
 
 
-Process
+Data Process
 ========================================================
--Massive amounts of data cleaning...
+Massive amounts of data cleaning...
 
-<img src = "Figure1_Process.png"; style = "float:center;" >
+<img src = "Figure1_Process.png"; style = "float:left;">
 
+Issues and Evolution
+========================================================
 
-Slide With Plot
+- Further cleaning needed
+- Ferry data in odd format
+- Reframing research questions
+
+RQ 1: The wait time distribution(s)
+========================================================
+
+```{r, echo=FALSE, fig.align="center"}
+load("../Data/Clean/analysis_data.RData")
+plot(density(analysis_data$wait_times_1min), main = "Wait times with 1, 2, and 3 minutes exit time", col = 2)
+lines(density(analysis_data$wait_times_2min), col = 4)
+lines(density(analysis_data$wait_times_3min), col = 5)
+legend("topright",legend = c("1 min","2 min","3 min"), lty = 1, lwd = 2, col = c(2,4,5))
+```
+
+RQ 2: Morning Rush vs Evening Rush vs Nonrush  
 ========================================================
 
 ```{r, echo=FALSE}
-plot(cars)
+plot(as.factor(analysis_data$rushour), analysis_data$wait_times_1min, main = "Wait times (1 min exit time)",xlab = "Rush hour vs Non-rush hour",ylab = "Wait time")
+plot(as.factor(analysis_data$rushour), analysis_data$wait_times_2min, main = "Wait times (2 min exit time)",xlab = "Rush hour vs Non-rush hour",ylab = "Wait time")
+plot(as.factor(analysis_data$rushour), analysis_data$wait_times_3min, main = "Wait times (3 min exit time)",xlab = "Rush hour vs Non-rush hourk",ylab = "Wait time")
 ```
+
+
+RQ 2: Rush hour vs Non-rush hour
+========================================================
+
+```{r, echo=FALSE}
+plot(as.factor(analysis_data$rushour), analysis_data$wait_times_1min, main = "Wait times (1 min exit time)",xlab = "Rush hour vs Non-rush hour",ylab = "Wait time")
+plot(as.factor(analysis_data$rushour), analysis_data$wait_times_2min, main = "Wait times (2 min exit time)",xlab = "Rush hour vs Non-rush hour",ylab = "Wait time")
+plot(as.factor(analysis_data$rushour), analysis_data$wait_times_3min, main = "Wait times (3 min exit time)",xlab = "Rush hour vs Non-rush hourk",ylab = "Wait time")
+```
+
+RQ 3: Median wait times by hour... who waits longer and when?
+========================================================
+
+```{r, echo=FALSE, fig.align="center"}
+require(dplyr, quietly = TRUE)
+# medians
+medians_IQR <- analysis_data %>% 
+  group_by(as.factor(hour)) %>% 
+  summarise(median_1min = median(wait_times_1min),
+            median_2min = median(wait_times_2min),
+            median_3min = median(wait_times_3min),
+            IQR_1min = IQR(wait_times_1min),
+            IQR_2min = IQR(wait_times_2min),
+            IQR_3min = IQR(wait_times_3min))
+colnames(medians_IQR)[1] <- "hour"
+# plot the medians and IQR
+plot(x = as.numeric(medians_IQR$hour), y = medians_IQR$median_1min, pch = 16, main = "Median wait times by hour", ylab = "Wait time (in minutes)", xlab = "Hour")
+lines(x = as.numeric(medians_IQR$hour), y = medians_IQR$median_1min, lwd = 2)
+lines(x = as.numeric(medians_IQR$hour), y = medians_IQR$median_2min, lwd = 2, col = 2, type = 'o', pch = 16)
+lines(x = as.numeric(medians_IQR$hour), y = medians_IQR$median_3min, lwd = 2, col = 4, type = 'o', pch = 16)
+legend("bottomright",legend = c("1 min","2 min","3 min"), lty = 1, lwd = 2, col = c(1,2,4))
+```
+
+Final Steps
+========================================================
+For each wait time, what's the probability of...
+- waiting longer than 30 minutes
+- having a wait time between 27-29 minutes (the myth)
+- having a wait time less that 5 minutes
