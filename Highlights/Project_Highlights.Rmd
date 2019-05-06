@@ -6,5 +6,77 @@ output: github_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+require(lubridate)
+require(dplyr)
+library(tidyverse)
+load("../Data/Clean/analysis_data.RData")
+```
+
+# Overview
+
+The 1 train has a reputation for being named after the number of minutes by which you miss the Staten Island ferry. This project set out to understand that myth using MTA Historical Real Time data and Staten Island Ferry departure data. Specficially, this project attempted to answer three questions.
+
+1) What does the distribution of wait times look like for connections between the 1 train and the Staten Island Ferry?
+
+2) How does this distribution vary across time (e.g., rush hour vs tourist peak)?
+
+3) How does this distribution vary for people who can run versus people who can't run from the 1 train to the ferry?
+
+To answer the third question, I added either 1, 2, or 3 minutes to the arrival time at South Ferry as a buffer for time to exit the train and enter Whitehall terminal. With the addition of the exit time, I then found the closest ferry to each train arrival and derived the wait time until the next ferry. 
+
+Perhaps by accident, but mostly by design, the results for question 3 are intertwined with the first two questions. 
+
+# Q1: Wait Time Distributions
+
+Below are the wait time distributions for the three exit times. The distributions look quite similar. i used a two-sample Kolmogorov-Smirnov test to determine whether each distribution was different from the other two. After adjusting the p-values via Benjamini-Hochberg, I found all three distributions to be significantly different from one another. However, I am cautious to interpret the results of the KS test given that the independence assumption of my data is conditional on train spacing. A train arrival in January is independent from a train arrival in May, but any two consecutive trains are probably not independent.  
+
+```{r wait time distributions, fig.width = 6, fig.height = 4}
+plot(density(analysis_data$wait_times_1min), main = "Wait times with 1, 2, and 3 minutes exit time", col = 2)
+lines(density(analysis_data$wait_times_2min), col = 4)
+lines(density(analysis_data$wait_times_3min), col = 5)
+legend("topright",legend = c("1 min","2 min","3 min"), lty = 1, lwd = 2, col = c(2,4,5))
+```
+
+# Q2: Marginal Wait Time Distributions
+
+After getting the overall distributions, I decided to examine the marginal distributions as functions of time of day. This section will move from the moew granular to the more general. 
+
+## Rush hour vs Non-rush hour
+
+The hours of the day were split into the following three categories based on the ferry schedule:
+
+- Morning rush: 7 am to 9 am, inclusive
+- Evening rush: 4pm to 7pm, inclusive
+- Non rush: 8pm to 6 am, inclusive
+
+Across all three exit times, morning rush hour and evening rush hour look similar. Both appear to have a similar quantity of nightmare waits (30+ minutes). The noticeable difference is between the rush hour times and the non-rush hour time. The median wait time during non-rush hour is much higher, and the distribution has a greater variance. 
+
+```{r rush hour, fig.width = 6, fig.height = 4}
+plot(as.factor(analysis_data$rushour), analysis_data$wait_times_1min, main = "Wait times (1 min exit time)",xlab = "Rush hour vs Non-rush hour",ylab = "Wait time")
+plot(as.factor(analysis_data$rushour), analysis_data$wait_times_2min, main = "Wait times (2 min exit time)",xlab = "Rush hour vs Non-rush hour",ylab = "Wait time")
+plot(as.factor(analysis_data$rushour), analysis_data$wait_times_3min, main = "Wait times (3 min exit time)",xlab = "Rush hour vs Non-rush hourk",ylab = "Wait time")
+```
+
+## Hours of the day
+
+The morning rush, evening rush, and non-rush hour comparison aggregated time blocks, but are there hour-by-hour differences in wait times? Based on the median plot below, wait time does appear to vary as a function of hour of the day. As soon as the morning rush hour is over, the median wait times jump from less than 10 minutes to 15 to 18 minutes. This jump is consistent for all three exit times. As the evening rush approaches, wait times decrease, but steadily climb throughout the midnight hours. 
+
+```{r hours}
+# medians
+medians_IQR <- analysis_data %>% 
+  group_by(as.factor(hour)) %>% 
+  summarise(median_1min = median(wait_times_1min),
+            median_2min = median(wait_times_2min),
+            median_3min = median(wait_times_3min),
+            IQR_1min = IQR(wait_times_1min),
+            IQR_2min = IQR(wait_times_2min),
+            IQR_3min = IQR(wait_times_3min))
+colnames(medians_IQR)[1] <- "hour"
+# plot the medians and IQR
+plot(x = as.numeric(medians_IQR$hour), y = medians_IQR$median_1min, pch = 16, main = "Median wait times by hour", ylab = "Wait time (in minutes)", xlab = "Hour")
+lines(x = as.numeric(medians_IQR$hour), y = medians_IQR$median_1min, lwd = 2)
+lines(x = as.numeric(medians_IQR$hour), y = medians_IQR$median_2min, lwd = 2, col = 2, type = 'o', pch = 16)
+lines(x = as.numeric(medians_IQR$hour), y = medians_IQR$median_3min, lwd = 2, col = 4, type = 'o', pch = 16)
+legend("bottomright",legend = c("1 min","2 min","3 min"), lty = 1, lwd = 2, col = c(1,2,4))
 ```
 
