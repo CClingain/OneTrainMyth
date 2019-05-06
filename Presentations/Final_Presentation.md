@@ -48,24 +48,33 @@ Issues and Evolution
 
 RQ 1: The wait time distribution(s)
 ========================================================
-
+</br>
 <img src="Final_Presentation-figure/unnamed-chunk-1-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" />
+***
+- Look quite similar
+- Kolmogorov-Smirnov test is significant
+- Issues with conditional independence
 
-RQ 2: Morning Rush vs Evening Rush vs Nonrush  
+RQ 2: Waits by Weekday
 ========================================================
 
 ![plot of chunk unnamed-chunk-2](Final_Presentation-figure/unnamed-chunk-2-1.png)![plot of chunk unnamed-chunk-2](Final_Presentation-figure/unnamed-chunk-2-2.png)![plot of chunk unnamed-chunk-2](Final_Presentation-figure/unnamed-chunk-2-3.png)
 
 
-RQ 2: Rush hour vs Non-rush hour
+RQ 2:  Morning Rush vs Evening Rush vs Nonrush 
 ========================================================
 
 ![plot of chunk unnamed-chunk-3](Final_Presentation-figure/unnamed-chunk-3-1.png)![plot of chunk unnamed-chunk-3](Final_Presentation-figure/unnamed-chunk-3-2.png)![plot of chunk unnamed-chunk-3](Final_Presentation-figure/unnamed-chunk-3-3.png)
 
+
 RQ 3: Median wait times by hour... who waits longer and when?
 ========================================================
-
+</br>
 <img src="Final_Presentation-figure/unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" />
+***
+- Exit time doesn't seem to matter during daytime hours. 
+- Wait times are lowest during morning + evening rush 
+- But quickly pick up as soon as morning rush is over
 
 Is the myth just a myth?
 ========================================================
@@ -94,5 +103,5 @@ Next Steps
 ========================================================
 - Creating a Shiny App for probabilities
 - Isolate any rogue trains
-- Figure out **what happened in May!!**
+- Figure out **what happened in May!!** (highest median wait per month + roughly 10% chance of myth happening)
 
