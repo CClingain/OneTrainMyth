@@ -82,10 +82,9 @@ wait times decrease, but steadily climb throughout the midnight hours.
 ## Day of the week
 
 Given the differences across hours, I checked for differences across
-days of the week. There seems to be a strange pattern where Tuesday and
-Thursday have slightly higher medians than Monday, Wednesday, and
-Friday, which resemble each other. This could be an artifact of the
-data. The good news is that Monday doesn’t have the highest
+days of the week. There doesn’t seem to be any differences between the
+days, and the nightmare wait times seem to be evenly spread. The good
+news is that Monday doesn’t have the highest
 median.
 
 ![](Project_Highlights_files/figure-gfm/day%20of%20the%20week-1.png)<!-- -->![](Project_Highlights_files/figure-gfm/day%20of%20the%20week-2.png)<!-- -->![](Project_Highlights_files/figure-gfm/day%20of%20the%20week-3.png)<!-- -->
@@ -95,9 +94,9 @@ median.
 Finally, given that the data spans from January to August, I checked to
 see if the distributions vary across the months. Based on the
 side-by-side boxplots, it’s difficult to distinguish minute differences.
-However, May easily sticks out as the month with the highest median and
-the most
-variance.
+Janurary, April, May, and June tend to have slightly higher medians, but
+this may be
+negligible.
 
 ![](Project_Highlights_files/figure-gfm/month-1.png)<!-- -->![](Project_Highlights_files/figure-gfm/month-2.png)<!-- -->![](Project_Highlights_files/figure-gfm/month-3.png)<!-- -->
 

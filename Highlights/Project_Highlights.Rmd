@@ -82,7 +82,7 @@ legend("bottomright",legend = c("1 min","2 min","3 min"), lty = 1, lwd = 2, col 
 
 ## Day of the week
 
-Given the differences across hours, I checked for differences across days of the week. There seems to be a strange pattern where Tuesday and Thursday have slightly higher medians than Monday, Wednesday, and Friday, which resemble each other. This could be an artifact of the data. The good news is that Monday doesn't have the highest median. 
+Given the differences across hours, I checked for differences across days of the week. There doesn't seem to be any differences between the days, and the nightmare wait times seem to be evenly spread. The good news is that Monday doesn't have the highest median. 
 
 ```{r day of the week, echo=FALSE}
 plot(analysis_data$weekday, analysis_data$wait_times_1min, main = "Wait times (1 min exit time)",xlab = "Day of the week",ylab = "Wait time")
@@ -92,7 +92,7 @@ plot(analysis_data$weekday, analysis_data$wait_times_3min, main = "Wait times (3
 
 ## Month
 
-Finally, given that the data spans from January to August, I checked to see if  the distributions vary across the months. Based on the side-by-side boxplots, it's difficult to distinguish minute differences. However, May easily sticks out as the month with the highest median and the most variance. 
+Finally, given that the data spans from January to August, I checked to see if  the distributions vary across the months. Based on the side-by-side boxplots, it's difficult to distinguish minute differences. Janurary, April, May, and June tend to have slightly higher medians, but this may be negligible.  
 
 ```{r month, echo=FALSE}
 plot(as.factor(analysis_data$month), analysis_data$wait_times_1min, main = "Wait times (1 min exit time)",xlab = "Month",ylab = "Wait time")
