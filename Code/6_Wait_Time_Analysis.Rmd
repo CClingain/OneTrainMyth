@@ -77,7 +77,7 @@ plot(analysis_data$weekday, analysis_data$wait_times_2min, main = "Wait times (2
 plot(analysis_data$weekday, analysis_data$wait_times_3min, main = "Wait times (3 min exit time)",xlab = "Day of the week",ylab = "Wait time")
 ```
 
-I'm curious as to why the distributions for Tuesday and Thursday seem more spread and have slightly higher medians than Monday, Wednesday, and Friday. Once again, we see that the long delays seem to be evenly distributed across days of the week. I'd like to test if these distrbutions are different from each other later on. 
+There doesn't seem to be much difference across days of the week. 
 
 ## Time (Month) x Wait times
 
@@ -157,7 +157,7 @@ colnames(myth_hour)[1] <- "Hour"
 print.data.frame(myth_hour)
 ```
 
-Some interesting patterns emerge in the conditional probabilities. For the 1 minute and 2 minute exit times, you have a 33% and 32% chance, respectively, of just missing the ferry by minutes at 3 am. Yet if you take 3 minutes to exit the terminal, you have only a 4% chance of missing the ferry by minutes at 3 am. A similar pattern exists for 10 pm ferries. In contrast, the pattern is reversed at 1 am: with a 3 minute exit time, you have a 19% chance of just missing the ferry by minutes. But if you take 2 minutes or 1 minute to exit, you have only 1 % and 2% chance, respectively. 
+Some interesting patterns emerge in the conditional probabilities. If you take 3 minutes to exit, you have a 12% chance of just missing the ferry by minutes.  Yet if you take 1 or 2 minutes to exit the terminal, you have only an 8% and 6% chance of missing the ferry by minutes at 3 am, respectively. If you're aiming to catch a ferry in the 4 am hour, you have a 10% chance of missing it if you take 1 or 3 minutes to exit the terminal. 
 
 Let's check the probabilities conditional on weekday. 
 
@@ -171,9 +171,9 @@ colnames(prob_weekday)[1] <- "Weekday"
 print.data.frame(prob_weekday)
 ```
 
-Once again, the probabilities are quite low, with a range from 0.03 to 0.09. Monday, Wednesday, and Friday do appear to be the better days. Tuesday holds the highest probability of just missing the ferry by minutes for 1 minute and 2 minute exit times, while Thursday holds the highest probability for 3 minute exit times. 
+Once again, the probabilities are quite low, with a range from 0.03 to 0.05. 
 
-Given the high May median from the by-month distribution, I'll check the probability of waiting 27-29 minutes (inclusive) by month.
+Next I'll check the probability of waiting 27-29 minutes (inclusive) by month.
 
 ```{r probs myth month}
 probs_month <- analysis_data %>% 
@@ -185,9 +185,9 @@ colnames(probs_month)[1] <- "Month"
 print.data.frame(probs_month)
 ```
 
-Something definitely happened in May -- it is the only month where the probability exceeds 0.059 across all exit times. 
+The 3 minute exit time had the highest probabilities across the wait time and months -- 0.059 in January and 0.054 in February. Overall the probabilities conditional on month look worse for 3 minute exit time. 
 
-## The nightmare commute: 30+ minute waits
+## The nightmare wait: 30+ minute waits
 
 Although rare, 30+ minute waits do happen. I'll break it down marginally and conditionally to understand when such waits are more likely to happen. 
 
@@ -210,7 +210,7 @@ nightmare_hour <- analysis_data %>%
 colnames(nightmare_hour)[1] <- "Hour"
 print.data.frame(nightmare_hour)
 ```
-Something strange happens around 23:00! The probability of waiting 30+ minutes is roughly 30%.
+Something strange happens around 23:00! The probability of waiting 30+ minutes is roughly 28%.
 
 ```{r nightmare weekday}
 nightmare_weekday <- analysis_data %>% 
@@ -221,7 +221,8 @@ nightmare_weekday <- analysis_data %>%
 colnames(nightmare_weekday)[1] <- "Weekday"
 print.data.frame(nightmare_weekday)
 ```
-No single day is routinely bad, but once again Thursday has the highest probabilty for 3 minute exit time, while Tuesday has the highest probability of 1 and 2 minute exit times. 
+
+No single day is routinely bad. The highest probability is Monday for 1 minute exit time. 
 
 Last step is to check probabilities conditionl on month.
 
@@ -235,4 +236,4 @@ colnames(nightmare_month)[1] <- "Month"
 print.data.frame(nightmare_month)
 ```
 
-The month of May isn't as bad here except for 2 minute exit time -- roughly 10% chance of having a nightmare wait. 
+The month of April wasn't great for 3 minute exit time with a 7% chance of a nightmare wait. February boasts a 7% chance of a nightmare wait for 2 minute exit time. Based on the probabilities conditional on month, running might not be a bad thing. 
