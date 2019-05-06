@@ -2,6 +2,9 @@
 ####### 2a. Ferry Data Import ##########
 ########################################
 
+# NOTE: This script extracts and cleans
+# the Staten Island Ferry departures data.
+# This script doesn't take long to run.
 
 # The Staten Island Ferry departure and arrival data is contained in a series
 # of Excel worksheets. A file exists for each month, with four separate sheets
@@ -16,7 +19,7 @@
 
 # Another limitation of the ferry data is that it's not collected on holidays.
 
-# I need to extract 2 sheets: Weekday Whitehall and Weekend Whitehall.
+# This script extracts 2 sheets: Weekday Whitehall and Weekend Whitehall.
 
 # Test run: first excel file
 library(lubridate)
