@@ -59,7 +59,7 @@ plot(as.factor(analysis_data$rushour), analysis_data$wait_times_3min, main = "Wa
 
 ## Hours of the day
 
-The morning rush, evening rush, and non-rush hour comparison aggregated time blocks, but are there hour-by-hour differences in wait times? Based on the median plot below, wait time does appear to vary as a function of hour of the day. As soon as the morning rush hour is over, the median wait times jump from less than 10 minutes to 15 to 18 minutes. This jump is consistent for all three exit times. As the evening rush approaches, wait times decrease, but steadily climb throughout the midnight hours. 
+The morning rush, evening rush, and non-rush hour comparison aggregated time blocks, but are there hour-by-hour differences in wait times? Based on the median plot below, wait time does appear to vary as a function of hour of the day. As soon as the morning rush hour is over, the median wait times jump from less than 10 minutes to 14 to 16 minutes. This jump is consistent for all three exit times. As the evening rush approaches, wait times decrease, but steadily climb throughout the midnight hours. 
 
 ```{r hours, echo=FALSE}
 # medians
