@@ -354,3 +354,54 @@ ferries. In contrast, the pattern is reversed at 1 am: with a 3 minute
 exit time, you have a 19% chance of just missing the ferry by minutes.
 But if you take 2 minutes or 1 minute to exit, you have only 1 % and 2%
 chance, respectively.
+
+Given the high May median from the by-month distribution, I’ll check the
+probability of waiting 27-29 minutes (inclusive) by month.
+
+``` r
+probs_month <- analysis_data %>% 
+  group_by(as.factor(month)) %>% 
+  summarise(prob_1min = sum(wait_times_1min >= 27 & wait_times_1min <=29.9)/n(),
+            prob_2min = sum(wait_times_2min >= 27 & wait_times_2min <=29.9)/n(),
+            prob_3min = sum(wait_times_3min >= 27 & wait_times_3min <=29.9)/n())
+colnames(probs_month)[1] <- "Month"
+print.data.frame(probs_month)
+```
+
+    ##   Month  prob_1min  prob_2min  prob_3min
+    ## 1     1 0.03323056 0.02569373 0.04898938
+    ## 2     2 0.02437881 0.02578528 0.04641350
+    ## 3     3 0.03181617 0.02386213 0.03667698
+    ## 4     4 0.03868930 0.03316226 0.04026846
+    ## 5     5 0.09839915 0.08858058 0.10394877
+    ## 6     6 0.04907459 0.04655076 0.05019630
+    ## 7     7 0.05924051 0.03265823 0.03189873
+    ## 8     8 0.04869043 0.04338295 0.04245991
+
+Something definitely happened in May – it is the only month where the
+probability exceeds 0.059 across all exit times.
+
+Finally, let’s check out the probability conditionl on weekday.
+
+``` r
+prob_weekday <- analysis_data %>% 
+  group_by(as.factor(weekday)) %>% 
+  summarise(prob_1min = sum(wait_times_1min >= 27 & wait_times_1min <=29.9)/n(),
+            prob_2min = sum(wait_times_2min >= 27 & wait_times_2min <=29.9)/n(),
+            prob_3min = sum(wait_times_3min >= 27 & wait_times_3min <=29.9)/n())
+colnames(prob_weekday)[1] <- "Weekday"
+print.data.frame(prob_weekday)
+```
+
+    ##   Weekday  prob_1min  prob_2min  prob_3min
+    ## 1     Mon 0.06210303 0.03599153 0.04163726
+    ## 2     Tue 0.07484150 0.07252203 0.04314211
+    ## 3     Wed 0.04408777 0.03474197 0.03860219
+    ## 4     Thu 0.03853211 0.03045872 0.09853211
+    ## 5     Fri 0.04529400 0.04103470 0.04196967
+
+Once again, the probabilities are quite low, with a range from 0.03 to
+0.09. Monday, Wednesday, and Friday do appear to be the better days.
+Tuesday holds the highest probability of just missing the ferry by
+minutes for 1 minute and 2 minute exit times, while Thursday holds the
+highest probability for 3 minute exit times.
