@@ -103,3 +103,10 @@ plot(as.factor(analysis_data$month), analysis_data$wait_times_3min, main = "Wait
 # Q3: Differences by exit time?
 
 Based on the results above, it seems that the differences between the wait times are largely conditional on the time of day. During rush hour, it doesn't seem to make a difference if you can run or not, on average. 
+
+# Is the myth just a myth?
+
+Based on the probability of waiting between 27 and 29 minutes for a ferry, it seems like the myth is only a myth. Whether you take 1, 2, or 3 minutes to exit to the terminal, you have roughly a 5% chance of just missing the ferry.
+
+Yet the myth is more nuanced when we break it down by time. If you take 1 or 2 minutes to exit, and you're trying to catch a boat in the 3 am hour, you have a 33% and 32% chance of just missing the ferry. 
+
