@@ -4,6 +4,13 @@ Clare Clingain
 
 # Analysis Data Preparation
 
+Since both the MTA data and the Ferry data have be cleaned, they now
+need to be combined to create a data set that is suitable for analysis.
+
+Note: For knitting purposes, cleaned data is loaded into the file. The
+code that matches trains to ferries takes a long time to
+run.
+
 ## Merge and Unlist MTA data
 
 ``` r
