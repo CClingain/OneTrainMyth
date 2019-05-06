@@ -21,3 +21,9 @@ p {
   color: white;
   font-weight: bold;
 }
+
+/* emphasis */
+.reveal section strong {
+  color: #9ACD32;
+  font-weight: bold;
+}

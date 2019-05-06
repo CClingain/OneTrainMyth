@@ -73,3 +73,10 @@ For each wait time, what's the probability of...
 - waiting longer than 30 minutes
 - having a wait time between 27-29 minutes (the myth)
 - having a wait time less that 5 minutes
+
+Final Steps: Preview
+========================================================
+
+Examining the marginal distributions only: **Myth is a myth.**
+
+Examining conditional distributions: **Myth can be true.**
