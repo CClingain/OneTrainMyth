@@ -2,6 +2,10 @@
 ####### 0b. Historical Data Extraction ##########
 #################################################
 
+# NOTE: This code takes a very long time to run.
+# If you want to use the extracted data, please
+# see the folders Data/Raw/ and Data/Clean/
+
 # Set path
 path <-"Data/Raw/"
 
@@ -183,132 +187,26 @@ save(data.june, file = paste(path,"june2018.RData", sep = ""))
 links.july <- links[links < "2018-08-01" & links > "2018-06-30-23-56"]
 data.july <- list()
 for(k in 1:length(links.july)){
-  data.july[[k]] <- remove_pred(clean_historical(extract_historical(links.july[[k]])), linkpos = k, links = links.july)
+  # MTA missing link at k = 4416, skipping ahead
+  if(k = 4416){
+      
+    } else {
+    data.july[[k]] <- remove_pred(clean_historical(extract_historical(links.july[[k]])), linkpos = k, links = links.july)
+    }
 }
-# Save the results
-save(data.july, file = paste(path,"july2018.RData", sep = ""))
 
-# Stopped for class: k = 4003
-for(k in 4003:length(links.july)){
-  data.july[[k]] <- remove_pred(clean_historical(extract_historical(links.july[[k]])), linkpos = k, links = links.july)
-}
-# Save the results
-save(data.july, file = paste(path,"july_pt2_2018.RData", sep = ""))
-
-# MTA missing link at k = 4416, skipping ahead
-for(k in 4417:length(links.july)){
-  data.july[[k]] <- remove_pred(clean_historical(extract_historical(links.july[[k]])), linkpos = k, links = links.july)
-}
-# Save the results
-save(data.july, file = paste(path,"july_pt3_2018.RData", sep = ""))
-
-# Stopping for commute: k = 5762
-for(k in 5762:length(links.july)){
-  data.july[[k]] <- remove_pred(clean_historical(extract_historical(links.july[[k]])), linkpos = k, links = links.july)
-}
-# Save the results
-save(data.july, file = paste(path,"july_pt4_2018.RData", sep = ""))
-
-# Stopped at 6424 for class
-for(k in 6424:length(links.july)){
-  data.july[[k]] <- remove_pred(clean_historical(extract_historical(links.july[[k]])), linkpos = k, links = links.july)
-}
-# Save the results
-save(data.july, file = paste(path,"july_pt5_2018.RData", sep = ""))
 
 ###### EXTRACT DATA: August ######
 links.aug <- links[links < "2018-09-01" & links > "2018-07-31-23-56"]
 data.aug <- list()
 for(k in 1:length(links.aug)){
-  data.aug[[k]] <- remove_pred(clean_historical(extract_historical(links.aug[[k]])), linkpos = k, links = links.aug)
+  # MTA missing file for the following links, skip ahead
+  if(k == 3677 | k == 4840 | k == 4996 | k == 5334 | k == 5573 | k == 5664){
+    
+  } else {
+    data.aug[[k]] <- remove_pred(clean_historical(extract_historical(links.aug[[k]])), linkpos = k, links = links.aug)
+  }
 }
 # Save the results
 save(data.aug, file = paste(path,"aug2018.RData", sep = ""))
-
-
-# start at new k
-for(k in 202:length(links.aug)){
-  data.aug[[k]] <- remove_pred(clean_historical(extract_historical(links.aug[[k]])), linkpos = k, links = links.aug)
-}
-# Save the results
-save(data.aug, file = paste(path,"aug_pt2_2018.RData", sep = ""))
-
-# saved for the night at "2018-08-09-07-46" k = 2398
-
-for(k in 2398:length(links.aug)){
-  data.aug[[k]] <- remove_pred(clean_historical(extract_historical(links.aug[[k]])), linkpos = k, links = links.aug)
-}
-# Save the results
-save(data.aug, file = paste(path,"aug_pt3_2018.RData", sep = ""))
-
-# connectin broke at k = 3559 due to home wifi issues ("2018-08-13-08-31")
-
-for(k in 3559:length(links.aug)){
-  data.aug[[k]] <- remove_pred(clean_historical(extract_historical(links.aug[[k]])), linkpos = k, links = links.aug)
-}
-# Save the results
-save(data.aug, file = paste(path,"aug_pt4_2018.RData", sep = ""))
-
-# MTA missing file for 3677, skipping ahead
-
-for(k in 3678:length(links.aug)){
-  data.aug[[k]] <- remove_pred(clean_historical(extract_historical(links.aug[[k]])), linkpos = k, links = links.aug)
-}
-# Save the results
-save(data.aug, file = paste(path,"aug_pt5_2018.RData", sep = ""))
-
-
-# MTA missing file for 4840, skipping ahead
-
-for(k in 4841:length(links.aug)){
-  data.aug[[k]] <- remove_pred(clean_historical(extract_historical(links.aug[[k]])), linkpos = k, links = links.aug)
-}
-# Save the results
-save(data.aug, file = paste(path,"aug_pt6_2018.RData", sep = ""))
-
-
-# MTA missing file for 4996, skipping ahead
-for(k in 4997:length(links.aug)){
-  data.aug[[k]] <- remove_pred(clean_historical(extract_historical(links.aug[[k]])), linkpos = k, links = links.aug)
-}
-# Save the results
-save(data.aug, file = paste(path,"aug_pt7_2018.RData", sep = ""))
-
-# MTA missing file for 5334, skipping ahead
-for(k in 5335:length(links.aug)){
-  data.aug[[k]] <- remove_pred(clean_historical(extract_historical(links.aug[[k]])), linkpos = k, links = links.aug)
-}
-# Save the results
-save(data.aug, file = paste(path,"aug_pt8_2018.RData", sep = ""))
-
-# MTA missing file 5573, skipping ahead
-for(k in 5574:length(links.aug)){
-  data.aug[[k]] <- remove_pred(clean_historical(extract_historical(links.aug[[k]])), linkpos = k, links = links.aug)
-}
-# Save the results
-save(data.aug, file = paste(path,"aug_pt9_2018.RData", sep = ""))
-
-# MTA missing file 5664
-
-for(k in 5665:length(links.aug)){
-  data.aug[[k]] <- remove_pred(clean_historical(extract_historical(links.aug[[k]])), linkpos = k, links = links.aug)
-}
-# Save the results
-save(data.aug, file = paste(path,"aug_pt10_2018.RData", sep = ""))
-
-# Stopping for the night: k = 7581
-
-for(k in 7581:length(links.aug)){
-  data.aug[[k]] <- remove_pred(clean_historical(extract_historical(links.aug[[k]])), linkpos = k, links = links.aug)
-}
-# Save the results
-save(data.aug, file = paste(path,"aug_pt11_2018.RData", sep = ""))
-
-# Stopping for class: k = 8222
-for(k in 8222:length(links.aug)){
-  data.aug[[k]] <- remove_pred(clean_historical(extract_historical(links.aug[[k]])), linkpos = k, links = links.aug)
-}
-# Save the results
-save(data.aug, file = paste(path,"aug_pt12_2018.RData", sep = ""))
-
 
