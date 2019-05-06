@@ -106,6 +106,8 @@ variance.
 Based on the results above, it seems that the differences between the
 wait times are largely conditional on the time of day. During rush hour,
 it doesn’t seem to make a difference if you can run or not, on average.
+However, between 3 and 4 am, you may want to run to reduce the
+probability that you’ll just miss the ferry.
 
 # Is the myth just a myth?
 
