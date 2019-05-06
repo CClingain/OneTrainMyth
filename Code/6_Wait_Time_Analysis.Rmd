@@ -132,7 +132,7 @@ paste("The 95% confidence interval for the difference in means between 2min vs 3
 
 # Probality of Wait Times
 
-Next I will calculate the probability of waiting 30+ minutes, of waiting 27-29 minutes (the myth), and of waiting less than 5 minutes for each of the distributions.
+Next I will calculate the probability of waiting 27-29 minutes (the myth), of waiting 30+ minutes (nightmare commute), and of waiting less than 5 minutes for each of the distributions.
 
 ## The 1 minute myth
 
@@ -185,3 +185,7 @@ colnames(prob_weekday)[1] <- "Weekday"
 print.data.frame(prob_weekday)
 ```
 Once again, the probabilities are quite low, with a range from 0.03 to 0.09. Monday, Wednesday, and Friday do appear to be the better days. Tuesday holds the highest probability of just missing the ferry by minutes for 1 minute and 2 minute exit times, while Thursday holds the highest probability for 3 minute exit times. 
+
+## The nightmare commute: 30+ minute waits
+
+Although rare, 30+ minute waits do happen. I'll break it down marginally and conditionally to understand when such waits are more likely to happen. 

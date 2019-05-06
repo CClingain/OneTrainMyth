@@ -25,7 +25,7 @@
 library(lubridate)
 library(readxl)
 
-ferry <- read_excel("Data/Ferry/01 January  2018.xlsx", sheet = 2)
+ferry <- read_excel("Data/Ferry/Raw/01 January  2018.xlsx", sheet = 2)
 
 # remove last column
 ferry <- ferry[,-ncol(ferry)]
@@ -122,7 +122,7 @@ for(i in 1:dim(ferry_singlemat)[2]){
 save(ferry_singlemat, file = "Data/Ferry/Clean/ferry_jan.RData")
 
 #### Repeat for February: Weekdays only ####
-ferry <- read_excel("Data/Ferry/02 February 2018.xlsx", sheet = 2)
+ferry <- read_excel("Data/Ferry/Raw/02 February 2018.xlsx", sheet = 2)
 
 # remove last column
 ferry <- ferry[,-ncol(ferry)]
@@ -193,7 +193,7 @@ for(i in 1:dim(ferry_singlemat)[2]){
 save(ferry_singlemat, file = "Data/Ferry/Clean/ferry_feb.RData")
 
 #### Repeat for March: Weekdays only ####
-ferry <- read_excel("Data/Ferry/03 March 2018.xlsx", sheet = 2)
+ferry <- read_excel("Data/Ferry/Raw/03 March 2018.xlsx", sheet = 2)
 
 # remove last column
 ferry <- ferry[,-ncol(ferry)]
@@ -264,7 +264,7 @@ for(i in 1:dim(ferry_singlemat)[2]){
 save(ferry_singlemat, file = "Data/Ferry/Clean/ferry_march.RData")
 
 #### Repeat for April: Weekdays only ####
-ferry <- read_excel("Data/Ferry/04 APRIL 2018.xlsx", sheet = 2)
+ferry <- read_excel("Data/Ferry/Raw/04 APRIL 2018.xlsx", sheet = 2)
 
 # remove last column
 ferry <- ferry[,-ncol(ferry)]
@@ -335,7 +335,7 @@ for(i in 1:dim(ferry_singlemat)[2]){
 save(ferry_singlemat, file = "Data/Ferry/Clean/ferry_april.RData")
 
 #### Repeat for May: Weekdays only ####
-ferry <- read_excel("Data/Ferry/05 MAY 2018.xlsx", sheet = 2)
+ferry <- read_excel("Data/Ferry/Raw/05 MAY 2018.xlsx", sheet = 2)
 
 # remove last column
 ferry <- ferry[,-ncol(ferry)]
@@ -406,7 +406,7 @@ for(i in 1:dim(ferry_singlemat)[2]){
 save(ferry_singlemat, file = "Data/Ferry/Clean/ferry_may.RData")
 
 #### Repeat for June: Weekdays only ####
-ferry <- read_excel("Data/Ferry/06 JUNE 2018.xlsx", sheet = 2)
+ferry <- read_excel("Data/Ferry/Raw/06 JUNE 2018.xlsx", sheet = 2)
 
 # remove last column
 ferry <- ferry[,-ncol(ferry)]
@@ -477,7 +477,7 @@ for(i in 1:dim(ferry_singlemat)[2]){
 save(ferry_singlemat, file = "Data/Ferry/Clean/ferry_june.RData")
 
 #### Repeat for July: Weekdays only ####
-ferry <- read_excel("Data/Ferry/07 JULY 2018.xlsx", sheet = 2)
+ferry <- read_excel("Data/Ferry/Raw/07 JULY 2018.xlsx", sheet = 2)
 
 # remove last column
 ferry <- ferry[,-ncol(ferry)]
@@ -549,7 +549,7 @@ save(ferry_singlemat, file = "Data/Ferry/Clean/ferry_july.RData")
 
 
 #### Repeat for August: Weekdays only ####
-ferry <- read_excel("Data/Ferry/08 AUGUST 2018.xlsx", sheet = 2)
+ferry <- read_excel("Data/Ferry/Raw/08 AUGUST 2018.xlsx", sheet = 2)
 
 # remove last column
 ferry <- ferry[,-ncol(ferry)]
