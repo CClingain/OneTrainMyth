@@ -116,4 +116,17 @@ missing the ferry.
 
 Yet the myth is more nuanced when we break it down by time. If you take
 1 or 2 minutes to exit, and you’re trying to catch a boat in the 3 am
-hour, you have a 33% and 32% chance of just missing the ferry.
+hour, you have a 33% and 32% chance of just missing the ferry. Thursday
+may be a good running day for people who take 3 minutes to exit the
+station given a 17% chance of just missing the ferry.
+
+# What’s the chance of a nightmare wait (30+ minutes)?
+
+The probability of waiting between 30 minutes and 59.9 minutes ranges
+from 4% to 6%. This means that a nightmare wait is almost as likely as
+the mythical wait\!
+
+This might be great news, but you’ll want to be careful at 11 p.m. where
+there’s roughly a 30% chance of having a nightmare wait across all exit
+times. Once again, Thursday might be a good day for 3 minute exiters to
+run – 9% chance of nightmare wait.

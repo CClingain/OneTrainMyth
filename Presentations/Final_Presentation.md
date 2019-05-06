@@ -67,16 +67,32 @@ RQ 3: Median wait times by hour... who waits longer and when?
 
 <img src="Final_Presentation-figure/unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" />
 
-Final Steps
-========================================================
-For each wait time, what's the probability of...
-- waiting longer than 30 minutes
-- having a wait time between 27-29 minutes (the myth)
-- having a wait time less that 5 minutes
-
-Final Steps: Preview
+Is the myth just a myth?
 ========================================================
 
 Examining the marginal distributions only: **Myth is a myth.**
+ 
+- Roughly 5% chance of happening
 
 Examining conditional distributions: **Myth can be true.**
+
+- Might want to run on Thursdays: **17% chance** of just missing the ferry if you take 3 minutes to exit. 
+
+
+Nightmare waits: 30+ minutes
+========================================================
+
+Examining the marginal distributions only: **Roughly 5% chance of happening**
+
+
+Examining conditional distributions: **beware the 23rd hour and Thursday!**
+
+- At 11pm, roughly **30% chance** of having a nightmare wait across all exit times.
+- Again, might want to run on Thursday -- **9% chance of nightmare wait**
+
+Next Steps 
+========================================================
+- Creating a Shiny App for probabilities
+- Isolate any rogue trains
+- Figure out **what happened in May!!**
+
