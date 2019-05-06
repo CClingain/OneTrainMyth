@@ -31,7 +31,7 @@ are intertwined with the first two questions.
 # Q1: Wait Time Distributions
 
 Below are the wait time distributions for the three exit times. The
-distributions look quite similar. i used a two-sample Kolmogorov-Smirnov
+distributions look quite similar. I used a two-sample Kolmogorov-Smirnov
 test to determine whether each distribution was different from the other
 two. After adjusting the p-values via Benjamini-Hochberg, I found all
 three distributions to be significantly different from one another.
@@ -40,13 +40,6 @@ that the independence assumption of my data is conditional on train
 spacing. A train arrival in January is independent from a train arrival
 in May, but any two consecutive trains are probably not
 independent.
-
-``` r
-plot(density(analysis_data$wait_times_1min), main = "Wait times with 1, 2, and 3 minutes exit time", col = 2)
-lines(density(analysis_data$wait_times_2min), col = 4)
-lines(density(analysis_data$wait_times_3min), col = 5)
-legend("topright",legend = c("1 min","2 min","3 min"), lty = 1, lwd = 2, col = c(2,4,5))
-```
 
 ![](Project_Highlights_files/figure-gfm/wait%20time%20distributions-1.png)<!-- -->
 
@@ -72,23 +65,7 @@ and the non-rush hour time. The median wait time during non-rush hour is
 much higher, and the distribution has a greater
 variance.
 
-``` r
-plot(as.factor(analysis_data$rushour), analysis_data$wait_times_1min, main = "Wait times (1 min exit time)",xlab = "Rush hour vs Non-rush hour",ylab = "Wait time")
-```
-
-![](Project_Highlights_files/figure-gfm/rush%20hour-1.png)<!-- -->
-
-``` r
-plot(as.factor(analysis_data$rushour), analysis_data$wait_times_2min, main = "Wait times (2 min exit time)",xlab = "Rush hour vs Non-rush hour",ylab = "Wait time")
-```
-
-![](Project_Highlights_files/figure-gfm/rush%20hour-2.png)<!-- -->
-
-``` r
-plot(as.factor(analysis_data$rushour), analysis_data$wait_times_3min, main = "Wait times (3 min exit time)",xlab = "Rush hour vs Non-rush hourk",ylab = "Wait time")
-```
-
-![](Project_Highlights_files/figure-gfm/rush%20hour-3.png)<!-- -->
+![](Project_Highlights_files/figure-gfm/rush%20hour-1.png)<!-- -->![](Project_Highlights_files/figure-gfm/rush%20hour-2.png)<!-- -->![](Project_Highlights_files/figure-gfm/rush%20hour-3.png)<!-- -->
 
 ## Hours of the day
 
@@ -100,23 +77,32 @@ wait times jump from less than 10 minutes to 15 to 18 minutes. This jump
 is consistent for all three exit times. As the evening rush approaches,
 wait times decrease, but steadily climb throughout the midnight hours.
 
-``` r
-# medians
-medians_IQR <- analysis_data %>% 
-  group_by(as.factor(hour)) %>% 
-  summarise(median_1min = median(wait_times_1min),
-            median_2min = median(wait_times_2min),
-            median_3min = median(wait_times_3min),
-            IQR_1min = IQR(wait_times_1min),
-            IQR_2min = IQR(wait_times_2min),
-            IQR_3min = IQR(wait_times_3min))
-colnames(medians_IQR)[1] <- "hour"
-# plot the medians and IQR
-plot(x = as.numeric(medians_IQR$hour), y = medians_IQR$median_1min, pch = 16, main = "Median wait times by hour", ylab = "Wait time (in minutes)", xlab = "Hour")
-lines(x = as.numeric(medians_IQR$hour), y = medians_IQR$median_1min, lwd = 2)
-lines(x = as.numeric(medians_IQR$hour), y = medians_IQR$median_2min, lwd = 2, col = 2, type = 'o', pch = 16)
-lines(x = as.numeric(medians_IQR$hour), y = medians_IQR$median_3min, lwd = 2, col = 4, type = 'o', pch = 16)
-legend("bottomright",legend = c("1 min","2 min","3 min"), lty = 1, lwd = 2, col = c(1,2,4))
-```
-
 ![](Project_Highlights_files/figure-gfm/hours-1.png)<!-- -->
+
+## Day of the week
+
+Given the differences across hours, I checked for differences across
+days of the week. There seems to be a strange pattern where Tuesday and
+Thursday have slightly higher medians than Monday, Wednesday, and
+Friday, which resemble each other. This could be an artifact of the
+data. The good news is that Monday doesn’t have the highest
+median.
+
+![](Project_Highlights_files/figure-gfm/day%20of%20the%20week-1.png)<!-- -->![](Project_Highlights_files/figure-gfm/day%20of%20the%20week-2.png)<!-- -->![](Project_Highlights_files/figure-gfm/day%20of%20the%20week-3.png)<!-- -->
+
+## Month
+
+Finally, given that the data spans from January to August, I checked to
+see if the distributions vary across the months. Based on the
+side-by-side boxplots, it’s difficult to distinguish minute differences.
+However, May easily sticks out as the month with the highest median and
+the most
+variance.
+
+![](Project_Highlights_files/figure-gfm/month-1.png)<!-- -->![](Project_Highlights_files/figure-gfm/month-2.png)<!-- -->![](Project_Highlights_files/figure-gfm/month-3.png)<!-- -->
+
+# Q3: Differences by exit time?
+
+Based on the results above, it seems that the differences between the
+wait times are largely conditional on the time of day. During rush hour,
+it doesn’t seem to make a difference if you can run or not, on average.
