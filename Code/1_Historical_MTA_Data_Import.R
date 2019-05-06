@@ -2,6 +2,10 @@
 ####### 1b. Historical Import ##########
 ########################################
 
+# NOTE: This script provides an example of
+# what happens in 0_Historical_MTA_Data_Extraction.
+# It doesn't take very long to run. This code can
+# also be adapted for the MTA Real Time Data.
 
 require(gtfsway)
 require(httr)
