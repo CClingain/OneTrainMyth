@@ -273,3 +273,84 @@ paste("The 95% confidence interval for the difference in means between 2min vs 3
 ```
 
     ## [1] "The 95% confidence interval for the difference in means between 2min vs 3min is ( 0.002 , 0.311 )"
+
+# Probality of Wait Times
+
+Next I will calculate the probability of waiting 30+ minutes, of waiting
+27-29 minutes (the myth), and of waiting less than 5 minutes for each of
+the distributions.
+
+## The 1 minute myth
+
+I’m allowing for a range of 1 to 3 minutes to qualify as the myth given
+that I’m looking at a range of exit times. First I’ll calculate the
+marginal probabilities, and then move onto conditional probabilities.
+
+``` r
+# Between 27 and 29 minutes (the myth)
+paste("The probability of waiting between 27 and 29 minutes for the ferry is",round(sum(analysis_data$wait_times_1min >= 27 & analysis_data$wait_times_1min <= 29.9)/dim(analysis_data)[1],2))
+```
+
+    ## [1] "The probability of waiting between 27 and 29 minutes for the ferry is 0.05"
+
+``` r
+paste("The probability of waiting between 27 and 29 minutes for the ferry is",round(sum(analysis_data$wait_times_2min >= 27 & analysis_data$wait_times_2min <= 29.9)/dim(analysis_data)[1],2))
+```
+
+    ## [1] "The probability of waiting between 27 and 29 minutes for the ferry is 0.04"
+
+``` r
+paste("The probability of waiting between 27 and 29 minutes for the ferry is",round(sum(analysis_data$wait_times_3min >= 27 & analysis_data$wait_times_3min <= 29.9)/dim(analysis_data)[1],2))
+```
+
+    ## [1] "The probability of waiting between 27 and 29 minutes for the ferry is 0.05"
+
+Whether or not it’s surprising, missing the ferry by a couple minutes
+has a small probability. Let’s see if there are differences if we
+condition on hour of day.
+
+``` r
+myth_hour <- analysis_data %>% 
+  group_by(as.factor(hour)) %>% 
+  summarise(prob_1min = sum(wait_times_1min >= 27 & wait_times_1min <=29.9)/n(),
+            prob_2min = sum(wait_times_2min >= 27 & wait_times_2min <=29.9)/n(),
+            prob_3min = sum(wait_times_3min >= 27 & wait_times_3min <=29.9)/n())
+colnames(myth_hour)[1] <- "Hour"
+print.data.frame(myth_hour)
+```
+
+    ##    Hour   prob_1min   prob_2min   prob_3min
+    ## 1     0 0.067660550 0.064220183 0.096330275
+    ## 2     1 0.020322773 0.013150030 0.197848177
+    ## 3     2 0.072192513 0.072192513 0.101604278
+    ## 4     3 0.334851936 0.317767654 0.044419134
+    ## 5     4 0.094512195 0.060975610 0.097560976
+    ## 6     5 0.118497110 0.080924855 0.054913295
+    ## 7     6 0.049786629 0.028449502 0.015647226
+    ## 8     7 0.001305483 0.002610966 0.002610966
+    ## 9     8 0.002821670 0.002821670 0.001693002
+    ## 10    9 0.038671294 0.036192365 0.049082796
+    ## 11   10 0.057503506 0.058906031 0.063814867
+    ## 12   11 0.057169634 0.048734770 0.069353327
+    ## 13   12 0.062365591 0.060215054 0.082795699
+    ## 14   13 0.047675805 0.039332539 0.053635280
+    ## 15   14 0.037383178 0.038421599 0.065420561
+    ## 16   15 0.063078217 0.044575273 0.046257359
+    ## 17   16 0.003084040 0.001542020 0.003855050
+    ## 18   17 0.003438395 0.004584527 0.002865330
+    ## 19   18 0.002390915 0.002390915 0.003586372
+    ## 20   19 0.004895105 0.006293706 0.006993007
+    ## 21   20 0.078163772 0.066997519 0.059553350
+    ## 22   21 0.037428023 0.026231606 0.095009597
+    ## 23   22 0.116042078 0.084155161 0.020381328
+    ## 24   23 0.057098765 0.058641975 0.066358025
+
+Some interesting patterns emerge in the conditional probabilities. For
+the 1 minute and 2 minute exit times, you have a 33% and 32% chance,
+respectively, of just missing the ferry by minutes at 3 am. Yet if you
+take 3 minutes to exit the terminal, you have only a 4% chance of
+missing the ferry by minutes at 3 am. A similar pattern exists for 10 pm
+ferries. In contrast, the pattern is reversed at 1 am: with a 3 minute
+exit time, you have a 19% chance of just missing the ferry by minutes.
+But if you take 2 minutes or 1 minute to exit, you have only 1 % and 2%
+chance, respectively.
