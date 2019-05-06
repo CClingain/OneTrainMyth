@@ -91,7 +91,7 @@ Examining conditional distributions: **Myth can be true.**
 Nightmare waits: 30+ minutes
 ========================================================
 
-Examining the marginal distributions only: **Roughly 5% chance of happening**
+Examining the marginal distributions only: **4-6% chance of happening**
 
 
 Examining conditional distributions: **beware the 23rd hour!**
