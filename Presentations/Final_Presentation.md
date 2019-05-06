@@ -25,11 +25,11 @@ Research Questions
 Data
 ========================================================
 
-<b>Time:</b> January 2018 - August 2018
+**Time:** January 2018 - August 2018
 
-<b>MTA Historical Real-Time Data:</b> 5-minute intervals
+**MTA Historical Real-Time Data:** 5-minute intervals
 
-<b>Staten Island Ferry Historical Data:</b> All departures from Whitehall terminal
+**Staten Island Ferry Historical Data:** All departures from Whitehall terminal
 
 
 Data Process
