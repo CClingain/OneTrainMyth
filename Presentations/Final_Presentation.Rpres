@@ -1,4 +1,4 @@
-Final Presentation
+Making Connections: The 1 train and the Staten Island Ferry
 ========================================================
 author: Clare Clingain
 autosize: true
