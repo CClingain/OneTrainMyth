@@ -81,7 +81,7 @@ Is the myth just a myth?
 
 Examining the marginal distributions only: **Myth is a myth.**
  
-- Roughly 4% chance of happening
+- Roughly **4%** chance of happening
 
 Examining conditional distributions: **Myth can be true.**
 
